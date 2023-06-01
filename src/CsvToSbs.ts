@@ -1,55 +1,68 @@
-export{}
-function getTimestampToDate(timestamp : string) : string{
+export {}
+
+interface ExtraFields {
+    baroaltitude: string;
+    lastposupdate: string;
+    lastcontact: string
+    hour: string
+
+}
+
+function getTimestampToDate(timestamp: string): string {
     const date = new Date(parseInt(timestamp) * 1000)
     const year = date.getFullYear()
     const month = (date.getMonth() + 1).toString().padStart(2, '0')
     const day = date.getDate().toString().padStart(2, '0');
-    const formattedDate = ""+year+"/"+month+"/"+day
+    const formattedDate = "" + year + "/" + month + "/" + day
     return formattedDate
 }
 
-function  getTimestampToTime(timestamp : string) : string{
+function getTimestampToTime(timestamp: string): string {
     const date = new Date(parseInt(timestamp) * 1000)
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const seconds = date.getSeconds().toString().padStart(2, '0');
     const milliseconds = date.getMilliseconds().toString().padStart(3, '0');
-    const formattedTime = ""+hours+":"+minutes+":"+seconds+"."+milliseconds
+    const formattedTime = "" + hours + ":" + minutes + ":" + seconds + "." + milliseconds
     return formattedTime
 }
 
-export function convertCSVtoSBS(csvContent : string) : string{
-    const csvRows : string[] = csvContent.split('\n');
-    const columnNames : string[] = csvRows[0].split(',');
+export function convertCSVtoSBS(csvContent: string): string {
+    const csvRows: string[] = csvContent.split('\n');
+    const columnNames: string[] = csvRows[0].split(',');
     csvRows.shift();
 
-    const sbsRows : string[] = [];
-    let idForPlane : Map<string, number> = new Map<string,number>();
+    const sbsRows: string[] = [];
+    let idForPlane: Map<string, number> = new Map<string, number>();
     let cptID = 1;
     for (const csvRow of csvRows) {
         const csvValues: string[] = csvRow.split(',');
-        const sbsValues : string[] = [];
+        const sbsValues: string[] = [];
 
 
         /** Valeurs par défaut**/
         sbsValues[0] = "MSG"
         sbsValues[1] = "3"
         sbsValues[2] = "1"
-        if(!idForPlane.has(csvValues[1])){
+        if (!idForPlane.has(csvValues[1])) {
             sbsValues[3] = cptID.toString()
             sbsValues[5] = cptID.toString()
-            idForPlane.set(csvValues[1],cptID)
+            idForPlane.set(csvValues[1], cptID)
             cptID++
-        }else{
+        } else {
             sbsValues[3] = (idForPlane.get(csvValues[1]))!.toString()
             sbsValues[5] = (idForPlane.get(csvValues[1]))!.toString()
         }
         sbsValues[19] = "0"
-
-
+        let extraFields: ExtraFields = {
+            baroaltitude: "",
+            lastposupdate: "",
+            lastcontact: "",
+            hour: ""
+        }
         /** Champs csv **/
         for (const champ of columnNames) {
-            switch (champ){
+            switch (champ) {
                 case "time":
 
                     sbsValues[6] = getTimestampToDate(csvValues[0])
@@ -83,58 +96,59 @@ export function convertCSVtoSBS(csvContent : string) : string{
                     sbsValues[10] = csvValues[7]
                     break
                 case "onground":
-                    if(csvValues[8] === "TRUE"){
+                    if (csvValues[8] === "TRUE") {
                         sbsValues[21] = "1"
-                    }else{
+                    } else {
                         sbsValues[21] = "0"
                     }
                     break
                 case "alert":
-                    if(csvValues[9] === "TRUE"){
+                    if (csvValues[9] === "TRUE") {
                         sbsValues[18] = "1"
-                    }else{
+                    } else {
                         sbsValues[18] = "0"
                     }
                     break
                 case "spi":
-                    if(csvValues[10] === "TRUE"){
+                    if (csvValues[10] === "TRUE") {
                         sbsValues[20] = "1"
-                    }else{
+                    } else {
                         sbsValues[20] = "0"
                     }
                     break
                 case "squawk":
-                    if(csvValues[11] === "NaN" || csvValues[11] === ""){
+                    if (csvValues[11] === "NaN" || csvValues[11] === "") {
                         sbsValues[17] = ""
-                    }else{
+                    } else {
                         sbsValues[17] = csvValues[11]
                     }
                     break
                 case "baroaltitude":
-                    sbsValues.push(csvValues[12])
+                    extraFields.baroaltitude = csvValues[12]
                     break
                 case "geoaltitude":
                     sbsValues[11] = csvValues[13]
                     break
                 case "lastposupdate":
-                    sbsValues.push(csvValues[14])
+                    extraFields.lastposupdate = csvValues[14]
                     break
                 case "lastcontact":
-                    sbsValues.push(csvValues[15])
+                    extraFields.lastcontact = csvValues[15]
                     break
                 case "hour":
-                    sbsValues.push(csvValues[16])
+                    extraFields.hour = csvValues[16]
                     break
             }
 
         }
+        sbsValues.push(JSON.stringify(extraFields))
 
-        let oneRow : string = sbsValues.join(',')
+        let oneRow: string = sbsValues.join(',')
         sbsRows.push(oneRow);
 
     }
 
-    let sbsContent : string = sbsRows.join('\n')
+    let sbsContent: string = sbsRows.join('\n')
     return sbsContent
 
 
