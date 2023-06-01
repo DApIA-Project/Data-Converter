@@ -1,12 +1,4 @@
-export {}
-
-interface ExtraFields {
-    baroaltitude: string;
-    lastposupdate: string;
-    lastcontact: string
-    hour: string
-
-}
+import {ExtraFieldsCSV, ExtraFieldsSBS} from "./types";
 
 function getTimestampToDate(timestamp: string): string {
     const date = new Date(parseInt(timestamp) * 1000)
@@ -35,26 +27,43 @@ export function convertCSVtoSBS(csvContent: string): string {
     const sbsRows: string[] = [];
     let idForPlane: Map<string, number> = new Map<string, number>();
     let cptID = 1;
+    let csvValues: string[] = [];
+    let sbsValues: string[] = [];
     for (const csvRow of csvRows) {
-        const csvValues: string[] = csvRow.split(',');
-        const sbsValues: string[] = [];
-
-
-        /** Valeurs par défaut**/
-        sbsValues[0] = "MSG"
-        sbsValues[1] = "3"
-        sbsValues[2] = "1"
-        if (!idForPlane.has(csvValues[1])) {
-            sbsValues[3] = cptID.toString()
-            sbsValues[5] = cptID.toString()
-            idForPlane.set(csvValues[1], cptID)
-            cptID++
-        } else {
-            sbsValues[3] = (idForPlane.get(csvValues[1]))!.toString()
-            sbsValues[5] = (idForPlane.get(csvValues[1]))!.toString()
+        const jsonIndexStart = csvRow.indexOf('{');
+        let objectJson : ExtraFieldsSBS = {messageType : "", transmissionType : "", sessionID : "", aircraftID : "", flightID : "", emergency : ""}
+        let beforeJson : string = ""
+        if(jsonIndexStart != -1){
+            beforeJson = csvRow.substring(0, jsonIndexStart)
+            objectJson = JSON.parse(csvRow.substring(jsonIndexStart))
+            csvValues = beforeJson.split(',');
+        }else{
+            csvValues = csvRow.split(',');
         }
-        sbsValues[19] = "0"
-        let extraFields: ExtraFields = {
+
+
+
+
+
+
+        /** Valeurs par défaut si pas champ extra**/
+        if(csvValues[17] === undefined){
+            sbsValues[0] = "MSG"
+            sbsValues[1] = "3"
+            sbsValues[2] = "1"
+            if (!idForPlane.has(csvValues[1])) {
+                sbsValues[3] = cptID.toString()
+                sbsValues[5] = cptID.toString()
+                idForPlane.set(csvValues[1], cptID)
+                cptID++
+            } else {
+                sbsValues[3] = (idForPlane.get(csvValues[1]))!.toString()
+                sbsValues[5] = (idForPlane.get(csvValues[1]))!.toString()
+            }
+            sbsValues[19] = "0"
+        }
+
+        let extraFields: ExtraFieldsCSV = {
             baroaltitude: "",
             lastposupdate: "",
             lastcontact: "",
@@ -96,21 +105,21 @@ export function convertCSVtoSBS(csvContent: string): string {
                     sbsValues[10] = csvValues[7]
                     break
                 case "onground":
-                    if (csvValues[8] === "TRUE") {
+                    if (csvValues[8] === "True") {
                         sbsValues[21] = "1"
                     } else {
                         sbsValues[21] = "0"
                     }
                     break
                 case "alert":
-                    if (csvValues[9] === "TRUE") {
+                    if (csvValues[9] === "True") {
                         sbsValues[18] = "1"
                     } else {
                         sbsValues[18] = "0"
                     }
                     break
                 case "spi":
-                    if (csvValues[10] === "TRUE") {
+                    if (csvValues[10] === "True") {
                         sbsValues[20] = "1"
                     } else {
                         sbsValues[20] = "0"
@@ -138,10 +147,21 @@ export function convertCSVtoSBS(csvContent: string): string {
                 case "hour":
                     extraFields.hour = csvValues[16]
                     break
+                case "extraField" :
+                    if(csvValues[17] != undefined){
+                        sbsValues[0] = objectJson.messageType
+                        sbsValues[1] = objectJson.transmissionType
+                        sbsValues[2] = objectJson.sessionID
+                        sbsValues[3] = objectJson.aircraftID
+                        sbsValues[5] = objectJson.flightID
+                        sbsValues[19] = objectJson.emergency
+                    }
             }
 
         }
-        sbsValues.push(JSON.stringify(extraFields))
+        console.log(extraFields)
+        sbsValues[22]=JSON.stringify(extraFields)
+        console.log(sbsValues[22])
 
         let oneRow: string = sbsValues.join(',')
         sbsRows.push(oneRow);
