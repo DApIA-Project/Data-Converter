@@ -17,6 +17,7 @@
     "start": "ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "private": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DApIA-Project/Data-Converter.git"
