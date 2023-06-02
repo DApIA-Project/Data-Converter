@@ -17,6 +17,12 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+## [v1.0.7](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.6...v1.0.7)
+
+### Changed
+
+- File `package.json`
+
 ## [v1.0.6](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.5...v1.0.6)
 
 ### Changed
