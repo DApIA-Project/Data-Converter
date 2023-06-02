@@ -17,7 +17,7 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    "@dapia-project/data-converter" : "^1.0.3"
+    "@dapia-project/data-converter" : "^1.0.4"
   }
 }
 ```
