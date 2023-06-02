@@ -17,6 +17,13 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+
+## [v1.0.9](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.8...v1.0.9)
+
+### Changed
+
+- File `npm-publish.yml`
+
 ## [v1.0.8](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.7...v1.0.8)
 
 ### Changed
