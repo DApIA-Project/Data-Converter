@@ -17,6 +17,11 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+## [v1.0.3](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.2...v1.0.3)
+
+### Changed
+
+- Move `index.ts` in `src/`
 
 ## [v1.0.2](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.0...v1.0.2)
 
