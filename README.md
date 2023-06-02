@@ -50,19 +50,3 @@ For SBS to CSV :
 |------------|--------------|------------------------------------|---------------|
 | sbsContent | String       | The content of sbs file to convert |               |
 
-
-## For development
-
-When modifying the library code, you can call the functions from `index.ts` to try.
-
-First, build the lib
-
-```shell
-npm run build
-```
-
-Then run the index.ts script
-
-```shell
-npm run start
-```
