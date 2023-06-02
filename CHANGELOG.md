@@ -17,17 +17,6 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-## [v1.0.3](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.2...v1.0.3)
-
-### Fixed
-
-- Release for npm publish
-
-## [v1.0.2](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.1...v1.0.2)
-
-### Fixed
-
-- Release for npm publish
 
 ## [v1.0.1](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.0...v1.0.1)
 
