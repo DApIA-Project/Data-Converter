@@ -7,7 +7,7 @@ This repo contains 2 tools : a .csv to .sbs file converter and a .sbs to .csv fi
 ### Via NPM
 
 ```console
-npm i ???????
+npm i @dapia-project/data-converter
 ```
 
 ### By updating package.json
@@ -17,7 +17,7 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    ????????
+    "@dapia-project/data-converter" : "^1.0.2"
   }
 }
 ```
@@ -26,13 +26,13 @@ In your `package.json`, add the following:
 
 ```typescript
 // import CSV to SBS converter
-import {convertCSVtoSBS} from '????????'
+import {convertCSVtoSBS} from '@dapia-project/data-converter/src/CsvToSbs'
 
 const sbsData : string = convertCSVtoSBS(options);
 
 
 // import SBS to CSV converter
-import {convertSBStoCSV} from '????????'
+import {convertSBStoCSV} from '@dapia-project/data-converter/src/SbsToCsv'
 const csvData : string = convertSBStoCSV(options);
 ```
 
