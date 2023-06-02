@@ -1,1 +1,68 @@
 # Data-Converter
+
+This repo contains 2 tools : a .csv to .sbs file converter and a .sbs to .csv file converter.
+
+## Setup
+
+### Via NPM
+
+```console
+npm i ???????
+```
+
+### By updating package.json
+
+In your `package.json`, add the following:
+
+```json
+{
+  "dependencies": {
+    ????????
+  }
+}
+```
+
+## Initialization
+
+```typescript
+// import CSV to SBS converter
+import {convertCSVtoSBS} from '????????'
+
+const sbsData : string = convertCSVtoSBS(options);
+
+
+// import SBS to CSV converter
+import {convertSBStoCSV} from '????????'
+const csvData : string = convertSBStoCSV(options);
+```
+
+## Options
+For CSV to SBS :
+
+| key        | type         | use                                | default value |
+|------------|--------------|------------------------------------|---------------|
+| csvContent | String       | The content of csv file to convert |               |
+
+\
+For SBS to CSV :
+
+| key        | type         | use                                | default value |
+|------------|--------------|------------------------------------|---------------|
+| sbsContent | String       | The content of sbs file to convert |               |
+
+
+## For development
+
+When modifying the library code, you can call the functions from `index.ts` to try.
+
+First, build the lib
+
+```shell
+npm run build
+```
+
+Then run the index.ts script
+
+```shell
+npm run start
+```
