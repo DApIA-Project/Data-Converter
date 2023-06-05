@@ -94,6 +94,7 @@ The ExtraField field is a JSON object that contains information present in a con
 ```
 You can find information about the SBS format here: http://woodair.net/sbs/Article/Barebones42_Socket_Data.htm
 \
+\
 For CSV files :
 
 | Number   | Field         |
