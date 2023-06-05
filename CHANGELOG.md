@@ -17,6 +17,15 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+## [v1.0.10](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.9...v1.0.10)
+
+### Added
+
+- Tests for `CsvToSbs.ts` and `SbsToCsv.ts`
+
+### Changed
+
+- File `README.md`
 
 ## [v1.0.9](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.8...v1.0.9)
 

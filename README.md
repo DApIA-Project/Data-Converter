@@ -1,3 +1,5 @@
+![Data Converter Tests workflow](https://github.com/DApIA-Project/Data-Converter/actions/workflows/dataconverter.yml/badge.svg)
+
 # Data-Converter
 This conversion is for ADS-B data only.\
 This repo contains 2 tools : a .csv to .sbs file converter and a .sbs to .csv file converter.
@@ -17,7 +19,7 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    "@dapia-project/data-converter" : "^1.0.9"
+    "@dapia-project/data-converter" : "^1.0.10"
   }
 }
 ```

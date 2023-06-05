@@ -1,7 +1,10 @@
 import {ExtraFieldsCSV, ExtraFieldsSBS} from "./types";
 
-function getTimestampToDate(timestamp: string): string {
+export function getTimestampToDate(timestamp: string): string {
     const date = new Date(parseInt(timestamp) * 1000)
+    if(date.toString() === "Invalid Date"){
+        return "Error content file"
+    }
     const year = date.getFullYear()
     const month = (date.getMonth() + 1).toString().padStart(2, '0')
     const day = date.getDate().toString().padStart(2, '0');
@@ -9,8 +12,11 @@ function getTimestampToDate(timestamp: string): string {
     return formattedDate
 }
 
-function getTimestampToTime(timestamp: string): string {
+export function getTimestampToTime(timestamp: string): string {
     const date = new Date(parseInt(timestamp) * 1000)
+    if(date.toString() === "Invalid Date"){
+        return "Error content file"
+    }
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const seconds = date.getSeconds().toString().padStart(2, '0');
@@ -36,6 +42,9 @@ export function convertCSVtoSBS(csvContent: string): string {
         if(jsonIndexStart != -1){
             beforeJson = csvRow.substring(0, jsonIndexStart)
             objectJson = JSON.parse(csvRow.substring(jsonIndexStart))
+            if(Object.keys(objectJson).length === 0){
+                return "Error content file"
+            }
             csvValues = beforeJson.split(',');
         }else{
             csvValues = csvRow.split(',');
@@ -75,9 +84,13 @@ export function convertCSVtoSBS(csvContent: string): string {
                 case "time":
 
                     sbsValues[6] = getTimestampToDate(csvValues[0])
+                    if(sbsValues[6] === "Error content file"){
+                        return "Error content file"
+                    }
                     sbsValues[7] = getTimestampToTime(csvValues[0])
                     sbsValues[8] = getTimestampToDate(csvValues[0])
                     sbsValues[9] = getTimestampToTime(csvValues[0])
+
 
                     break
                 case "icao24":
@@ -148,14 +161,14 @@ export function convertCSVtoSBS(csvContent: string): string {
                     extraFields.hour = csvValues[16]
                     break
                 case "extraField" :
-                    if(csvValues[17] != undefined){
+
                         sbsValues[0] = objectJson.messageType
                         sbsValues[1] = objectJson.transmissionType
                         sbsValues[2] = objectJson.sessionID
                         sbsValues[3] = objectJson.aircraftID
                         sbsValues[5] = objectJson.flightID
                         sbsValues[19] = objectJson.emergency
-                    }
+
             }
 
         }

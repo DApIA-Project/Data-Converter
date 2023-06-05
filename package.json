@@ -1,21 +1,26 @@
 {
-
   "name": "@dapia-project/data-converter",
   "description": "Lib for convert .sbs file to .csv file and to convert .csv file to .sbs file",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "main": "dist/src/index.js",
   "types": "dist/src/types.d.ts",
   "dependencies": {
     "esbuild": "^0.15.13"
   },
   "devDependencies": {
+    "@types/mocha": "^10.0.1",
     "@types/node": "^18.11.18",
+    "@types/supertest": "^2.0.12",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
+    "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1"
   },
   "scripts": {
     "tsc": "tsc",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ts-mocha -p ./test/tsconfig.json test/*.test.ts",
+    "test:coverage": "nyc --reporter=html ts-mocha -p ./test/tsconfig.json 'test/*.test.ts'"
   },
   "private": false,
   "repository": {

@@ -1,6 +1,6 @@
 import {ExtraFieldsCSV, ExtraFieldsSBS} from "./types";
 
-function getDateToTimestamp(date : string, time : string) : string {
+export function getDateToTimestamp(date : string, time : string) : string {
     const [year, month, day] = date.split("/");
     const [hours, minutes, seconds, milliseconds] = time.split(/[:.]/);
 
@@ -13,6 +13,9 @@ function getDateToTimestamp(date : string, time : string) : string {
         parseInt(seconds),
         parseInt(milliseconds)
     ).getTime();
+    if(isNaN(timestampInMilliseconds)){
+        return "Error content file"
+    }
 
     const timestampInSeconds: number = Math.floor(timestampInMilliseconds / 1000);
 
@@ -59,6 +62,9 @@ export function convertSBStoCSV(sbsContent: string): string {
         if(jsonIndexStart != -1){
             beforeJson = sbsRow.substring(0, jsonIndexStart)
             objectJson = JSON.parse(sbsRow.substring(jsonIndexStart))
+            if(Object.keys(objectJson).length === 0){
+                return "Error content file"
+            }
             sbsValues = beforeJson.split(',');
         }else{
             sbsValues = sbsRow.split(',');
@@ -159,13 +165,13 @@ export function convertSBStoCSV(sbsContent: string): string {
                     }
                     break
                 case "extraField":
-                    if(objectJson != undefined){
 
-                        csvValues[12] = objectJson.baroaltitude
-                        csvValues[14] = objectJson.lastposupdate
-                        csvValues[15] = objectJson.lastcontact
-                        csvValues[16] = objectJson.hour
-                    }
+
+                    csvValues[12] = objectJson.baroaltitude
+                    csvValues[14] = objectJson.lastposupdate
+                    csvValues[15] = objectJson.lastcontact
+                    csvValues[16] = objectJson.hour
+
 
                     break;
             }
