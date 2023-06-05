@@ -1,5 +1,5 @@
 # Data-Converter
-This conversion is for ADS-B data only.
+This conversion is for ADS-B data only.\
 This repo contains 2 tools : a .csv to .sbs file converter and a .sbs to .csv file converter.
 
 ## Setup
@@ -50,7 +50,7 @@ For SBS to CSV :
 |------------|--------------|------------------------------------|---------------|
 | sbsContent | String       | The content of sbs file to convert |               |
 
-\
+
 ## Order of fields
 
 For SBS files :
