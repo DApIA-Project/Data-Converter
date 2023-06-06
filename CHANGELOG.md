@@ -17,6 +17,12 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+## [v1.0.11](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.10...v1.0.11)
+
+### Changed
+
+- Verification of empty lines in string
+
 ## [v1.0.10](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.9...v1.0.10)
 
 ### Added
