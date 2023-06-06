@@ -58,5 +58,14 @@ describe('SbsToCsv', () => {
                 "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,False,False,False,7015,-45.72,121.92,1672575670.76,1672575670.797,1672574400,{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"flightID\":\"1\",\"emergency\":\"0\"}"
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
+        it('return csv content when sbs content is valid with last line empty', async () => {
+            const csvContent: string = "MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,7015,0,0,0,0,{\"baroaltitude\":\"-45.72\",\"lastposupdate\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n" +
+                                        "";
+            const sbsContent: string = convertSBStoCSV(csvContent)
+
+            const expectedResult: string = "time,icao24,lat,lon,velocity,heading,vertrate,callsign,onground,alert,spi,squawk,baroaltitude,geoaltitude,lastposupdate,lastcontact,hour,extraField\n" +
+                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,False,False,False,7015,-45.72,121.92,1672575670.76,1672575670.797,1672574400,{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"flightID\":\"1\",\"emergency\":\"0\"}"
+            assert.deepStrictEqual(sbsContent, expectedResult)
+        })
     })
 })
