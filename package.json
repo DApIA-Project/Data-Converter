@@ -20,7 +20,8 @@
     "tsc": "tsc",
     "build": "tsc",
     "test": "ts-mocha -p ./test/tsconfig.json test/*.test.ts --timeout 10000",
-    "test:coverage": "nyc --reporter=html ts-mocha -p ./test/tsconfig.json 'test/*.test.ts'"
+    "test:coverage": "nyc --reporter=html ts-mocha -p ./test/tsconfig.json 'test/*.test.ts'",
+    "start" : "ts-node src/Main.ts"
   },
   "private": false,
   "repository": {

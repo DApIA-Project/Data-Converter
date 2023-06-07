@@ -153,7 +153,7 @@ export function convertCSVtoSBS(csvContent: string): string {
                         extraFields.baroaltitude = csvValues[12]
                         break
                     case "geoaltitude":
-                        sbsValues[11] = csvValues[13]
+                        sbsValues[11] = ((parseFloat(csvValues[12])+parseFloat(csvValues[13]))/2).toString()
                         break
                     case "lastposupdate":
                         extraFields.lastposupdate = csvValues[14]

@@ -10,7 +10,7 @@ export function getDateToTimestamp(date : string, time : string) : string {
     return timestampInSeconds.toString()
 
 }
-export function convertSBStoCSV(sbsContent: string): string {
+export function convertSBStoCSV(sbsContent: string, saveExtraField : boolean): string {
     const sbsRows: string[] = sbsContent.split('\n');
     const columnNames: string[] = [
         'messageType',
@@ -40,7 +40,7 @@ export function convertSBStoCSV(sbsContent: string): string {
 
 
     const csvRows: string[] = [];
-    const enteteCSV = "time,icao24,lat,lon,velocity,heading,vertrate,callsign,onground,alert,spi,squawk,baroaltitude,geoaltitude,lastposupdate,lastcontact,hour,extraField";
+    const enteteCSV = "time,icao24,lat,lon,velocity,heading,vertrate,callsign,onground,alert,spi,squawk,baroaltitude,geoaltitude,lastposupdate,lastcontact,hour";
     csvRows.push(enteteCSV);
     let sbsValues: string[] = [];
     let csvValues: string[] = [];
@@ -63,7 +63,7 @@ export function convertSBStoCSV(sbsContent: string): string {
 
             /** Valeurs par défaut**/
             if (sbsValues[22] === undefined) {
-                csvValues[12] = ""
+                csvValues[12] = sbsValues[11]
                 csvValues[14] = ""
                 csvValues[15] = ""
                 csvValues[16] = ""
@@ -71,13 +71,14 @@ export function convertSBStoCSV(sbsContent: string): string {
 
             /** Champs sbs **/
             let extraFields: ExtraFieldsSBS = {
-                messageType: "",
-                transmissionType: "",
-                sessionID: "",
-                aircraftID: "",
-                flightID: "",
-                emergency: ""
+                messageType : "",
+                transmissionType : "",
+                sessionID : "",
+                aircraftID : "",
+                flightID : "",
+                emergency : ""
             }
+
             for (const champ of columnNames) {
                 switch (champ) {
                     case "messageType":
@@ -156,19 +157,21 @@ export function convertSBStoCSV(sbsContent: string): string {
                         break
                     case "extraField":
 
-
-                        csvValues[12] = objectJson.baroaltitude
-                        csvValues[14] = objectJson.lastposupdate
-                        csvValues[15] = objectJson.lastcontact
-                        csvValues[16] = objectJson.hour
-
+                        if (sbsValues[22] !== undefined) {
+                            csvValues[12] = objectJson.baroaltitude
+                            csvValues[14] = objectJson.lastposupdate
+                            csvValues[15] = objectJson.lastcontact
+                            csvValues[16] = objectJson.hour
+                        }
 
                         break;
                 }
 
             }
 
-            csvValues[17] = JSON.stringify(extraFields)
+            if(saveExtraField){
+                csvValues[17]=JSON.stringify(extraFields)
+            }
 
             let oneRow: string = csvValues.join(',')
             csvRows.push(oneRow);
