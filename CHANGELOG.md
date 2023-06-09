@@ -17,6 +17,19 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+## [v2.0.0](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.11...v2.0.0)
+
+### Added
+
+- Tests for `CsvToSbs` and for `SbsToCsv`
+
+### Changed
+
+- Addition of boolean option when converting SBS to CSV which allows to have the extraField field in the CSV. Function : `convertSBStoCSV`, default value : `false`
+- When converting CSV to SBS, the order of CSV fields can be any.
+- Using the csv-parse library to parse the csv in `convertCSVtoSBS` function
+- Update README.md
+
 ## [v1.0.11](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.10...v1.0.11)
 
 ### Changed

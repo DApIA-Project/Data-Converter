@@ -19,7 +19,7 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    "@dapia-project/data-converter" : "^1.0.11"
+    "@dapia-project/data-converter" : "^2.0.0"
   }
 }
 ```
@@ -48,9 +48,10 @@ For CSV to SBS :
 \
 For SBS to CSV :
 
-| key        | type         | use                                | default value |
-|------------|--------------|------------------------------------|---------------|
-| sbsContent | String       | The content of sbs file to convert |               |
+| key             | type    | use                                     | default value |
+|-----------------|---------|-----------------------------------------|---------------|
+| sbsContent      | String  | The content of sbs file to convert      |               |
+| saveExtraField? | boolean | Choice to have extraField of SBS in CSV | false         |
 
 
 ## Order of fields
@@ -99,6 +100,8 @@ You can find information about the SBS format here: http://woodair.net/sbs/Artic
 \
 For CSV files :
 
+The order of the fields below is the order when converting SBS to CSV. However, the order of fields in a CSV file during a CSV to SBS conversion does not follow a certain pattern.
+
 | Number   | Field         |
 |----------|---------------|
 | Field 1  | Time          |
@@ -118,10 +121,10 @@ For CSV files :
 | Field 15 | Lastposupdate |
 | Field 16 | Lastcontact   |
 | Field 17 | Hour          |
-| Field 18 | ExtraField    |
+| Field 18 | ExtraField?   |
 
 \
-The ExtraField field is a JSON object that contains information present in a converted sbs file not present in csv file. Here is its structure:
+The ExtraField field is a JSON object that contains information present in a converted sbs file not present in csv file. It is not mandatory to add this field when converting. Here is its structure:
 
 ```json
 {

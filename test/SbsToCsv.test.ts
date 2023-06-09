@@ -34,7 +34,7 @@ describe('SbsToCsv', () => {
 
         it('return Error when extrafield is empty and not save ExtraField', async () => {
             const csvContent: string = "MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{}";
-            const sbsContent: string = convertSBStoCSV(csvContent,false)
+            const sbsContent: string = convertSBStoCSV(csvContent)
 
             const expectedResult: string = "Error content file"
             assert.deepStrictEqual(sbsContent, expectedResult)
@@ -44,7 +44,7 @@ describe('SbsToCsv', () => {
     context('Data sbs valid', () => {
         it('return csv content when sbs content is valid without extrafield', async () => {
             const csvContent: string = "MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1";
-            const sbsContent: string = convertSBStoCSV(csvContent,false)
+            const sbsContent: string = convertSBStoCSV(csvContent)
 
             const expectedResult: string = "time,icao24,lat,lon,velocity,heading,vertrate,callsign,onground,alert,spi,squawk,baroaltitude,geoaltitude,lastposupdate,lastcontact,hour\n" +
                 "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,121.92,121.92,,,"
@@ -78,7 +78,7 @@ describe('SbsToCsv', () => {
 
         it('return csv content when sbs content is valid without extrafield and not save ExtraField', async () => {
             const csvContent: string = "MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1";
-            const sbsContent: string = convertSBStoCSV(csvContent,false)
+            const sbsContent: string = convertSBStoCSV(csvContent)
 
             const expectedResult: string = "time,icao24,lat,lon,velocity,heading,vertrate,callsign,onground,alert,spi,squawk,baroaltitude,geoaltitude,lastposupdate,lastcontact,hour\n" +
                 "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,121.92,121.92,,,"
@@ -86,7 +86,7 @@ describe('SbsToCsv', () => {
         })
         it('return csv content when sbs content is valid with extrafield and not save ExtraField', async () => {
             const csvContent: string = "MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{\"baroaltitude\":\"-45.72\",\"lastposupdate\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}";
-            const sbsContent: string = convertSBStoCSV(csvContent, false)
+            const sbsContent: string = convertSBStoCSV(csvContent)
 
             const expectedResult: string = "time,icao24,lat,lon,velocity,heading,vertrate,callsign,onground,alert,spi,squawk,baroaltitude,geoaltitude,lastposupdate,lastcontact,hour\n" +
                 "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574400"
@@ -94,7 +94,7 @@ describe('SbsToCsv', () => {
         })
         it('return csv content when sbs content is valid with squawk and alert, emergency and isonground to false and not save ExtraField', async () => {
             const csvContent: string = "MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,7015,0,0,0,0,{\"baroaltitude\":\"-45.72\",\"lastposupdate\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}";
-            const sbsContent: string = convertSBStoCSV(csvContent,false)
+            const sbsContent: string = convertSBStoCSV(csvContent)
 
             const expectedResult: string = "time,icao24,lat,lon,velocity,heading,vertrate,callsign,onground,alert,spi,squawk,baroaltitude,geoaltitude,lastposupdate,lastcontact,hour\n" +
                 "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,False,False,False,7015,-45.72,121.92,1672575670.76,1672575670.797,1672574400"
@@ -103,7 +103,7 @@ describe('SbsToCsv', () => {
         it('return csv content when sbs content is valid with last line empty and not save ExtraField', async () => {
             const csvContent: string = "MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,7015,0,0,0,0,{\"baroaltitude\":\"-45.72\",\"lastposupdate\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n" +
                 "";
-            const sbsContent: string = convertSBStoCSV(csvContent,false)
+            const sbsContent: string = convertSBStoCSV(csvContent)
 
             const expectedResult: string = "time,icao24,lat,lon,velocity,heading,vertrate,callsign,onground,alert,spi,squawk,baroaltitude,geoaltitude,lastposupdate,lastcontact,hour\n" +
                 "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,False,False,False,7015,-45.72,121.92,1672575670.76,1672575670.797,1672574400"
@@ -112,7 +112,7 @@ describe('SbsToCsv', () => {
 
         it('return csv content when sbs content is valid with values empty without extraField', async () => {
             const sbsContent: string = "MSG,3,1,1,,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,,,,,,,,,0,0,0,0,{\"baroaltitude\":\"\",\"lastposupdate\":\"\",\"lastcontact\":\"\",\"hour\":\"\"}";
-            const csvContent: string = convertSBStoCSV(sbsContent,false)
+            const csvContent: string = convertSBStoCSV(sbsContent)
 
             const expectedResult: string = "time,icao24,lat,lon,velocity,heading,vertrate,callsign,onground,alert,spi,squawk,baroaltitude,geoaltitude,lastposupdate,lastcontact,hour\n" +
                 "1672575671,,,,,,,,False,False,False,NaN,,,,,"

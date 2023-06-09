@@ -10,7 +10,7 @@ export function getDateToTimestamp(date : string, time : string) : string {
     return timestampInSeconds.toString()
 
 }
-export function convertSBStoCSV(sbsContent: string, saveExtraField : boolean): string {
+export function convertSBStoCSV(sbsContent: string, saveExtraField : boolean = false): string {
     const sbsRows: string[] = sbsContent.split('\n');
     const columnNames: string[] = [
         'messageType',
