@@ -40,7 +40,10 @@ export function convertSBStoCSV(sbsContent: string, saveExtraField : boolean): s
 
 
     const csvRows: string[] = [];
-    const enteteCSV = "time,icao24,lat,lon,velocity,heading,vertrate,callsign,onground,alert,spi,squawk,baroaltitude,geoaltitude,lastposupdate,lastcontact,hour";
+    let enteteCSV = "time,icao24,lat,lon,velocity,heading,vertrate,callsign,onground,alert,spi,squawk,baroaltitude,geoaltitude,lastposupdate,lastcontact,hour";
+    if(saveExtraField){
+        enteteCSV = enteteCSV + ",extraField"
+    }
     csvRows.push(enteteCSV);
     let sbsValues: string[] = [];
     let csvValues: string[] = [];
@@ -170,7 +173,7 @@ export function convertSBStoCSV(sbsContent: string, saveExtraField : boolean): s
             }
 
             if(saveExtraField){
-                csvValues[17]=JSON.stringify(extraFields)
+                csvValues[17]="'"+JSON.stringify(extraFields)+"'"
             }
 
             let oneRow: string = csvValues.join(',')
