@@ -4,4 +4,3 @@ temp/
 dist/
 .nyc_output
 coverage
-example/
