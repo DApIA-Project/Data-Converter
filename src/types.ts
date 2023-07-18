@@ -6,6 +6,9 @@ export interface ExtraFieldsSBS {
     flightID : string;
     emergency : string;
 
+    haveLabel? : string
+    label? : string
+
 }
 
 export interface ExtraFieldsCSV {

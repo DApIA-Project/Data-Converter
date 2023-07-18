@@ -1,7 +1,7 @@
 {
   "name": "@dapia-project/data-converter",
   "description": "Lib for convert .sbs file to .csv file and to convert .csv file to .sbs file",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "main": "dist/src/index.js",
   "types": "dist/src/types.d.ts",
   "dependencies": {

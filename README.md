@@ -19,7 +19,7 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    "@dapia-project/data-converter" : "^2.0.0"
+    "@dapia-project/data-converter" : "^2.1.0"
   }
 }
 ```
@@ -58,32 +58,36 @@ For SBS to CSV :
 
 For SBS files :
 
-| Number   | Field                  |
-|----------|------------------------|
-| Field 1  | Message type           |
-| Field 2  | Transmission type      |
-| Field 3  | Session ID             |
-| Field 4  | Aircraft ID            |
-| Field 5  | HexIdent (ICAO)        |
-| Field 6  | Flight ID              |
-| Field 7  | Date message generated |
-| Field 8  | Time message generated |
-| Field 9  | Date message logged    |
-| Field 10 | Time message logged    |
-| Field 11 | Callsign               |
-| Field 12 | Altitude               |
-| Field 13 | GroundSpeed            |
-| Field 14 | Track                  |
-| Field 15 | Latitude               |
-| Field 16 | Longitude              |
-| Field 17 | VerticalRate           |
-| Field 18 | Squawk                 |
-| Field 19 | Alert (Squawk change)  |
-| Field 20 | Emergency              |
-| Field 21 | SPI (Ident)            |
-| Field 22 | IsOnGround             |
-| Field 23 | ExtraField             |
+| Number       | Field                  |
+|--------------|------------------------|
+| Field 1      | Message type           |
+| Field 2      | Transmission type      |
+| Field 3      | Session ID             |
+| Field 4      | Aircraft ID            |
+| Field 5      | HexIdent (ICAO)        |
+| Field 6      | Flight ID              |
+| Field 7      | Date message generated |
+| Field 8      | Time message generated |
+| Field 9      | Date message logged    |
+| Field 10     | Time message logged    |
+| Field 11     | Callsign               |
+| Field 12     | Altitude               |
+| Field 13     | GroundSpeed            |
+| Field 14     | Track                  |
+| Field 15     | Latitude               |
+| Field 16     | Longitude              |
+| Field 17     | VerticalRate           |
+| Field 18     | Squawk                 |
+| Field 19     | Alert (Squawk change)  |
+| Field 20     | Emergency              |
+| Field 21     | SPI (Ident)            |
+| Field 22     | IsOnGround             |
+| Field 23     | HaveLabel?             |
+| Field 24     | Label?                 |
+| Field 23 or 25 | ExtraField             |
 
+\
+The HaveLabel and Label fields are not required. But if one is present then so is the other.
 \
 The ExtraField field is a JSON object that contains information present in a converted csv file not present in sbs file. Here is its structure:
 
@@ -133,6 +137,8 @@ The ExtraField field is a JSON object that contains information present in a con
   "sessionID" : "",
   "aircraftID" : "",
   "flightID" : "",
-  "emergency" : ""
+  "emergency" : "",
+  "haveLabel?" : "",
+  "label?" : ""
 }
 ```

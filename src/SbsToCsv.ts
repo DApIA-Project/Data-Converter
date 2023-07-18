@@ -35,6 +35,8 @@ export function convertSBStoCSV(sbsContent: string, saveExtraField : boolean = f
         'emergency',
         'spi',
         'isOnGround',
+        'haveLabel',
+        'label',
         'extraField'
     ];
 
@@ -65,7 +67,7 @@ export function convertSBStoCSV(sbsContent: string, saveExtraField : boolean = f
 
 
             /** Valeurs par défaut**/
-            if (sbsValues[22] === undefined) {
+            if (sbsValues[22] === undefined || sbsValues[24] === undefined) {
                 csvValues[12] = sbsValues[11]
                 csvValues[14] = ""
                 csvValues[15] = ""
@@ -158,9 +160,19 @@ export function convertSBStoCSV(sbsContent: string, saveExtraField : boolean = f
                             csvValues[8] = "False"
                         }
                         break
+                    case "haveLabel":
+                        if(sbsValues[22] !== undefined && sbsValues[23] !== undefined){
+                            extraFields.haveLabel = sbsValues[22]
+                        }
+                        break
+                    case "label":
+                        if(sbsValues[22] !== undefined && sbsValues[23] !== undefined){
+                            extraFields.label = sbsValues[23]
+                        }
+                        break
                     case "extraField":
 
-                        if (sbsValues[22] !== undefined) {
+                        if ((sbsValues[22] !== undefined && sbsValues[23] !== undefined && sbsValues[24] !== undefined) || (sbsValues[22] !== undefined && sbsValues[23] === undefined && sbsValues[24] === undefined)) {
                             csvValues[12] = objectJson.baroaltitude
                             csvValues[14] = objectJson.lastposupdate
                             csvValues[15] = objectJson.lastcontact

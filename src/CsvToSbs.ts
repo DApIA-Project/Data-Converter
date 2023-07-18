@@ -34,6 +34,7 @@ export function convertCSVtoSBS(csvContent: string): string {
     const sbsRows: string[] = [];
     let idForPlane: Map<string, number> = new Map<string, number>();
     let cptID = 1;
+    let indexExtraField : number = 22;
     let sbsValues: string[] = [];
     for (const record of records) {
             let objectJson: ExtraFieldsSBS = {
@@ -42,7 +43,7 @@ export function convertCSVtoSBS(csvContent: string): string {
                 sessionID: "",
                 aircraftID: "",
                 flightID: "",
-                emergency: ""
+                emergency: "",
             }
             if(record.extraField !== undefined){
                 record.extraField = record.extraField.replace(/([a-zA-Z0-9_]+)(\s*)/g, '"$1"$2');
@@ -133,9 +134,15 @@ export function convertCSVtoSBS(csvContent: string): string {
                 sbsValues[3] = objectJson.aircraftID
                 sbsValues[5] = objectJson.flightID
                 sbsValues[19] = objectJson.emergency
+                if(objectJson.haveLabel !== undefined && objectJson.label !== undefined){
+                    sbsValues[22] = objectJson.haveLabel
+                    sbsValues[23] = objectJson.label
+                    indexExtraField = 24
+                }
+
             }
 
-            sbsValues[22] = JSON.stringify(extraFields)
+            sbsValues[indexExtraField] = JSON.stringify(extraFields)
 
 
             let oneRow: string = sbsValues.join(',')

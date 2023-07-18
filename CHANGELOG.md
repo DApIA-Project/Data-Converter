@@ -17,6 +17,16 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+## [v2.1.0](https://github.com/DApIA-Project/Data-Converter/compare/v2.0.0...v2.1.0)
+
+### Added
+
+- Possibility to have the `haveLabel` and `label` fields within the `extraField` of the csv.
+
+### Changed
+
+- Tests for `CsvToSbs` and for `SbsToCsv` for label field
+
 ## [v2.0.0](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.11...v2.0.0)
 
 ### Added
