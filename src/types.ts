@@ -12,8 +12,8 @@ export interface ExtraFieldsSBS {
 }
 
 export interface ExtraFieldsCSV {
-    baroaltitude: string;
-    lastposupdate: string;
+    altitude: string;
+    last_position: string;
     lastcontact: string
     hour: string
 

@@ -42,7 +42,7 @@ export function convertSBStoCSV(sbsContent: string, saveExtraField : boolean = f
 
 
     const csvRows: string[] = [];
-    let enteteCSV = "time,icao24,lat,lon,velocity,heading,vertrate,callsign,onground,alert,spi,squawk,baroaltitude,geoaltitude,lastposupdate,lastcontact,hour";
+    let enteteCSV = "timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour";
     if(saveExtraField){
         enteteCSV = enteteCSV + ",extraField"
     }
@@ -52,7 +52,7 @@ export function convertSBStoCSV(sbsContent: string, saveExtraField : boolean = f
     for (const sbsRow of sbsRows) {
         if (!(!sbsRow || sbsRow.trim().length === 0)) {
             const jsonIndexStart = sbsRow.indexOf('{');
-            let objectJson: ExtraFieldsCSV = {baroaltitude: "", lastposupdate: "", lastcontact: "", hour: ""}
+            let objectJson: ExtraFieldsCSV = {altitude: "", last_position: "", lastcontact: "", hour: ""}
             let beforeJson: string = ""
             if (jsonIndexStart != -1) {
                 beforeJson = sbsRow.substring(0, jsonIndexStart)
@@ -173,8 +173,8 @@ export function convertSBStoCSV(sbsContent: string, saveExtraField : boolean = f
                     case "extraField":
 
                         if ((sbsValues[22] !== undefined && sbsValues[23] !== undefined && sbsValues[24] !== undefined) || (sbsValues[22] !== undefined && sbsValues[23] === undefined && sbsValues[24] === undefined)) {
-                            csvValues[12] = objectJson.baroaltitude
-                            csvValues[14] = objectJson.lastposupdate
+                            csvValues[12] = objectJson.altitude
+                            csvValues[14] = objectJson.last_position
                             csvValues[15] = objectJson.lastcontact
                             csvValues[16] = objectJson.hour
                         }

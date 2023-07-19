@@ -17,6 +17,12 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+## [v2.2.0](https://github.com/DApIA-Project/Data-Converter/compare/v2.1.0...v2.2.0)
+
+### Changed
+
+- Field names for csv files have been changed
+
 ## [v2.1.0](https://github.com/DApIA-Project/Data-Converter/compare/v2.0.0...v2.1.0)
 
 ### Added

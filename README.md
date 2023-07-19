@@ -19,7 +19,7 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    "@dapia-project/data-converter" : "^2.1.0"
+    "@dapia-project/data-converter" : "^2.2.0"
   }
 }
 ```
@@ -93,8 +93,8 @@ The ExtraField field is a JSON object that contains information present in a con
 
 ```json
 {
-  "baroaltitude" : "",
-  "lastposupdate" : "",
+  "altitude" : "",
+  "last_position" : "",
   "lastcontact" : "",
   "hour" : ""
 }
@@ -108,24 +108,24 @@ The order of the fields below is the order when converting SBS to CSV. However, 
 
 | Number   | Field         |
 |----------|---------------|
-| Field 1  | Time          |
-| Field 2  | ICAO24        |
-| Field 3  | Lat           |
-| Field 4  | Lon           |
-| Field 5  | Velocity      |
-| Field 6  | Heading       |
-| Field 7  | Vertrate      |
-| Field 8  | Callsign      |
-| Field 9  | Onground      |
-| Field 10 | Alert         |
-| Field 11 | Spi           |
-| Field 12 | Squawk        |
-| Field 13 | Baroaltitude  |
-| Field 14 | Geoaltitude   |
-| Field 15 | Lastposupdate |
-| Field 16 | Lastcontact   |
-| Field 17 | Hour          |
-| Field 18 | ExtraField?   |
+| Field 1  | timestamp     |
+| Field 2  | icao24        |
+| Field 3  | latitude      |
+| Field 4  | longitude     |
+| Field 5  | groundspeed   |
+| Field 6  | track         |
+| Field 7  | vertical_rate |
+| Field 8  | callsign      |
+| Field 9  | onground      |
+| Field 10 | alert         |
+| Field 11 | spi           |
+| Field 12 | squawk        |
+| Field 13 | altitude      |
+| Field 14 | geoaltitude   |
+| Field 15 | last_position |
+| Field 16 | lastcontact   |
+| Field 17 | hour          |
+| Field 18 | extraField?   |
 
 \
 The ExtraField field is a JSON object that contains information present in a converted sbs file not present in csv file. It is not mandatory to add this field when converting. Here is its structure:

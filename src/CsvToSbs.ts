@@ -71,24 +71,24 @@ export function convertCSVtoSBS(csvContent: string): string {
             }
 
             let extraFields: ExtraFieldsCSV = {
-                baroaltitude: "",
-                lastposupdate: "",
+                altitude: "",
+                last_position: "",
                 lastcontact: "",
                 hour: ""
             }
 
-            sbsValues[6] = getTimestampToDate(record.time)
+            sbsValues[6] = getTimestampToDate(record.timestamp)
             if (sbsValues[6] === "Error content file") {
                 return "Error content file"
             }
-            sbsValues[7] = getTimestampToTime(record.time)
-            sbsValues[8] = getTimestampToDate(record.time)
-            sbsValues[9] = getTimestampToTime(record.time)
+            sbsValues[7] = getTimestampToTime(record.timestamp)
+            sbsValues[8] = getTimestampToDate(record.timestamp)
+            sbsValues[9] = getTimestampToTime(record.timestamp)
 
             sbsValues[4] = record.icao24
-            sbsValues[14] = record.lat
-            sbsValues[15] = record.lon
-            sbsValues[12] = record.velocity
+            sbsValues[14] = record.latitude
+            sbsValues[15] = record.longitude
+            sbsValues[12] = record.groundspeed
 
             if(record.heading !== undefined){
                 sbsValues[13] = record.heading
@@ -96,7 +96,7 @@ export function convertCSVtoSBS(csvContent: string): string {
             if(record.track !== undefined){
                 sbsValues[13] = record.track
             }
-            sbsValues[16] = record.vertrate
+            sbsValues[16] = record.vertical_rate
             sbsValues[10] = record.callsign
             if (record.onground === "True") {
                 sbsValues[21] = "1"
@@ -118,12 +118,19 @@ export function convertCSVtoSBS(csvContent: string): string {
             } else {
                 sbsValues[17] = record.squawk
             }
-            extraFields.baroaltitude = record.baroaltitude
-            sbsValues[11] = ((parseFloat(record.baroaltitude) + parseFloat(record.geoaltitude)) / 2).toString()
+            extraFields.altitude = record.altitude
+            sbsValues[11] = ((parseFloat(record.altitude) + parseFloat(record.geoaltitude)) / 2).toString()
             if(sbsValues[11]=== "NaN"){
                 sbsValues[11] = ""
             }
-            extraFields.lastposupdate = record.lastposupdate
+            if(record.lastposupdate !== undefined){
+                extraFields.last_position = record.lastposupdate
+            }
+
+            if(record.last_position !== undefined){
+                extraFields.last_position = record.last_position
+            }
+
             extraFields.lastcontact = record.lastcontact
             extraFields.hour = record.hour
 
