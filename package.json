@@ -7,6 +7,7 @@
   "dependencies": {
     "csv-parse": "^5.4.0",
     "csv-parser": "^3.0.0",
+    "csv-writer": "^1.6.0",
     "esbuild": "^0.15.13"
   },
   "devDependencies": {
@@ -23,7 +24,7 @@
     "build": "tsc",
     "test": "ts-mocha -p ./test/tsconfig.json test/*.test.ts --timeout 10000",
     "test:coverage": "nyc --reporter=html ts-mocha -p ./test/tsconfig.json 'test/*.test.ts'",
-    "start" : "ts-node ./examples/main.ts"
+    "start": "ts-node ./examples/main.ts"
   },
   "private": false,
   "repository": {
