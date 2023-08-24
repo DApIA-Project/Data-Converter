@@ -35,7 +35,7 @@ export function getDateToTimestamp(date : string, time : string) : string {
 }
 
 export function buildBooleanValue(boolValue : string){
-    if(boolValue === undefined){
+    if(boolValue === undefined || boolValue === ''){
         return '0'
     }else{
         if(boolValue === 'True' || boolValue === 'False'){
