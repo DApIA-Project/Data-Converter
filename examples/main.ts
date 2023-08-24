@@ -97,4 +97,19 @@ const sbsContent : string = convertNDJSONtoSBS(ndjsonData);
 fs.writeFileSync(sbsFileToWritePath, sbsContent, 'utf-8')*/
 
 
+/** CSV to JSON to SBS **/
+
+const csvFileToReadPath : string = "temp/2022_07_toulouse_SWN5614_4m.csv"
+const sbsFileToWritePath : string = "temp/2022_07_toulouse_SWN5614_4m_FromCsvToJson.sbs"
+const csvData: string = fs.readFileSync(csvFileToReadPath, 'utf-8');
+
+const jsonContent : string = convertCSVtoJSON(csvData);
+console.log(jsonContent)
+const sbsContent : string = convertJSONtoSBS(jsonContent);
+fs.writeFileSync(sbsFileToWritePath, sbsContent, 'utf-8')
+
+
+
+
+
 
