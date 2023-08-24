@@ -25,38 +25,38 @@ export function convertNDJSONtoSBS(ndjsonContentString: string): string {
     for (const jsonContentElement of jsonObjects) {
         let oneString : string = ''
         let arrayErrors : string[] = []
-        oneString = (jsonContentElement.messageType === undefined ? 'MSG' : jsonContentElement.messageType) + ","
-            + (jsonContentElement.transmissionType === undefined ? '3' : jsonContentElement.transmissionType) + ","
-            + (jsonContentElement.sessionID === undefined ? '1' : jsonContentElement.sessionID) + ","
-            + (jsonContentElement.aircraftID === undefined ? !idForPlane.has(jsonContentElement.icao24) ? (() => {
+        oneString = (jsonContentElement.messageType === undefined || jsonContentElement.messageType === '' ? 'MSG' : jsonContentElement.messageType) + ","
+            + (jsonContentElement.transmissionType === undefined || jsonContentElement.transmissionType === '' ? '3' : jsonContentElement.transmissionType) + ","
+            + (jsonContentElement.sessionID === undefined || jsonContentElement.sessionID === '' ? '1' : jsonContentElement.sessionID) + ","
+            + (jsonContentElement.aircraftID === undefined || jsonContentElement.aircraftID === '' ? !idForPlane.has(jsonContentElement.icao24) ? (() => {
                 idForPlane.set(jsonContentElement.icao24, cptID)
                 cptID++
                 return cptID-1
 
 
             })() : (idForPlane.get(jsonContentElement.icao24))!.toString() : jsonContentElement.aircraftID) + ","
-            + (jsonContentElement.icao24 === undefined ? arrayErrors.push(`Error line ${index} : No ICAO found in this message : ${sbsString}`) : jsonContentElement.icao24) + ","
-            + (jsonContentElement.flightID === undefined ? !idForPlane.has(jsonContentElement.icao24) ? (() => {
+            + (jsonContentElement.icao24 === undefined || jsonContentElement.icao24 === '' ? arrayErrors.push(`Error line ${index} : No ICAO found in this message : ${sbsString}`) : jsonContentElement.icao24) + ","
+            + (jsonContentElement.flightID === undefined || jsonContentElement.flightID === '' ? !idForPlane.has(jsonContentElement.icao24) ? (() => {
                 idForPlane.set(jsonContentElement.icao24, cptID)
                 cptID++
                 return cptID-1
 
 
             })() : (idForPlane.get(jsonContentElement.icao24))!.toString() : jsonContentElement.flightID) + ","
-            + (jsonContentElement.dateMessageGenerated === undefined ? buildDateValue(jsonContentElement) === "Error" ? arrayErrors.push(`Error line ${index} : No date is found in this message : ${sbsString}`) : buildDateValue(jsonContentElement) : jsonContentElement.dateMessageGenerated) + ","
-            + (jsonContentElement.timeMessageGenerated === undefined ? buildTimeValue(jsonContentElement) === "Error" ? arrayErrors.push(`Error line ${index} : No time is found in this message : ${sbsString}`) : buildTimeValue(jsonContentElement) : jsonContentElement.timeMessageGenerated)+ ","
-            + (jsonContentElement.dateMessageLogged === undefined ? buildDateValue(jsonContentElement) === "Error" ? arrayErrors.push(`Error line ${index} : No date is found in this message : ${sbsString}`) : buildDateValue(jsonContentElement) : jsonContentElement.dateMessageLogged)+ ","
-            + (jsonContentElement.timeMessageLogged === undefined ? buildTimeValue(jsonContentElement) === "Error" ? arrayErrors.push(`Error line ${index} : No time is found in this message : ${sbsString}`) : buildTimeValue(jsonContentElement): jsonContentElement.timeMessageLogged)+ ","
-            + (jsonContentElement.callsign === undefined ? '' : jsonContentElement.callsign) + ","
-            + (jsonContentElement.altitude === undefined ? '' : jsonContentElement.altitude)+ ","
-            + (jsonContentElement.groundspeed === undefined ? '' : jsonContentElement.groundspeed)+ ","
-            + (jsonContentElement.track === undefined ? '' : jsonContentElement.track)+ ","
-            + (jsonContentElement.latitude === undefined ? '' : jsonContentElement.latitude)+ ","
-            + (jsonContentElement.longitude === undefined ? '' : jsonContentElement.longitude)+ ","
-            + (jsonContentElement.vertical_rate === undefined ? '' : jsonContentElement.vertical_rate)+ ","
+            + (jsonContentElement.dateMessageGenerated === undefined || jsonContentElement.dateMessageGenerated === '' ? buildDateValue(jsonContentElement) === "Error" ? arrayErrors.push(`Error line ${index} : No date is found in this message : ${sbsString}`) : buildDateValue(jsonContentElement) : jsonContentElement.dateMessageGenerated) + ","
+            + (jsonContentElement.timeMessageGenerated === undefined || jsonContentElement.timeMessageGenerated === '' ? buildTimeValue(jsonContentElement) === "Error" ? arrayErrors.push(`Error line ${index} : No time is found in this message : ${sbsString}`) : buildTimeValue(jsonContentElement) : jsonContentElement.timeMessageGenerated)+ ","
+            + (jsonContentElement.dateMessageLogged === undefined || jsonContentElement.dateMessageLogged === '' ? buildDateValue(jsonContentElement) === "Error" ? arrayErrors.push(`Error line ${index} : No date is found in this message : ${sbsString}`) : buildDateValue(jsonContentElement) : jsonContentElement.dateMessageLogged)+ ","
+            + (jsonContentElement.timeMessageLogged === undefined || jsonContentElement.timeMessageLogged === '' ? buildTimeValue(jsonContentElement) === "Error" ? arrayErrors.push(`Error line ${index} : No time is found in this message : ${sbsString}`) : buildTimeValue(jsonContentElement): jsonContentElement.timeMessageLogged)+ ","
+            + (jsonContentElement.callsign === undefined || jsonContentElement.callsign === '' ? '' : jsonContentElement.callsign) + ","
+            + (jsonContentElement.altitude === undefined || jsonContentElement.altitude === '' ? '' : jsonContentElement.altitude)+ ","
+            + (jsonContentElement.groundspeed === undefined || jsonContentElement.groundspeed === '' ? '' : jsonContentElement.groundspeed)+ ","
+            + (jsonContentElement.track === undefined || jsonContentElement.track === '' ? '' : jsonContentElement.track)+ ","
+            + (jsonContentElement.latitude === undefined || jsonContentElement.latitude === '' ? '' : jsonContentElement.latitude)+ ","
+            + (jsonContentElement.longitude === undefined || jsonContentElement.longitude === '' ? '' : jsonContentElement.longitude)+ ","
+            + (jsonContentElement.vertical_rate === undefined || jsonContentElement.vertical_rate === '' ? '' : jsonContentElement.vertical_rate)+ ","
             + buildSquawkValue(jsonContentElement.squawk) + ","
             + (buildBooleanValue(jsonContentElement.alert) === 'Error' ? arrayErrors.push(`Error line ${index} : Alert is not well-formed in this message : ${sbsString}`) : buildBooleanValue(jsonContentElement.alert)) + ","
-            + (jsonContentElement.emergency === undefined ? '0' : jsonContentElement.emergency) + ","
+            + (jsonContentElement.emergency === undefined || jsonContentElement.emergency === '' ? '0' : jsonContentElement.emergency) + ","
             + (buildBooleanValue(jsonContentElement.spi) === 'Error' ? arrayErrors.push(`Error line ${index} : Spi is not well-formed in this message : ${sbsString}`) : buildBooleanValue(jsonContentElement.spi)) + ","
             + (buildBooleanValue(jsonContentElement.onground) === 'Error' ? arrayErrors.push(`Error line ${index} : OnGround is not well-formed in this message : ${sbsString}`) : buildBooleanValue(jsonContentElement.onground))
 
