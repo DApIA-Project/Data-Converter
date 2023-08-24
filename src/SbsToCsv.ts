@@ -1,15 +1,6 @@
 import {ExtraFieldsCSV, ExtraFieldsSBS} from "./types";
+import {getDateToTimestamp} from "./utils/utils";
 
-export function getDateToTimestamp(date : string, time : string) : string {
-
-    const timestamp = Date.parse(date + ',' + time + ' GMT')
-    if(isNaN(timestamp)){
-        return "Error content file"
-    }
-    const timestampInSeconds : number = Math.floor(timestamp / 1000);
-    return timestampInSeconds.toString()
-
-}
 export function convertSBStoCSV(sbsContent: string, saveExtraField : boolean = false): string {
     const sbsRows: string[] = sbsContent.split('\n');
     const columnNames: string[] = [

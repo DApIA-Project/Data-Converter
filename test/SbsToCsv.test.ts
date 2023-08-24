@@ -1,6 +1,7 @@
 import {describe} from "mocha";
-import { convertSBStoCSV, getDateToTimestamp} from "../src";
+import { convertSBStoCSV} from "../src";
 import assert from "assert";
+import {getDateToTimestamp} from "../src/utils/utils";
 
 describe('SbsToCsv', () => {
     context('Date or time no valid', () => {

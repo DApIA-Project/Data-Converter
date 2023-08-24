@@ -1,49 +1,5 @@
-import {getTimestampToDate, getTimestampToTime} from "./CsvToSbs";
+import {buildBooleanValue, buildDateValue, buildSquawkValue, buildTimeValue} from "./utils/utils";
 
-
-function buildBooleanValue(boolValue : string){
-    if(boolValue === undefined){
-        return '0'
-    }else{
-        if(boolValue === 'True' || boolValue === 'False'){
-            if(boolValue === 'True'){
-                return '1'
-            }else{
-                return '0'
-            }
-        }else{
-            if(boolValue === '0' || boolValue === '1'){
-                return boolValue
-            }else{
-                return 'Error'
-            }
-        }
-    }
-}
-
-function buildDateValue(jsonContentElement : any){
-    if(jsonContentElement.timestamp != undefined){
-        return getTimestampToDate(jsonContentElement.timestamp)
-    }else{
-        return "Error"
-    }
-}
-
-function buildTimeValue(jsonContentElement : any){
-    if(jsonContentElement.timestamp != undefined){
-        return getTimestampToTime(jsonContentElement.timestamp)
-    }else{
-        return "Error"
-    }
-}
-
-function buildSquawkValue(squawkValue : string){
-    if(squawkValue === '' || squawkValue === 'NaN' || squawkValue === undefined){
-        return ''
-    }else{
-        return squawkValue
-    }
-}
 
 export function convertJSONtoSBS(jsonContentString: string): string {
     let idForPlane: Map<string, number> = new Map<string, number>();

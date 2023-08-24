@@ -1,30 +1,8 @@
 import {ExtraFieldsCSV, ExtraFieldsSBS} from "./types";
 import {parse} from "csv-parse/sync"
+import {getTimestampToDate, getTimestampToTime} from "./utils/utils";
 
-export function getTimestampToDate(timestamp: string): string {
-    const date = new Date(parseInt(timestamp) * 1000)
-    if (date.toString() === "Invalid Date") {
-        return "Error content file"
-    }
-    const year = date.getUTCFullYear()
-    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0')
-    const day = date.getUTCDate().toString().padStart(2, '0');
-    const formattedDate = "" + year + "/" + month + "/" + day
-    return formattedDate
-}
 
-export function getTimestampToTime(timestamp: string): string {
-    const date = new Date(parseInt(timestamp) * 1000)
-    if (date.toString() === "Invalid Date") {
-        return "Error content file"
-    }
-    const hours = date.getUTCHours().toString().padStart(2, '0');
-    const minutes = date.getUTCMinutes().toString().padStart(2, '0');
-    const seconds = date.getUTCSeconds().toString().padStart(2, '0');
-    const milliseconds = date.getUTCMilliseconds().toString().padStart(3, '0');
-    const formattedTime = "" + hours + ":" + minutes + ":" + seconds + "." + milliseconds
-    return formattedTime
-}
 
 export function convertCSVtoSBS(csvContent: string): string {
 
