@@ -34,7 +34,7 @@ export function getDateToTimestamp(date : string, time : string) : string {
 
 }
 
-export function buildBooleanValue(boolValue : string){
+export function buildBooleanValueForSbs(boolValue : string){
     if(boolValue === undefined || boolValue === ''){
         return '0'
     }else{
@@ -70,9 +70,49 @@ export function buildTimeValue(jsonContentElement : any){
     }
 }
 
-export function buildSquawkValue(squawkValue : string){
+export function buildSquawkValueForSbs(squawkValue : string){
     if(squawkValue === '' || squawkValue === 'NaN' || squawkValue === undefined){
         return ''
+    }else{
+        return squawkValue
+    }
+}
+
+export function buildTimestampValue(item : any) : string{
+    if(item.timestamp !== undefined && item.timestamp !== ''){
+        return item.timestamp
+    }else{
+        if(item.dateMessageGenerated !== undefined && item.dateMessageGenerated !== '' && item.timeMessageGenerated !== undefined && item.timeMessageGenerated !== ''){
+            return getDateToTimestamp(item.dateMessageGenerated,item.timeMessageGenerated)
+        }else{
+            return 'Error'
+        }
+    }
+}
+
+export function buildBooleanValueForCsv(boolValue : string){
+    if(boolValue === undefined || boolValue === ''){
+        return 'False'
+    }else{
+        if(boolValue === '1' || boolValue === '0'){
+            if(boolValue === '1'){
+                return 'True'
+            }else{
+                return 'False'
+            }
+        }else{
+            if(boolValue === 'False' || boolValue === 'True'){
+                return boolValue
+            }else{
+                return 'Error'
+            }
+        }
+    }
+}
+
+export function buildSquawkValueForCsv(squawkValue : string){
+    if(squawkValue === '' || squawkValue === 'NaN' || squawkValue === undefined){
+        return 'NaN'
     }else{
         return squawkValue
     }

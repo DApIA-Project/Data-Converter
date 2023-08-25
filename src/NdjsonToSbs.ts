@@ -1,4 +1,4 @@
-import {buildBooleanValue, buildDateValue, buildSquawkValue, buildTimeValue} from "./utils/utils";
+import {buildBooleanValueForSbs, buildDateValue, buildSquawkValueForSbs, buildTimeValue} from "./utils/utils";
 
 
 export function convertNDJSONtoSBS(ndjsonContentString: string): string {
@@ -54,11 +54,11 @@ export function convertNDJSONtoSBS(ndjsonContentString: string): string {
             + (jsonContentElement.latitude === undefined || jsonContentElement.latitude === '' ? '' : jsonContentElement.latitude)+ ","
             + (jsonContentElement.longitude === undefined || jsonContentElement.longitude === '' ? '' : jsonContentElement.longitude)+ ","
             + (jsonContentElement.vertical_rate === undefined || jsonContentElement.vertical_rate === '' ? '' : jsonContentElement.vertical_rate)+ ","
-            + buildSquawkValue(jsonContentElement.squawk) + ","
-            + (buildBooleanValue(jsonContentElement.alert) === 'Error' ? arrayErrors.push(`Error line ${index} : Alert is not well-formed in this message : ${sbsString}`) : buildBooleanValue(jsonContentElement.alert)) + ","
+            + buildSquawkValueForSbs(jsonContentElement.squawk) + ","
+            + (buildBooleanValueForSbs(jsonContentElement.alert) === 'Error' ? arrayErrors.push(`Error line ${index} : Alert is not well-formed in this message : ${sbsString}`) : buildBooleanValueForSbs(jsonContentElement.alert)) + ","
             + (jsonContentElement.emergency === undefined || jsonContentElement.emergency === '' ? '0' : jsonContentElement.emergency) + ","
-            + (buildBooleanValue(jsonContentElement.spi) === 'Error' ? arrayErrors.push(`Error line ${index} : Spi is not well-formed in this message : ${sbsString}`) : buildBooleanValue(jsonContentElement.spi)) + ","
-            + (buildBooleanValue(jsonContentElement.onground) === 'Error' ? arrayErrors.push(`Error line ${index} : OnGround is not well-formed in this message : ${sbsString}`) : buildBooleanValue(jsonContentElement.onground))
+            + (buildBooleanValueForSbs(jsonContentElement.spi) === 'Error' ? arrayErrors.push(`Error line ${index} : Spi is not well-formed in this message : ${sbsString}`) : buildBooleanValueForSbs(jsonContentElement.spi)) + ","
+            + (buildBooleanValueForSbs(jsonContentElement.onground) === 'Error' ? arrayErrors.push(`Error line ${index} : OnGround is not well-formed in this message : ${sbsString}`) : buildBooleanValueForSbs(jsonContentElement.onground))
 
         if(jsonContentElement.haveLabel !== '' && jsonContentElement.haveLabel !== undefined && jsonContentElement.label !== '' && jsonContentElement.label !== undefined){
             oneString = oneString + "," + jsonContentElement.haveLabel + "," + jsonContentElement.label
