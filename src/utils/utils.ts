@@ -117,3 +117,8 @@ export function buildSquawkValueForCsv(squawkValue : string){
         return squawkValue
     }
 }
+
+export function isTimestampValid(timestamp: string): boolean {
+    const parsedDate = new Date(timestamp);
+    return !isNaN(parsedDate.getTime());
+}

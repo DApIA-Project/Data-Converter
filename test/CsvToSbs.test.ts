@@ -164,6 +164,24 @@ describe('CsvToSbs', () => {
             assert.deepStrictEqual(sbsContent,expectedResult)
         })
 
+        it('return sbs content when csv content is valid with heading field without extrafield',async () => {
+            const csvContent : string = "timestamp,icao24,latitude,longitude,groundspeed,heading,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n" +
+                "1672575671,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574400";
+            const sbsContent : string = convertCSVtoSBS(csvContent)
+
+            const expectedResult : string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,38.1,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}"
+            assert.deepStrictEqual(sbsContent,expectedResult)
+        })
+
+        it('return sbs content when csv content is valid with extrafield with lastposupdate field',async () => {
+            const csvContent : string = "timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,lastposupdate,lastcontact,hour,extraField\n" +
+                "1672575671,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574400,'{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"flightID\":\"1\",\"emergency\":\"0\"}'";
+            const sbsContent : string = convertCSVtoSBS(csvContent)
+
+            const expectedResult : string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,38.1,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}"
+            assert.deepStrictEqual(sbsContent,expectedResult)
+        })
+
 
 
 

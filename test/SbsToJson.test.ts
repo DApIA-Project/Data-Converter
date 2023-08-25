@@ -5,7 +5,7 @@ import {convertSBStoJSON} from "../src/SbsToJson";
 
 describe('SbsToJson', () => {
 
-    context('Data sbs valid', () => {
+    context('Data sbs no valid', () => {
         it('return empty content when sbs content is no valid missing attributes', async () => {
             const sbsContent: string = "MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1";
             const jsonContent: string = convertSBStoJSON(sbsContent)
