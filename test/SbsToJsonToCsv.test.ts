@@ -41,7 +41,7 @@ describe('SbsToJsonToCsv', () => {
 
 
         it('return csv content when sbs content is valid with squawk and alert, emergency and isonground to false', async () => {
-            const sbsContent: string = "MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,7015,0,0,0,0";
+            const sbsContent: string = "MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,7015,,,,";
             const jsonContent: string = convertSBStoJSON(sbsContent)
             const csvContent: string = convertJSONtoCSV(jsonContent)
 

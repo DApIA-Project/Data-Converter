@@ -21,10 +21,10 @@ function createCSVData(jsonData: any[]): any[] {
             'spi': (buildBooleanValueForCsv(item['spi']) === 'Error' ? arrayErrors.push(`Error line ${index} : Spi is not well-formed`) : buildBooleanValueForCsv(item['spi'])),
             'squawk': buildSquawkValueForCsv(item['squawk']),
             'altitude': (item['altitude'] === undefined || item['altitude'] === ''? '' : item['altitude']),
-            'geoaltitude': (item['altitude'] === undefined || item['altitude'] === ''? '' : item['altitude']),
-            'last_position':"",
-            'lastcontact':"",
-            'hour':"",
+            'geoaltitude': (item['geoaltitude'] === undefined || item['geoaltitude'] === '' ? item['altitude'] === undefined || item['altitude'] === ''? '' : item['altitude'] : item['geoaltitude']),
+            'last_position':(item['last_position'] === undefined || item['last_position'] === ''? '' : item['last_position']),
+            'lastcontact':(item['lastcontact'] === undefined || item['lastcontact'] === ''? '' : item['lastcontact']),
+            'hour':(item['hour'] === undefined || item['hour'] === ''? '' : item['hour']),
         };
 
         if(arrayErrors.length>0){
