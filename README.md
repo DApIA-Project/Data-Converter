@@ -2,7 +2,17 @@
 
 # Data-Converter
 This conversion is for ADS-B data only.\
-This repo contains 2 tools : a .csv to .sbs file converter and a .sbs to .csv file converter.
+This library contains several conversion tools for ADS-B messages. We find :
+- SBS to JSON
+- JSON to SBS
+- SBS to NDJSON
+- NDJSON to SBS
+- CSV to JSON
+- JSON to CSV
+- CSV to NDJSON
+- NDJSON to CSV
+- SBS to CSV
+- CSV to SBS
 
 ## Setup
 
@@ -19,7 +29,7 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    "@dapia-project/data-converter" : "^2.2.0"
+    "@dapia-project/data-converter" : "^2.3.0"
   }
 }
 ```
@@ -27,6 +37,46 @@ In your `package.json`, add the following:
 ## Initialization
 
 ```typescript
+// import SBS to JSON converter
+import {convertSBStoJSON} from '@dapia-project/data-converter/src/SbsToJson'
+const jsonData : string = convertSBStoJSON(options);
+
+
+// import JSON to SBS converter
+import {convertJSONtoSBS} from '@dapia-project/data-converter/src/JsonToSbs'
+const sbsData : string = convertJSONtoSBS(options);
+
+
+// import SBS to NDJSON converter
+import {convertSBStoNDJSON} from '@dapia-project/data-converter/src/SbsToNdjson'
+const ndjsonData : string = convertSBStoNDJSON(options);
+
+
+// import NDJSON to SBS converter
+import {convertNDJSONtoSBS} from '@dapia-project/data-converter/src/NdjsonToSbs'
+const sbsData : string = convertNDJSONtoSBS(options);
+
+
+// import CSV to JSON converter
+import {convertCSVtoJSON} from '@dapia-project/data-converter/src/CsvToJson'
+const jsonData : string = convertCSVtoJSON(options);
+
+
+// import JSON to CSV converter
+import {convertJSONtoCSV} from '@dapia-project/data-converter/src/JsonToCsv'
+const csvData : string = convertJSONtoCSV(options);
+
+
+// import CSV to NDJSON converter
+import {convertCSVtoNDJSON} from '@dapia-project/data-converter/src/CsvToNdjson'
+const ndjsonData : string = convertCSVtoNDJSON(options);
+
+
+// import NDJSON to CSV converter
+import {convertNDJSONtoCSV} from '@dapia-project/data-converter/src/NdjsonToCsv'
+const csvData : string = convertNDJSONtoCSV(options);
+
+
 // import CSV to SBS converter
 import {convertCSVtoSBS} from '@dapia-project/data-converter/src/CsvToSbs'
 
@@ -39,11 +89,11 @@ const csvData : string = convertSBStoCSV(options);
 ```
 
 ## Options
-For CSV to SBS :
+For all except SBStoCSV :
 
-| key        | type         | use                                | default value |
-|------------|--------------|------------------------------------|---------------|
-| csvContent | String       | The content of csv file to convert |               |
+| key     | type         | use                            | default value |
+|---------|--------------|--------------------------------|---------------|
+| content | String       | The content of file to convert |               |
 
 \
 For SBS to CSV :
@@ -142,3 +192,5 @@ The ExtraField field is a JSON object that contains information present in a con
   "label?" : ""
 }
 ```
+\
+The ExtraField are only for CsvToSbs and SbsToCsv converters.
