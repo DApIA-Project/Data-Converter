@@ -58,7 +58,7 @@ function createCSVData(jsonData: any[], saveExtraField : boolean): any[] {
     return csvData
 }
 
-export function convertJSONtoCSV(jsonContentString: string, saveExtrafield : boolean): string {
+export function convertJSONtoCSV(jsonContentString: string, saveExtrafield : boolean = false): string {
     let jsonContent = JSON.parse(jsonContentString);
 
     const csvData = createCSVData(jsonContent, saveExtrafield);

@@ -1,7 +1,7 @@
 import {buildBooleanValueForSbs, buildDateValue, buildSquawkValueForSbs, buildTimeValue} from "./utils/utils";
 
 
-export function convertJSONtoSBS(jsonContentString: string, saveExtraField : boolean): string {
+export function convertJSONtoSBS(jsonContentString: string, saveExtraField : boolean = false): string {
     let idForPlane: Map<string, number> = new Map<string, number>();
     let cptID = 1;
     let jsonContent = JSON.parse(jsonContentString);

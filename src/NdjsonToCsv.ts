@@ -58,7 +58,7 @@ function createCSVData(jsonData: any[], saveExtraField : boolean): any[] {
     return csvData
 }
 
-export function convertNDJSONtoCSV(ndjsonContentString: string, saveExtraField : boolean): string {
+export function convertNDJSONtoCSV(ndjsonContentString: string, saveExtraField : boolean = false): string {
     let jsonContent = ndjsonContentString.split('\n').filter((line: any) => line.trim() !== '').map((line : any) => JSON.parse(line));
 
     const csvData = createCSVData(jsonContent,saveExtraField);

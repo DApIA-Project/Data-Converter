@@ -93,5 +93,15 @@ describe('SbsToJson', () => {
             assert.deepStrictEqual(sbsContentFinish, expectedResult)
         })
 
+
+        it('return json content when sbs content is valid with extraField', async () => {
+            const sbsContent: string = "MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}";
+            const jsonContent: string = convertSBStoJSON(sbsContent)
+
+            const expectedResult: string = "[{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"icao24\":\"39c902\",\"flightID\":\"1\",\"dateMessageGenerated\":\"2023/01/01\",\"timeMessageGenerated\":\"13:21:11.000\",\"dateMessageLogged\":\"2023/01/01\",\"timeMessageLogged\":\"13:21:11.000\",\"callsign\":\"SAMU13\",\"altitude\":\"121.92\",\"groundspeed\":\"3.450995263850706\",\"track\":\"296.565051177078\",\"latitude\":\"43.289794921875\",\"longitude\":\"5.40233523346657\",\"vertical_rate\":\"5.85216\"," +
+                "\"squawk\":\"\",\"alert\":\"1\",\"emergency\":\"0\",\"spi\":\"1\",\"onground\":\"1\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}]"
+            assert.deepStrictEqual(jsonContent, expectedResult)
+        })
+
     })
 })

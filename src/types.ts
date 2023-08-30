@@ -45,6 +45,10 @@ export interface JsonFromSbs {
     spi : string,
     onground : string,
     haveLabel? : string,
-    label? : string
+    label? : string,
+    last_position? :  string,
+    lastcontact? :  string,
+    hour? :  string,
+
 
 }

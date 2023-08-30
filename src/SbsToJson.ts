@@ -1,4 +1,4 @@
-import {JsonFromSbs} from "./types";
+import {ExtraFieldsCSV, JsonFromSbs} from "./types";
 
 export function convertSBStoJSON(sbsContent: string): string {
     const sbsRows: string[] = sbsContent.split('\n');
@@ -30,9 +30,24 @@ export function convertSBStoJSON(sbsContent: string): string {
             transmissionType: "",
             vertical_rate: ""
         }
+
+        const jsonIndexStart = sbsRow.indexOf('{');
         let arrayErrors : string[] = []
         sbsRow = sbsRow.replace(/[\s\r]+/g, '')
-        let elements : string[] = sbsRow.split(',')
+        let objectJson: ExtraFieldsCSV = {altitude: "", last_position: "", lastcontact: "", hour: ""}
+        let beforeJson: string = ""
+        let elements : string[] = []
+        if (jsonIndexStart != -1) {
+            beforeJson = sbsRow.substring(0, jsonIndexStart)
+            objectJson = JSON.parse(sbsRow.substring(jsonIndexStart))
+            if (Object.keys(objectJson).length === 0) {
+                return "Error content file"
+            }
+            elements = beforeJson.split(',');
+        }else{
+            elements = sbsRow.split(',')
+        }
+
         if(elements.length >=22){
             oneJsonObject =
                 {
@@ -60,9 +75,22 @@ export function convertSBStoJSON(sbsContent: string): string {
                     onground : elements[21]
                 }
 
-                if(elements.length > 23){
+                if(elements.length == 23){
+                    oneJsonObject.last_position = objectJson.last_position
+                    oneJsonObject.lastcontact = objectJson.lastcontact
+                    oneJsonObject.hour = objectJson.hour
+
+                }
+
+                if(elements.length == 24 || elements.length == 25){
                     oneJsonObject.haveLabel = elements[22]
                     oneJsonObject.label = elements[23]
+
+                    if(elements.length == 25){
+                        oneJsonObject.last_position = objectJson.last_position
+                        oneJsonObject.lastcontact = objectJson.lastcontact
+                        oneJsonObject.hour = objectJson.hour
+                    }
 
                 }
         }else{

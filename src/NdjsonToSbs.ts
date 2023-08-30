@@ -1,7 +1,7 @@
 import {buildBooleanValueForSbs, buildDateValue, buildSquawkValueForSbs, buildTimeValue} from "./utils/utils";
 
 
-export function convertNDJSONtoSBS(ndjsonContentString: string, saveExtraField : boolean): string {
+export function convertNDJSONtoSBS(ndjsonContentString: string, saveExtraField : boolean = false): string {
     const ndjsonLines = ndjsonContentString.split('\n');
     const jsonObjects = [];
     for (const ndjsonLine of ndjsonLines) {
