@@ -1,7 +1,7 @@
 import {buildBooleanValueForSbs, buildDateValue, buildSquawkValueForSbs, buildTimeValue} from "./utils/utils";
 
 
-export function convertJSONtoSBS(jsonContentString: string): string {
+export function convertJSONtoSBS(jsonContentString: string, saveExtraField : boolean): string {
     let idForPlane: Map<string, number> = new Map<string, number>();
     let cptID = 1;
     let jsonContent = JSON.parse(jsonContentString);
@@ -55,6 +55,16 @@ export function convertJSONtoSBS(jsonContentString: string): string {
             if((jsonContentElement.haveLabel === '' || jsonContentElement.haveLabel === undefined) && (jsonContentElement.label !== '' && jsonContentElement.label !== undefined)){
                 arrayErrors.push(`Error line ${index} : No haveLabel is present in this message : ${sbsString}`)
             }
+        }
+
+        if(saveExtraField){
+            let extraField : {[key: string] : any} = {
+                'altitude' : jsonContentElement.altitude,
+                'last_position': jsonContentElement.last_position,
+                'lastcontact': jsonContentElement.lastcontact,
+                'hour': jsonContentElement.hour
+            }
+           oneString = oneString + ',' +JSON.stringify(extraField)
         }
 
         oneString = oneString + "\n"

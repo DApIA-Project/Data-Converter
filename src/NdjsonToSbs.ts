@@ -1,7 +1,7 @@
 import {buildBooleanValueForSbs, buildDateValue, buildSquawkValueForSbs, buildTimeValue} from "./utils/utils";
 
 
-export function convertNDJSONtoSBS(ndjsonContentString: string): string {
+export function convertNDJSONtoSBS(ndjsonContentString: string, saveExtraField : boolean): string {
     const ndjsonLines = ndjsonContentString.split('\n');
     const jsonObjects = [];
     for (const ndjsonLine of ndjsonLines) {
@@ -70,6 +70,16 @@ export function convertNDJSONtoSBS(ndjsonContentString: string): string {
             if((jsonContentElement.haveLabel === '' || jsonContentElement.haveLabel === undefined) && (jsonContentElement.label !== '' && jsonContentElement.label !== undefined)){
                 arrayErrors.push(`Error line ${index} : No haveLabel is present in this message : ${sbsString}`)
             }
+        }
+
+        if(saveExtraField){
+            let extraField : {[key: string] : any} = {
+                'altitude' : jsonContentElement.altitude,
+                'last_position': jsonContentElement.last_position,
+                'lastcontact': jsonContentElement.lastcontact,
+                'hour': jsonContentElement.hour
+            }
+            oneString = oneString + ',' +JSON.stringify(extraField)
         }
 
         oneString = oneString + "\n"
