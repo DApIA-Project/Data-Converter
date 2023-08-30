@@ -1,29 +1,7 @@
 import { createObjectCsvStringifier } from 'csv-writer';
 import {buildBooleanValueForCsv, buildSquawkValueForCsv, buildTimestampValue} from "./utils/utils";
 
-/*
-function getHeaders(jsonData: any[]): string[] {
-    const headers = new Set<string>();
-    jsonData.forEach((item) => {
-        for (const key in item) {
-            headers.add(key);
-        }
-    });
-    return Array.from(headers);
-}
-export function convertNDJSONtoCSV(ndjsonContentString: string): string {
-    let jsonContent = ndjsonContentString.split('\n').filter((line: any) => line.trim() !== '').map((line : any) => JSON.parse(line));
-    const headers = getHeaders(jsonContent);
-    const csvStringifier = createObjectCsvStringifier({
-        header: [
-            ...headers.map((header) => ({ id: header, title: header })),
-        ],
-    });
-    const csvString = csvStringifier.getHeaderString() + csvStringifier.stringifyRecords(jsonContent);
-    return csvString
-}*/
-
-function createCSVData(jsonData: any[]): any[] {
+function createCSVData(jsonData: any[], saveExtraField : boolean): any[] {
     let index = 1;
     const csvData: any[] = [];
     for (const item of jsonData) {
@@ -49,6 +27,20 @@ function createCSVData(jsonData: any[]): any[] {
             'hour':(item['hour'] === undefined || item['hour'] === ''? '' : item['hour']),
         };
 
+        if(saveExtraField){
+            let extraField : {[key: string] : any} = {
+                'messageType' : item['messageType'],
+                'transmissionType': item['transmissionType'],
+                'sessionID': item['sessionID'],
+                'aircraftID': item['aircraftID'],
+                'flightID': item['flightID'],
+                'emergency': (item['emergency'] === undefined || item['emergency'] === "" ? "0" : item['emergency']),
+                'haveLabel': item['haveLabel'],
+                'label': item['label']
+            }
+            csvItem['extraField'] = "'"+JSON.stringify(extraField)+"'"
+        }
+
         if(arrayErrors.length>0){
             for (const arrayError of arrayErrors) {
                 console.error(arrayError)
@@ -66,10 +58,10 @@ function createCSVData(jsonData: any[]): any[] {
     return csvData
 }
 
-export function convertNDJSONtoCSV(ndjsonContentString: string): string {
+export function convertNDJSONtoCSV(ndjsonContentString: string, saveExtraField : boolean): string {
     let jsonContent = ndjsonContentString.split('\n').filter((line: any) => line.trim() !== '').map((line : any) => JSON.parse(line));
 
-    const csvData = createCSVData(jsonContent);
+    const csvData = createCSVData(jsonContent,saveExtraField);
 
     if (csvData.length === 0 || csvData.every((item) => Object.values(item).every((value) => value === "" || value === null))) {
         const headerString = ""; // Aucune ligne à convertir, donc pas besoin de l'en-tête
@@ -79,7 +71,9 @@ export function convertNDJSONtoCSV(ndjsonContentString: string): string {
             header: Object.keys(csvData[0]).map((header) => ({ id: header, title: header })),
         });
 
-        const csvString = csvStringifier.getHeaderString() + csvStringifier.stringifyRecords(csvData);
+        const csvString = csvStringifier.getHeaderString() +
+            csvStringifier.stringifyRecords(csvData)
+                .replace(/""/g, '"').replace(/'"/g,"'").replace(/"'/g,"'")
         return csvString;
     }
 

@@ -1,7 +1,7 @@
 import { createObjectCsvStringifier } from 'csv-writer';
 import {buildBooleanValueForCsv, buildSquawkValueForCsv, buildTimestampValue, getDateToTimestamp} from "./utils/utils";
 
-function createCSVData(jsonData: any[]): any[] {
+function createCSVData(jsonData: any[], saveExtraField : boolean): any[] {
     let index = 1;
     const csvData: any[] = [];
     for (const item of jsonData) {
@@ -24,8 +24,22 @@ function createCSVData(jsonData: any[]): any[] {
             'geoaltitude': (item['geoaltitude'] === undefined || item['geoaltitude'] === '' ? item['altitude'] === undefined || item['altitude'] === ''? '' : item['altitude'] : item['geoaltitude']),
             'last_position':(item['last_position'] === undefined || item['last_position'] === ''? '' : item['last_position']),
             'lastcontact':(item['lastcontact'] === undefined || item['lastcontact'] === ''? '' : item['lastcontact']),
-            'hour':(item['hour'] === undefined || item['hour'] === ''? '' : item['hour']),
+            'hour':(item['hour'] === undefined || item['hour'] === ''? '' : item['hour'])
         };
+
+        if(saveExtraField){
+            let extraField : {[key: string] : any} = {
+                'messageType' : item['messageType'],
+                'transmissionType': item['transmissionType'],
+                'sessionID': item['sessionID'],
+                'aircraftID': item['aircraftID'],
+                'flightID': item['flightID'],
+                'emergency': (item['emergency'] === undefined || item['emergency'] === "" ? "0" : item['emergency']),
+                'haveLabel': item['haveLabel'],
+                'label': item['label']
+            }
+            csvItem['extraField'] = "'"+JSON.stringify(extraField)+"'"
+        }
 
         if(arrayErrors.length>0){
             for (const arrayError of arrayErrors) {
@@ -39,15 +53,15 @@ function createCSVData(jsonData: any[]): any[] {
 
 
 
-    };
+    }
 
     return csvData
 }
 
-export function convertJSONtoCSV(jsonContentString: string): string {
+export function convertJSONtoCSV(jsonContentString: string, saveExtrafield : boolean): string {
     let jsonContent = JSON.parse(jsonContentString);
 
-    const csvData = createCSVData(jsonContent);
+    const csvData = createCSVData(jsonContent, saveExtrafield);
 
     if (csvData.length === 0 || csvData.every((item) => Object.values(item).every((value) => value === "" || value === null))) {
         const headerString = ""; // Aucune ligne à convertir, donc pas besoin de l'en-tête
@@ -57,7 +71,9 @@ export function convertJSONtoCSV(jsonContentString: string): string {
             header: Object.keys(csvData[0]).map((header) => ({ id: header, title: header })),
         });
 
-        const csvString = csvStringifier.getHeaderString() + csvStringifier.stringifyRecords(csvData);
+        const csvString = csvStringifier.getHeaderString() +
+            csvStringifier.stringifyRecords(csvData)
+                .replace(/""/g, '"').replace(/'"/g,"'").replace(/"'/g,"'")
         return csvString;
     }
 
