@@ -1,6 +1,6 @@
 import {ExtraFieldsCSV, JsonFromSbs} from "./types";
 
-export function convertSBStoJSON(sbsContent: string): string {
+export function convertSBStoJSON(sbsContent: string, saveExtraField : boolean = false): string {
     const sbsRows: string[] = sbsContent.split('\n');
     let jsonContent : {}[] = []
 
@@ -41,7 +41,7 @@ export function convertSBStoJSON(sbsContent: string): string {
             beforeJson = sbsRow.substring(0, jsonIndexStart)
             objectJson = JSON.parse(sbsRow.substring(jsonIndexStart))
             if (Object.keys(objectJson).length === 0) {
-                return "Error content file"
+                arrayErrors.push(`Error line ${index} : Error of JSON of extraField`)
             }
             elements = beforeJson.split(',');
         }else{
@@ -75,7 +75,7 @@ export function convertSBStoJSON(sbsContent: string): string {
                     onground : elements[21]
                 }
 
-                if(elements.length == 23){
+                if(elements.length == 23 && saveExtraField){
                     oneJsonObject.last_position = objectJson.last_position
                     oneJsonObject.lastcontact = objectJson.lastcontact
                     oneJsonObject.hour = objectJson.hour
@@ -86,7 +86,7 @@ export function convertSBStoJSON(sbsContent: string): string {
                     oneJsonObject.haveLabel = elements[22]
                     oneJsonObject.label = elements[23]
 
-                    if(elements.length == 25){
+                    if(elements.length == 25 && saveExtraField){
                         oneJsonObject.last_position = objectJson.last_position
                         oneJsonObject.lastcontact = objectJson.lastcontact
                         oneJsonObject.hour = objectJson.hour
