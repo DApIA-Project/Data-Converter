@@ -33,7 +33,7 @@ describe('SbsToNdjsonToCsv', () => {
             const csvContent: string = convertNDJSONtoCSV(ndjsonContent,false)
 
             const expectedResult: string = "timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n" +
-                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,121.92,121.92,,,\n"
+                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,,121.92,,,\n"
             assert.deepStrictEqual(csvContent, expectedResult)
         })
 
@@ -43,7 +43,7 @@ describe('SbsToNdjsonToCsv', () => {
             const csvContent: string = convertNDJSONtoCSV(ndjsonContent,false)
 
             const expectedResult: string = "timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n" +
-                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,121.92,121.92,,,\n"
+                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,,121.92,,,\n"
             assert.deepStrictEqual(csvContent, expectedResult)
         })
 
@@ -55,7 +55,7 @@ describe('SbsToNdjsonToCsv', () => {
             const csvContent: string = convertNDJSONtoCSV(ndjsonContent,false)
 
             const expectedResult: string = "timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n" +
-                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,False,False,False,7015,121.92,121.92,,,\n"
+                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,False,False,False,7015,,121.92,,,\n"
             assert.deepStrictEqual(csvContent, expectedResult)
         })
         it('return csv content when sbs content is valid with last line empty', async () => {
@@ -65,7 +65,7 @@ describe('SbsToNdjsonToCsv', () => {
             const csvContent: string = convertJSONtoCSV(ndjsonContent,false)
 
             const expectedResult: string = "timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n" +
-                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,False,False,False,7015,121.92,121.92,,,\n"
+                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,False,False,False,7015,,121.92,,,\n"
             assert.deepStrictEqual(csvContent, expectedResult)
         })
 
@@ -75,7 +75,7 @@ describe('SbsToNdjsonToCsv', () => {
             const csvContent: string = convertNDJSONtoCSV(ndjsonContent,true)
 
             const expectedResult: string = "timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n" +
-                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,121.92,121.92,,,,\'{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"flightID\":\"1\",\"emergency\":\"0\"}\'\n"
+                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,,121.92,,,,\'{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"flightID\":\"1\",\"emergency\":\"0\"}\'\n"
             assert.deepStrictEqual(csvContent, expectedResult)
         })
 
@@ -86,7 +86,7 @@ describe('SbsToNdjsonToCsv', () => {
             const csvContent: string = convertNDJSONtoCSV(ndjsonContent,true)
 
             const expectedResult: string = "timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n" +
-                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,121.92,121.92,,,,\'{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"flightID\":\"1\",\"emergency\":\"0\",\"haveLabel\":\"1\",\"label\":\"1024\"}\'\n"
+                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,,121.92,,,,\'{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"flightID\":\"1\",\"emergency\":\"0\",\"haveLabel\":\"1\",\"label\":\"1024\"}\'\n"
             assert.deepStrictEqual(csvContent, expectedResult)
         })
 
@@ -98,7 +98,7 @@ describe('SbsToNdjsonToCsv', () => {
             const csvContent: string = convertNDJSONtoCSV(ndjsonContent,true)
 
             const expectedResult: string = "timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n" +
-                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,False,False,False,7015,121.92,121.92,,,,\'{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"flightID\":\"1\",\"emergency\":\"0\"}\'\n"
+                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,False,False,False,7015,,121.92,,,,\'{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"flightID\":\"1\",\"emergency\":\"0\"}\'\n"
             assert.deepStrictEqual(csvContent, expectedResult)
         })
         it('return csv content when sbs content is valid with last line empty with extraField', async () => {
@@ -108,7 +108,7 @@ describe('SbsToNdjsonToCsv', () => {
             const csvContent: string = convertNDJSONtoCSV(ndjsonContent,true)
 
             const expectedResult: string = "timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n" +
-                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,False,False,False,7015,121.92,121.92,,,,\'{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"flightID\":\"1\",\"emergency\":\"0\"}\'\n"
+                "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,False,False,False,7015,,121.92,,,,\'{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"flightID\":\"1\",\"emergency\":\"0\"}\'\n"
             assert.deepStrictEqual(csvContent, expectedResult)
         })
 

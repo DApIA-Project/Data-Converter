@@ -35,7 +35,7 @@ describe('CsvToNdson', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1\n"
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1\n"
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 

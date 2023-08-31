@@ -48,7 +48,7 @@ export function convertNDJSONtoSBS(ndjsonContentString: string, saveExtraField :
             + (jsonContentElement.dateMessageLogged === undefined || jsonContentElement.dateMessageLogged === '' ? buildDateValue(jsonContentElement) === "Error" ? arrayErrors.push(`Error line ${index} : No date is found in this message : ${sbsString}`) : buildDateValue(jsonContentElement) : jsonContentElement.dateMessageLogged)+ ","
             + (jsonContentElement.timeMessageLogged === undefined || jsonContentElement.timeMessageLogged === '' ? buildTimeValue(jsonContentElement) === "Error" ? arrayErrors.push(`Error line ${index} : No time is found in this message : ${sbsString}`) : buildTimeValue(jsonContentElement): jsonContentElement.timeMessageLogged)+ ","
             + (jsonContentElement.callsign === undefined || jsonContentElement.callsign === '' ? '' : jsonContentElement.callsign) + ","
-            + (jsonContentElement.altitude === undefined || jsonContentElement.altitude === '' ? '' : jsonContentElement.altitude)+ ","
+            + (jsonContentElement.geoaltitude === undefined || jsonContentElement.geoaltitude === '' ? '' : jsonContentElement.geoaltitude)+ ","
             + (jsonContentElement.groundspeed === undefined || jsonContentElement.groundspeed === '' ? '' : jsonContentElement.groundspeed)+ ","
             + (jsonContentElement.track === undefined || jsonContentElement.track === '' ? '' : jsonContentElement.track)+ ","
             + (jsonContentElement.latitude === undefined || jsonContentElement.latitude === '' ? '' : jsonContentElement.latitude)+ ","

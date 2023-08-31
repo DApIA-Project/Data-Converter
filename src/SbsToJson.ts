@@ -9,7 +9,7 @@ export function convertSBStoJSON(sbsContent: string, saveExtraField : boolean = 
         let oneJsonObject : JsonFromSbs = {
             aircraftID: "",
             alert: "",
-            altitude: "",
+            geoaltitude: "",
             callsign: "",
             dateMessageGenerated: "",
             dateMessageLogged: "",
@@ -62,7 +62,7 @@ export function convertSBStoJSON(sbsContent: string, saveExtraField : boolean = 
                     dateMessageLogged : (elements[8] === '' ? arrayErrors.push(`Error line ${index} : No date message logged found in this message : ${sbsRow}`) : elements[8]),
                     timeMessageLogged : (elements[9] === '' ? arrayErrors.push(`Error line ${index} : No time message logged found in this message : ${sbsRow}`) : elements[9]),
                     callsign : elements[10],
-                    altitude : elements[11],
+                    geoaltitude : elements[11],
                     groundspeed : elements[12],
                     track : elements[13],
                     latitude : elements[14],
@@ -76,6 +76,7 @@ export function convertSBStoJSON(sbsContent: string, saveExtraField : boolean = 
                 }
 
                 if(elements.length == 23 && saveExtraField){
+                    oneJsonObject.altitude = objectJson.altitude
                     oneJsonObject.last_position = objectJson.last_position
                     oneJsonObject.lastcontact = objectJson.lastcontact
                     oneJsonObject.hour = objectJson.hour
@@ -87,6 +88,7 @@ export function convertSBStoJSON(sbsContent: string, saveExtraField : boolean = 
                     oneJsonObject.label = elements[23]
 
                     if(elements.length == 25 && saveExtraField){
+                        oneJsonObject.altitude = objectJson.altitude
                         oneJsonObject.last_position = objectJson.last_position
                         oneJsonObject.lastcontact = objectJson.lastcontact
                         oneJsonObject.hour = objectJson.hour

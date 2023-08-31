@@ -58,7 +58,7 @@ describe('CsvToNdjsonToSbs', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent,false)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1\n"
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1\n"
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 
@@ -68,7 +68,7 @@ describe('CsvToNdjsonToSbs', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent,false)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,0,0,0,0\n"
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,0,0,0,0\n"
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 
@@ -78,7 +78,7 @@ describe('CsvToNdjsonToSbs', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent,false)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1\n"
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1\n"
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 
@@ -88,7 +88,7 @@ describe('CsvToNdjsonToSbs', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent,false)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,7015,1,0,1,1\n"
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,7015,1,0,1,1\n"
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 
@@ -99,8 +99,8 @@ describe('CsvToNdjsonToSbs', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent,false)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1\n" +
-                "MSG,3,1,1,39c902,1,2023/01/01,12:21:12.000,2023/01/01,12:21:12.000,SAMU13,-38.1,4.395411462756131,290.5560452195834,43.28981043928761,5.402265276227679,5.52704,,1,0,1,1\n"
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1\n" +
+                "MSG,3,1,1,39c902,1,2023/01/01,12:21:12.000,2023/01/01,12:21:12.000,SAMU13,129.54,4.395411462756131,290.5560452195834,43.28981043928761,5.402265276227679,5.52704,,1,0,1,1\n"
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 
@@ -112,8 +112,8 @@ describe('CsvToNdjsonToSbs', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent,false)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1\n" +
-                "MSG,3,1,1,39c902,1,2023/01/01,12:21:12.000,2023/01/01,12:21:12.000,SAMU13,-38.1,4.395411462756131,290.5560452195834,43.28981043928761,5.402265276227679,5.52704,,1,0,1,1\n"
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1\n" +
+                "MSG,3,1,1,39c902,1,2023/01/01,12:21:12.000,2023/01/01,12:21:12.000,SAMU13,129.54,4.395411462756131,290.5560452195834,43.28981043928761,5.402265276227679,5.52704,,1,0,1,1\n"
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 
@@ -123,7 +123,7 @@ describe('CsvToNdjsonToSbs', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent,false)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1\n";
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1\n";
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 
@@ -138,7 +138,7 @@ describe('CsvToNdjsonToSbs', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent,true)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n"
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n"
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 
@@ -148,7 +148,7 @@ describe('CsvToNdjsonToSbs', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent,true)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,0,0,0,0,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n"
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,0,0,0,0,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n"
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 
@@ -158,7 +158,7 @@ describe('CsvToNdjsonToSbs', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent,true)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n"
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n"
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 
@@ -168,7 +168,7 @@ describe('CsvToNdjsonToSbs', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent,true)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,7015,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n"
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,7015,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n"
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 
@@ -179,8 +179,8 @@ describe('CsvToNdjsonToSbs', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent,true)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n" +
-                "MSG,3,1,1,39c902,1,2023/01/01,12:21:12.000,2023/01/01,12:21:12.000,SAMU13,-38.1,4.395411462756131,290.5560452195834,43.28981043928761,5.402265276227679,5.52704,,1,0,1,1,{\"altitude\":\"-38.1\",\"last_position\":\"1672575671.346\",\"lastcontact\":\"1672575671.892\",\"hour\":\"1672574400\"}\n"
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n" +
+                "MSG,3,1,1,39c902,1,2023/01/01,12:21:12.000,2023/01/01,12:21:12.000,SAMU13,129.54,4.395411462756131,290.5560452195834,43.28981043928761,5.402265276227679,5.52704,,1,0,1,1,{\"altitude\":\"-38.1\",\"last_position\":\"1672575671.346\",\"lastcontact\":\"1672575671.892\",\"hour\":\"1672574400\"}\n"
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 
@@ -192,8 +192,8 @@ describe('CsvToNdjsonToSbs', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent,true)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n" +
-                "MSG,3,1,1,39c902,1,2023/01/01,12:21:12.000,2023/01/01,12:21:12.000,SAMU13,-38.1,4.395411462756131,290.5560452195834,43.28981043928761,5.402265276227679,5.52704,,1,0,1,1,{\"altitude\":\"-38.1\",\"last_position\":\"1672575671.346\",\"lastcontact\":\"1672575671.892\",\"hour\":\"1672574400\"}\n"
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n" +
+                "MSG,3,1,1,39c902,1,2023/01/01,12:21:12.000,2023/01/01,12:21:12.000,SAMU13,129.54,4.395411462756131,290.5560452195834,43.28981043928761,5.402265276227679,5.52704,,1,0,1,1,{\"altitude\":\"-38.1\",\"last_position\":\"1672575671.346\",\"lastcontact\":\"1672575671.892\",\"hour\":\"1672574400\"}\n"
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 
@@ -203,7 +203,7 @@ describe('CsvToNdjsonToSbs', () => {
             const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
             const sbsContent: string = convertNDJSONtoSBS(ndjsonContent,true)
 
-            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,-45.72,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n";
+            const expectedResult: string = "MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n";
             assert.deepStrictEqual(sbsContent, expectedResult)
         })
 

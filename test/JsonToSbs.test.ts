@@ -280,7 +280,7 @@ describe('JsonToSbs', () => {
                 "\"onground\":\"0\",\"alert\":\"0\",\"spi\":\"1\",\"squawk\":\"1000\",\"geoaltitude\":\"7450.0\",\"last_position\":\"\",\"lastcontact\":\"\",\"hour\":\"\"}]";
             const sbsContent : string = convertJSONtoSBS(jsonContent)
 
-            const expectedResult : string = "MSG,3,1,1,34648e,1,2022/07/29,20:42:30.000,2022/07/29,20:42:30.000,,,,,,,,1000,0,0,1,0\n"
+            const expectedResult : string = "MSG,3,1,1,34648e,1,2022/07/29,20:42:30.000,2022/07/29,20:42:30.000,,7450.0,,,,,,1000,0,0,1,0\n"
             assert.deepStrictEqual(sbsContent,expectedResult)
         })
 
@@ -462,7 +462,7 @@ describe('JsonToSbs', () => {
                 "\"onground\":\"0\",\"alert\":\"0\",\"spi\":\"1\",\"squawk\":\"1000\",\"geoaltitude\":\"7450.0\",\"last_position\":\"\",\"lastcontact\":\"\",\"hour\":\"\"}]";
             const sbsContent : string = convertJSONtoSBS(jsonContent,true)
 
-            const expectedResult : string = "MSG,3,1,1,34648e,1,2022/07/29,20:42:30.000,2022/07/29,20:42:30.000,,,,,,,,1000,0,0,1,0,{\"last_position\":\"\",\"lastcontact\":\"\",\"hour\":\"\"}\n"
+            const expectedResult : string = "MSG,3,1,1,34648e,1,2022/07/29,20:42:30.000,2022/07/29,20:42:30.000,,7450.0,,,,,,1000,0,0,1,0,{\"last_position\":\"\",\"lastcontact\":\"\",\"hour\":\"\"}\n"
             assert.deepStrictEqual(sbsContent,expectedResult)
         })
 
