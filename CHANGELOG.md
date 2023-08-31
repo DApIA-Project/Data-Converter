@@ -17,6 +17,13 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+## [v2.4.0](https://github.com/DApIA-Project/Data-Converter/compare/v2.3.0...v2.4.0)
+
+### Changed
+
+- Ability to save extraFields in `SbsToJson`,`JsonToSbs`,`SbsToNdjson`,`NdjsonToSbs`,`CsvToJson`,`JsonToCsv`,`CsvToNdjson` and `NdjsonToCsv`
+- Unit tests
+
 ## [v2.3.0](https://github.com/DApIA-Project/Data-Converter/compare/v2.2.0...v2.3.0)
 
 ### Added

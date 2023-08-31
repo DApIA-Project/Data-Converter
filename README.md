@@ -29,7 +29,7 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    "@dapia-project/data-converter" : "^2.3.0"
+    "@dapia-project/data-converter" : "^2.4.0"
   }
 }
 ```
@@ -89,52 +89,52 @@ const csvData : string = convertSBStoCSV(options);
 ```
 
 ## Options
-For all except SBStoCSV :
+For SBStoCSV :
 
 | key     | type         | use                            | default value |
 |---------|--------------|--------------------------------|---------------|
 | content | String       | The content of file to convert |               |
 
 \
-For SBS to CSV :
+For all except SBStoCSV :
 
-| key             | type    | use                                     | default value |
-|-----------------|---------|-----------------------------------------|---------------|
-| sbsContent      | String  | The content of sbs file to convert      |               |
-| saveExtraField? | boolean | Choice to have extraField of SBS in CSV | false         |
+| key             | type    | use                                             | default value |
+|-----------------|---------|-------------------------------------------------|---------------|
+| content         | String  | The content of sbs file to convert              |               |
+| saveExtraField? | boolean | Choice to have extraField of Format1 in Format2 | false         |
 
 
 ## Order of fields
 
 For SBS files :
 
-| Number       | Field                  |
-|--------------|------------------------|
-| Field 1      | Message type           |
-| Field 2      | Transmission type      |
-| Field 3      | Session ID             |
-| Field 4      | Aircraft ID            |
-| Field 5      | HexIdent (ICAO)        |
-| Field 6      | Flight ID              |
-| Field 7      | Date message generated |
-| Field 8      | Time message generated |
-| Field 9      | Date message logged    |
-| Field 10     | Time message logged    |
-| Field 11     | Callsign               |
-| Field 12     | Altitude               |
-| Field 13     | GroundSpeed            |
-| Field 14     | Track                  |
-| Field 15     | Latitude               |
-| Field 16     | Longitude              |
-| Field 17     | VerticalRate           |
-| Field 18     | Squawk                 |
-| Field 19     | Alert (Squawk change)  |
-| Field 20     | Emergency              |
-| Field 21     | SPI (Ident)            |
-| Field 22     | IsOnGround             |
-| Field 23     | HaveLabel?             |
-| Field 24     | Label?                 |
-| Field 23 or 25 | ExtraField             |
+| Number       | Field                |
+|--------------|----------------------|
+| Field 1      | messageType          |
+| Field 2      | transmissionType     |
+| Field 3      | sessionID            |
+| Field 4      | aircraftID           |
+| Field 5      | icao24               |
+| Field 6      | flightID             |
+| Field 7      | dateMessageGenerated |
+| Field 8      | timeMessageGenerated |
+| Field 9      | dateMessageLogged    |
+| Field 10     | timeMessageLogged    |
+| Field 11     | callsign             |
+| Field 12     | geoaltitude          |
+| Field 13     | groundspeed          |
+| Field 14     | track                |
+| Field 15     | latitude             |
+| Field 16     | longitude            |
+| Field 17     | vertical_rate        |
+| Field 18     | squawk               |
+| Field 19     | alert                |
+| Field 20     | emergency            |
+| Field 21     | spi                  |
+| Field 22     | onground             |
+| Field 23     | haveLabel?           |
+| Field 24     | label?               |
+| Field 23 or 25 | extraField?          |
 
 \
 The HaveLabel and Label fields are not required. But if one is present then so is the other.
@@ -192,5 +192,36 @@ The ExtraField field is a JSON object that contains information present in a con
   "label?" : ""
 }
 ```
-\
-The ExtraField are only for CsvToSbs and SbsToCsv converters.
+For JSON and NDJSON files :
+
+| Field                 |
+|-----------------------|
+| timestamp?            |
+| icao24?               |
+| latitude?             |
+| longitude?            |
+| groundspeed?          |
+| track?                |
+| vertical_rate?        |
+| callsign?             |
+| onground?             |
+| alert?                |
+| spi?                  |
+| squawk?               |
+| altitude?             |
+| geoaltitude?          |
+| last_position?        |
+| lastcontact?          |
+| hour?                 |
+| messageType?          |
+| transmissionType?     |
+| sessionID?            |
+| aircraftID?           |
+| flightID?             |
+| emergency?            |
+| dateMessageGenerated? |
+| timeMessageGenerated? |
+| dateMessageLogged?    |
+| timeMessageLogged?    |
+| haveLabel?            |
+| label?                |
