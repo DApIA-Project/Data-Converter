@@ -1,5 +1,5 @@
 import {describe} from "mocha";
-import { convertSBStoCSV} from "../src";
+import {convertSBStoCSV} from "../src";
 import assert from "assert";
 import {getDateToTimestamp} from "../src/utils/utils";
 
@@ -27,7 +27,7 @@ describe('SbsToCsv', () => {
     context('Data sbs no valid', () => {
         it('return Error when extrafield is empty', async () => {
             const csvContent: string = "MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{}";
-            const sbsContent: string = convertSBStoCSV(csvContent,true)
+            const sbsContent: string = convertSBStoCSV(csvContent, true)
 
             const expectedResult: string = "Error content file"
             assert.deepStrictEqual(sbsContent, expectedResult)
@@ -79,7 +79,7 @@ describe('SbsToCsv', () => {
         })
         it('return csv content when sbs content is valid with squawk and alert, emergency and isonground to false', async () => {
             const csvContent: string = "MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,7015,0,0,0,0,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}";
-            const sbsContent: string = convertSBStoCSV(csvContent,true)
+            const sbsContent: string = convertSBStoCSV(csvContent, true)
 
             const expectedResult: string = "timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n" +
                 "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,False,False,False,7015,-45.72,121.92,1672575670.76,1672575670.797,1672574400,'{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"flightID\":\"1\",\"emergency\":\"0\"}'"
@@ -87,8 +87,8 @@ describe('SbsToCsv', () => {
         })
         it('return csv content when sbs content is valid with last line empty', async () => {
             const csvContent: string = "MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,7015,0,0,0,0,{\"altitude\":\"-45.72\",\"last_position\":\"1672575670.76\",\"lastcontact\":\"1672575670.797\",\"hour\":\"1672574400\"}\n" +
-                                        "";
-            const sbsContent: string = convertSBStoCSV(csvContent,true)
+                "";
+            const sbsContent: string = convertSBStoCSV(csvContent, true)
 
             const expectedResult: string = "timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n" +
                 "1672579271,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,False,False,False,7015,-45.72,121.92,1672575670.76,1672575670.797,1672574400,'{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"flightID\":\"1\",\"emergency\":\"0\"}'"
@@ -140,7 +140,7 @@ describe('SbsToCsv', () => {
 
         it('return csv content when sbs content is valid with values empty with extraField', async () => {
             const sbsContent: string = "MSG,3,1,1,,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,,,,,,,,,0,0,0,0,{\"altitude\":\"\",\"last_position\":\"\",\"lastcontact\":\"\",\"hour\":\"\"}";
-            const csvContent: string = convertSBStoCSV(sbsContent,true)
+            const csvContent: string = convertSBStoCSV(sbsContent, true)
 
             const expectedResult: string = "timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n" +
                 "1672575671,,,,,,,,False,False,False,NaN,,,,,,'{\"messageType\":\"MSG\",\"transmissionType\":\"3\",\"sessionID\":\"1\",\"aircraftID\":\"1\",\"flightID\":\"1\",\"emergency\":\"0\"}'"

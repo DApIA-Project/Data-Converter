@@ -1,8 +1,10 @@
 ![Data Converter Tests workflow](https://github.com/DApIA-Project/Data-Converter/actions/workflows/dataconverter.yml/badge.svg)
 
 # Data-Converter
+
 This conversion is for ADS-B data only.\
 This library contains several conversion tools for ADS-B messages. We find :
+
 - SBS to JSON
 - JSON to SBS
 - SBS to NDJSON
@@ -29,71 +31,100 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    "@dapia-project/data-converter" : "^2.4.0"
+    "@dapia-project/data-converter": "^2.4.0"
   }
 }
 ```
 
 ## Initialization
 
+Import SBS to JSON converter:
+
 ```typescript
-// import SBS to JSON converter
 import {convertSBStoJSON} from '@dapia-project/data-converter/src/SbsToJson'
-const jsonData : string = convertSBStoJSON(options);
 
+const jsonData: string = convertSBStoJSON(options);
+```
 
-// import JSON to SBS converter
+Import JSON to SBS converter:
+
+```typescript
 import {convertJSONtoSBS} from '@dapia-project/data-converter/src/JsonToSbs'
-const sbsData : string = convertJSONtoSBS(options);
 
+const sbsData: string = convertJSONtoSBS(options);
+```
 
-// import SBS to NDJSON converter
+Import SBS to NDJSON converter:
+
+```typescript
 import {convertSBStoNDJSON} from '@dapia-project/data-converter/src/SbsToNdjson'
-const ndjsonData : string = convertSBStoNDJSON(options);
 
+const ndjsonData: string = convertSBStoNDJSON(options);
+```
 
-// import NDJSON to SBS converter
+Import NDJSON to SBS converter:
+
+```typescript
 import {convertNDJSONtoSBS} from '@dapia-project/data-converter/src/NdjsonToSbs'
-const sbsData : string = convertNDJSONtoSBS(options);
 
+const sbsData: string = convertNDJSONtoSBS(options);
+```
 
-// import CSV to JSON converter
+Import CSV to JSON converter:
+
+```typescript
 import {convertCSVtoJSON} from '@dapia-project/data-converter/src/CsvToJson'
-const jsonData : string = convertCSVtoJSON(options);
 
+const jsonData: string = convertCSVtoJSON(options);
+```
 
-// import JSON to CSV converter
+Import JSON to CSV converter:
+
+```typescript
 import {convertJSONtoCSV} from '@dapia-project/data-converter/src/JsonToCsv'
-const csvData : string = convertJSONtoCSV(options);
 
+const csvData: string = convertJSONtoCSV(options);
+```
 
-// import CSV to NDJSON converter
+Import CSV to NDJSON converter:
+
+```typescript
 import {convertCSVtoNDJSON} from '@dapia-project/data-converter/src/CsvToNdjson'
-const ndjsonData : string = convertCSVtoNDJSON(options);
 
+const ndjsonData: string = convertCSVtoNDJSON(options);
+```
 
-// import NDJSON to CSV converter
+Import NDJSON to CSV converter:
+
+```typescript
 import {convertNDJSONtoCSV} from '@dapia-project/data-converter/src/NdjsonToCsv'
-const csvData : string = convertNDJSONtoCSV(options);
 
+const csvData: string = convertNDJSONtoCSV(options);
+```
 
-// import CSV to SBS converter
+Import CSV to SBS converter:
+
+```typescript
 import {convertCSVtoSBS} from '@dapia-project/data-converter/src/CsvToSbs'
 
-const sbsData : string = convertCSVtoSBS(options);
+const sbsData: string = convertCSVtoSBS(options);
+```
 
+Import SBS to CSV converter:
 
-// import SBS to CSV converter
+```typescript
 import {convertSBStoCSV} from '@dapia-project/data-converter/src/SbsToCsv'
-const csvData : string = convertSBStoCSV(options);
+
+const csvData: string = convertSBStoCSV(options);
 ```
 
 ## Options
+
 For SBStoCSV :
 
-| key     | type         | use                            | default value |
-|---------|--------------|--------------------------------|---------------|
-| content | String       | The content of file to convert |               |
+| key     | type   | use                            | default value |
+|---------|--------|--------------------------------|---------------|
+| content | String | The content of file to convert |               |
 
 \
 For all except SBStoCSV :
@@ -103,58 +134,60 @@ For all except SBStoCSV :
 | content         | String  | The content of sbs file to convert              |               |
 | saveExtraField? | boolean | Choice to have extraField of Format1 in Format2 | false         |
 
-
 ## Order of fields
 
 For SBS files :
 
-| Number       | Field                |
-|--------------|----------------------|
-| Field 1      | messageType          |
-| Field 2      | transmissionType     |
-| Field 3      | sessionID            |
-| Field 4      | aircraftID           |
-| Field 5      | icao24               |
-| Field 6      | flightID             |
-| Field 7      | dateMessageGenerated |
-| Field 8      | timeMessageGenerated |
-| Field 9      | dateMessageLogged    |
-| Field 10     | timeMessageLogged    |
-| Field 11     | callsign             |
-| Field 12     | geoaltitude          |
-| Field 13     | groundspeed          |
-| Field 14     | track                |
-| Field 15     | latitude             |
-| Field 16     | longitude            |
-| Field 17     | vertical_rate        |
-| Field 18     | squawk               |
-| Field 19     | alert                |
-| Field 20     | emergency            |
-| Field 21     | spi                  |
-| Field 22     | onground             |
-| Field 23     | haveLabel?           |
-| Field 24     | label?               |
+| Number         | Field                |
+|----------------|----------------------|
+| Field 1        | messageType          |
+| Field 2        | transmissionType     |
+| Field 3        | sessionID            |
+| Field 4        | aircraftID           |
+| Field 5        | icao24               |
+| Field 6        | flightID             |
+| Field 7        | dateMessageGenerated |
+| Field 8        | timeMessageGenerated |
+| Field 9        | dateMessageLogged    |
+| Field 10       | timeMessageLogged    |
+| Field 11       | callsign             |
+| Field 12       | geoaltitude          |
+| Field 13       | groundspeed          |
+| Field 14       | track                |
+| Field 15       | latitude             |
+| Field 16       | longitude            |
+| Field 17       | vertical_rate        |
+| Field 18       | squawk               |
+| Field 19       | alert                |
+| Field 20       | emergency            |
+| Field 21       | spi                  |
+| Field 22       | onground             |
+| Field 23       | haveLabel?           |
+| Field 24       | label?               |
 | Field 23 or 25 | extraField?          |
 
 \
 The HaveLabel and Label fields are not required. But if one is present then so is the other.
 \
-The ExtraField field is a JSON object that contains information present in a converted csv file not present in sbs file. Here is its structure:
+The ExtraField field is a JSON object that contains information present in a converted csv file not present in sbs file.
+Here is its structure:
 
 ```json
 {
-  "altitude" : "",
-  "last_position" : "",
-  "lastcontact" : "",
-  "hour" : ""
+  "altitude": "",
+  "last_position": "",
+  "lastcontact": "",
+  "hour": ""
 }
 ```
+
 You can find information about the SBS format here: http://woodair.net/sbs/Article/Barebones42_Socket_Data.htm
 \
 \
 For CSV files :
 
-The order of the fields below is the order when converting SBS to CSV. However, the order of fields in a CSV file during a CSV to SBS conversion does not follow a certain pattern.
+The order of the fields below is the order when converting SBS to CSV. However, the order of fields in a CSV file during
+a CSV to SBS conversion does not follow a certain pattern.
 
 | Number   | Field         |
 |----------|---------------|
@@ -178,20 +211,22 @@ The order of the fields below is the order when converting SBS to CSV. However, 
 | Field 18 | extraField?   |
 
 \
-The ExtraField field is a JSON object that contains information present in a converted sbs file not present in csv file. It is not mandatory to add this field when converting. Here is its structure:
+The ExtraField field is a JSON object that contains information present in a converted sbs file not present in csv file.
+It is not mandatory to add this field when converting. Here is its structure:
 
 ```json
 {
-  "messageType" : "",
-  "transmissionType" : "",
-  "sessionID" : "",
-  "aircraftID" : "",
-  "flightID" : "",
-  "emergency" : "",
-  "haveLabel?" : "",
-  "label?" : ""
+  "messageType": "",
+  "transmissionType": "",
+  "sessionID": "",
+  "aircraftID": "",
+  "flightID": "",
+  "emergency": "",
+  "haveLabel?": "",
+  "label?": ""
 }
 ```
+
 For JSON and NDJSON files :
 
 | Field                 |

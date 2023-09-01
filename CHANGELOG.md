@@ -2,7 +2,6 @@
 
 All notable changes to this project will be documented in this file.
 
-
 ## [Unreleased](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.1...main)
 
 ### Info
@@ -21,14 +20,16 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- Ability to save extraFields in `SbsToJson`,`JsonToSbs`,`SbsToNdjson`,`NdjsonToSbs`,`CsvToJson`,`JsonToCsv`,`CsvToNdjson` and `NdjsonToCsv`
+- Ability to save extraFields
+  in `SbsToJson`,`JsonToSbs`,`SbsToNdjson`,`NdjsonToSbs`,`CsvToJson`,`JsonToCsv`,`CsvToNdjson` and `NdjsonToCsv`
 - Unit tests
 
 ## [v2.3.0](https://github.com/DApIA-Project/Data-Converter/compare/v2.2.0...v2.3.0)
 
 ### Added
 
-- 8 new types of converters `SbsToJson`,`JsonToSbs`,`SbsToNdjson`,`NdjsonToSbs`,`CsvToJson`,`JsonToCsv`,`CsvToNdjson` and `NdjsonToCsv` without extraField
+- 8 new types of converters `SbsToJson`,`JsonToSbs`,`SbsToNdjson`,`NdjsonToSbs`,`CsvToJson`,`JsonToCsv`,`CsvToNdjson`
+  and `NdjsonToCsv` without extraField
 - Unit tests
 
 ## [v2.2.0](https://github.com/DApIA-Project/Data-Converter/compare/v2.1.0...v2.2.0)
@@ -55,7 +56,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- Addition of boolean option when converting SBS to CSV which allows to have the extraField field in the CSV. Function : `convertSBStoCSV`, default value : `false`
+- Addition of boolean option when converting SBS to CSV which allows to have the extraField field in the CSV.
+  Function : `convertSBStoCSV`, default value : `false`
 - When converting CSV to SBS, the order of CSV fields can be any.
 - Using the csv-parse library to parse the csv in `convertCSVtoSBS` function
 - Update README.md
@@ -111,7 +113,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- Modify `tsconfig.json` and `package.json` for imports 
+- Modify `tsconfig.json` and `package.json` for imports
 
 ## [v1.0.3](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.2...v1.0.3)
 
@@ -124,7 +126,6 @@ All notable changes to this project will be documented in this file.
 ### Info
 
 - Release for npm publish
-
 
 ## [v1.0.0](https://github.com/DApIA-Project/Data-Converter/compare/old...new)
 
