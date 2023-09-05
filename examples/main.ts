@@ -1,6 +1,6 @@
 import * as fs from 'fs'
-import {convertCSVtoJSON} from "../src/CsvToJson";
-import {convertJSONtoSBS} from "../src/JsonToSbs";
+import { convertCSVtoJSON } from '../src/CsvToJson'
+import { convertJSONtoSBS } from '../src/JsonToSbs'
 
 /** CSV to SBS **/
 /*
@@ -25,7 +25,6 @@ const jsonFileToWritePath : string = "temp/2022_07_toulouse_SAMUCF_1h.json"
 const sbsData: string = fs.readFileSync(sbsFileToReadPath, 'utf-8');
 const jsonContent : string = convertSBStoJSON(sbsData);
 fs.writeFileSync(jsonFileToWritePath, jsonContent, 'utf-8')*/
-
 
 /** SBS to NDJSON **/
 /*
@@ -61,7 +60,6 @@ const csvContent : string = convertJSONtoCSV(jsonData);
 fs.writeFileSync(csvFileToWritePath, csvContent, 'utf-8')
 */
 
-
 /** NDJSON to CSV **/
 /*
 const ndjsonFileToReadPath : string = "temp/2022_07_toulouse_DRAG66.ndjson"
@@ -88,20 +86,14 @@ const ndjsonData: string = fs.readFileSync(ndjsonFileToReadPath, 'utf-8');
 const sbsContent : string = convertNDJSONtoSBS(ndjsonData);
 fs.writeFileSync(sbsFileToWritePath, sbsContent, 'utf-8')*/
 
-
 /** CSV to JSON to SBS **/
 
-const csvFileToReadPath: string = "temp/2022_07_toulouse_SWN5614_4m.csv"
-const sbsFileToWritePath: string = "temp/2022_07_toulouse_SWN5614_4m_FromCsvToJson.sbs"
-const csvData: string = fs.readFileSync(csvFileToReadPath, 'utf-8');
+const csvFileToReadPath: string = 'temp/2022_07_toulouse_SWN5614_4m.csv'
+const sbsFileToWritePath: string =
+  'temp/2022_07_toulouse_SWN5614_4m_FromCsvToJson.sbs'
+const csvData: string = fs.readFileSync(csvFileToReadPath, 'utf-8')
 
-const jsonContent: string = convertCSVtoJSON(csvData);
+const jsonContent: string = convertCSVtoJSON(csvData)
 console.log(jsonContent)
-const sbsContent: string = convertJSONtoSBS(jsonContent);
+const sbsContent: string = convertJSONtoSBS(jsonContent)
 fs.writeFileSync(sbsFileToWritePath, sbsContent, 'utf-8')
-
-
-
-
-
-

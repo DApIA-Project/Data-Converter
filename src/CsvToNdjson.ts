@@ -1,20 +1,27 @@
-import {parse} from "csv-parse/sync"
+import { parse } from 'csv-parse/sync'
 
-export function convertCSVtoNDJSON(csvContent: string, saveExtraField: boolean = false): string {
-    const linesObject = parse(csvContent, {columns: true, quote: "'"})
-    const jsonContent: string[] = [];
-    for (const lineObject of linesObject) {
-        if (lineObject.timestamp && !isNaN(parseInt(lineObject.timestamp))) {
-            let extraField = {}
-            if (saveExtraField) {
-                extraField = lineObject.extraField ? JSON.parse(lineObject.extraField.replace(/([a-zA-Z0-9_]+)(\s*)/g, '"$1"$2')) : {};
-            }
-            delete lineObject.extraField;
+export function convertCSVtoNDJSON(
+  csvContent: string,
+  saveExtraField: boolean = false,
+): string {
+  const linesObject = parse(csvContent, { columns: true, quote: "'" })
+  const jsonContent: string[] = []
+  for (const lineObject of linesObject) {
+    if (lineObject.timestamp && !isNaN(parseInt(lineObject.timestamp))) {
+      let extraField = {}
+      if (saveExtraField) {
+        extraField = lineObject.extraField
+          ? JSON.parse(
+              lineObject.extraField.replace(/([a-zA-Z0-9_]+)(\s*)/g, '"$1"$2'),
+            )
+          : {}
+      }
+      delete lineObject.extraField
 
-            // Fusionnez les données de la ligne et du champ "extraField"
-            const mergedObject = {...lineObject, ...extraField};
-            jsonContent.push(JSON.stringify(mergedObject));
-        }
+      // Fusionnez les données de la ligne et du champ "extraField"
+      const mergedObject = { ...lineObject, ...extraField }
+      jsonContent.push(JSON.stringify(mergedObject))
     }
-    return jsonContent.join('\n')
+  }
+  return jsonContent.join('\n')
 }

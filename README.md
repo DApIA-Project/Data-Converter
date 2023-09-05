@@ -41,81 +41,81 @@ In your `package.json`, add the following:
 Import SBS to JSON converter:
 
 ```typescript
-import {convertSBStoJSON} from '@dapia-project/data-converter/src/SbsToJson'
+import { convertSBStoJSON } from '@dapia-project/data-converter/src/SbsToJson'
 
-const jsonData: string = convertSBStoJSON(options);
+const jsonData: string = convertSBStoJSON(options)
 ```
 
 Import JSON to SBS converter:
 
 ```typescript
-import {convertJSONtoSBS} from '@dapia-project/data-converter/src/JsonToSbs'
+import { convertJSONtoSBS } from '@dapia-project/data-converter/src/JsonToSbs'
 
-const sbsData: string = convertJSONtoSBS(options);
+const sbsData: string = convertJSONtoSBS(options)
 ```
 
 Import SBS to NDJSON converter:
 
 ```typescript
-import {convertSBStoNDJSON} from '@dapia-project/data-converter/src/SbsToNdjson'
+import { convertSBStoNDJSON } from '@dapia-project/data-converter/src/SbsToNdjson'
 
-const ndjsonData: string = convertSBStoNDJSON(options);
+const ndjsonData: string = convertSBStoNDJSON(options)
 ```
 
 Import NDJSON to SBS converter:
 
 ```typescript
-import {convertNDJSONtoSBS} from '@dapia-project/data-converter/src/NdjsonToSbs'
+import { convertNDJSONtoSBS } from '@dapia-project/data-converter/src/NdjsonToSbs'
 
-const sbsData: string = convertNDJSONtoSBS(options);
+const sbsData: string = convertNDJSONtoSBS(options)
 ```
 
 Import CSV to JSON converter:
 
 ```typescript
-import {convertCSVtoJSON} from '@dapia-project/data-converter/src/CsvToJson'
+import { convertCSVtoJSON } from '@dapia-project/data-converter/src/CsvToJson'
 
-const jsonData: string = convertCSVtoJSON(options);
+const jsonData: string = convertCSVtoJSON(options)
 ```
 
 Import JSON to CSV converter:
 
 ```typescript
-import {convertJSONtoCSV} from '@dapia-project/data-converter/src/JsonToCsv'
+import { convertJSONtoCSV } from '@dapia-project/data-converter/src/JsonToCsv'
 
-const csvData: string = convertJSONtoCSV(options);
+const csvData: string = convertJSONtoCSV(options)
 ```
 
 Import CSV to NDJSON converter:
 
 ```typescript
-import {convertCSVtoNDJSON} from '@dapia-project/data-converter/src/CsvToNdjson'
+import { convertCSVtoNDJSON } from '@dapia-project/data-converter/src/CsvToNdjson'
 
-const ndjsonData: string = convertCSVtoNDJSON(options);
+const ndjsonData: string = convertCSVtoNDJSON(options)
 ```
 
 Import NDJSON to CSV converter:
 
 ```typescript
-import {convertNDJSONtoCSV} from '@dapia-project/data-converter/src/NdjsonToCsv'
+import { convertNDJSONtoCSV } from '@dapia-project/data-converter/src/NdjsonToCsv'
 
-const csvData: string = convertNDJSONtoCSV(options);
+const csvData: string = convertNDJSONtoCSV(options)
 ```
 
 Import CSV to SBS converter:
 
 ```typescript
-import {convertCSVtoSBS} from '@dapia-project/data-converter/src/CsvToSbs'
+import { convertCSVtoSBS } from '@dapia-project/data-converter/src/CsvToSbs'
 
-const sbsData: string = convertCSVtoSBS(options);
+const sbsData: string = convertCSVtoSBS(options)
 ```
 
 Import SBS to CSV converter:
 
 ```typescript
-import {convertSBStoCSV} from '@dapia-project/data-converter/src/SbsToCsv'
+import { convertSBStoCSV } from '@dapia-project/data-converter/src/SbsToCsv'
 
-const csvData: string = convertSBStoCSV(options);
+const csvData: string = convertSBStoCSV(options)
 ```
 
 ## Options
@@ -123,14 +123,14 @@ const csvData: string = convertSBStoCSV(options);
 For SBStoCSV :
 
 | key     | type   | use                            | default value |
-|---------|--------|--------------------------------|---------------|
+| ------- | ------ | ------------------------------ | ------------- |
 | content | String | The content of file to convert |               |
 
 \
 For all except SBStoCSV :
 
 | key             | type    | use                                             | default value |
-|-----------------|---------|-------------------------------------------------|---------------|
+| --------------- | ------- | ----------------------------------------------- | ------------- |
 | content         | String  | The content of sbs file to convert              |               |
 | saveExtraField? | boolean | Choice to have extraField of Format1 in Format2 | false         |
 
@@ -139,7 +139,7 @@ For all except SBStoCSV :
 For SBS files :
 
 | Number         | Field                |
-|----------------|----------------------|
+| -------------- | -------------------- |
 | Field 1        | messageType          |
 | Field 2        | transmissionType     |
 | Field 3        | sessionID            |
@@ -190,7 +190,7 @@ The order of the fields below is the order when converting SBS to CSV. However, 
 a CSV to SBS conversion does not follow a certain pattern.
 
 | Number   | Field         |
-|----------|---------------|
+| -------- | ------------- |
 | Field 1  | timestamp     |
 | Field 2  | icao24        |
 | Field 3  | latitude      |
@@ -230,7 +230,7 @@ It is not mandatory to add this field when converting. Here is its structure:
 For JSON and NDJSON files :
 
 | Field                 |
-|-----------------------|
+| --------------------- |
 | timestamp?            |
 | icao24?               |
 | latitude?             |

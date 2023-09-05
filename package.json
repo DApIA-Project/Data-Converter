@@ -17,14 +17,17 @@
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "ts-mocha": "^10.0.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "prettier": "^3.0.3"
   },
   "scripts": {
     "tsc": "tsc",
     "build": "tsc",
     "test": "ts-mocha -p ./test/tsconfig.json test/*.test.ts --timeout 10000",
     "test:coverage": "nyc --reporter=html ts-mocha -p ./test/tsconfig.json 'test/*.test.ts'",
-    "start": "ts-node ./examples/main.ts"
+    "start": "ts-node ./examples/main.ts",
+    "prettier-check": "prettier --check .",
+    "prettier-write": "prettier --write ."
   },
   "private": false,
   "repository": {
