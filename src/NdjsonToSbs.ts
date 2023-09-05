@@ -1,5 +1,5 @@
 import {
-  buildBooleanValueForSbs,
+  parseSbsBoolean,
   buildDateValue,
   buildSquawkValueForSbs,
   buildTimeValue,
@@ -149,28 +149,16 @@ export function convertNDJSONtoSBS(
       ',' +
       buildSquawkValueForSbs(jsonContentElement.squawk) +
       ',' +
-      (buildBooleanValueForSbs(jsonContentElement.alert) === 'Error'
-        ? arrayErrors.push(
-            `Error line ${index} : Alert is not well-formed in this message : ${sbsString}`,
-          )
-        : buildBooleanValueForSbs(jsonContentElement.alert)) +
+      parseSbsBoolean(jsonContentElement.alert) +
       ',' +
       (jsonContentElement.emergency === undefined ||
       jsonContentElement.emergency === ''
         ? '0'
         : jsonContentElement.emergency) +
       ',' +
-      (buildBooleanValueForSbs(jsonContentElement.spi) === 'Error'
-        ? arrayErrors.push(
-            `Error line ${index} : Spi is not well-formed in this message : ${sbsString}`,
-          )
-        : buildBooleanValueForSbs(jsonContentElement.spi)) +
+      parseSbsBoolean(jsonContentElement.spi) +
       ',' +
-      (buildBooleanValueForSbs(jsonContentElement.onground) === 'Error'
-        ? arrayErrors.push(
-            `Error line ${index} : OnGround is not well-formed in this message : ${sbsString}`,
-          )
-        : buildBooleanValueForSbs(jsonContentElement.onground))
+      parseSbsBoolean(jsonContentElement.onground)
 
     if (
       jsonContentElement.haveLabel !== '' &&

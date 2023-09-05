@@ -5,37 +5,40 @@ import { convertCSVtoJSON } from '../src/CsvToJson'
 
 describe('JsonToSbs', () => {
   context('Data json no valid', () => {
-    it('return empty content when boolean is not a boolean for alert', async () => {
+    it('returns false when boolean is not a boolean for alert', async () => {
       const jsonContent: string =
         '[{"timestamp":"1659127350","icao24":"34648e","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
         '"onground":"0","alert":"T","spi":"1","squawk":"1000","altitude":"7450.0","geoaltitude":"7450.0","last_position":"","lastcontact":"","hour":""}]'
       const sbsContent: string = convertJSONtoSBS(jsonContent)
 
-      const expectedResult: string = ''
+      const expectedResult: string =
+        'MSG,3,1,1,34648e,1,2022/07/29,20:42:30.000,2022/07/29,20:42:30.000,SWN5614,7450.0,291.0,355.66173320857183,43.84039306640625,1.292171034702035,2752.0,1000,0,0,1,0\n'
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
 
-    it('return empty content when boolean is not a boolean for spi', async () => {
+    it('returns false when boolean is not a boolean for spi', async () => {
       const jsonContent: string =
         '[{"timestamp":"1659127350","icao24":"34648e","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
         '"onground":"0","alert":"0","spi":"T","squawk":"1000","altitude":"7450.0","geoaltitude":"7450.0","last_position":"","lastcontact":"","hour":""}]'
       const sbsContent: string = convertJSONtoSBS(jsonContent)
 
-      const expectedResult: string = ''
+      const expectedResult: string =
+        'MSG,3,1,1,34648e,1,2022/07/29,20:42:30.000,2022/07/29,20:42:30.000,SWN5614,7450.0,291.0,355.66173320857183,43.84039306640625,1.292171034702035,2752.0,1000,0,0,0,0\n'
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
 
-    it('return empty content when boolean is not a boolean for onground', async () => {
+    it('returns false when boolean is not a boolean for onground', async () => {
       const jsonContent: string =
         '[{"timestamp":"1659127350","icao24":"34648e","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
         '"onground":"T","alert":"0","spi":"0","squawk":"1000","altitude":"7450.0","geoaltitude":"7450.0","last_position":"","lastcontact":"","hour":""}]'
       const sbsContent: string = convertJSONtoSBS(jsonContent)
 
-      const expectedResult: string = ''
+      const expectedResult: string =
+        'MSG,3,1,1,34648e,1,2022/07/29,20:42:30.000,2022/07/29,20:42:30.000,SWN5614,7450.0,291.0,355.66173320857183,43.84039306640625,1.292171034702035,2752.0,1000,0,0,0,0\n'
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
 
-    it('return empty content when timestamp and date and time are not present', async () => {
+    it('returns false when timestamp and date and time are not present', async () => {
       const jsonContent: string =
         '[{"icao24":"34648e","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
         '"onground":"0","alert":"T","spi":"1","squawk":"1000","altitude":"7450.0","geoaltitude":"7450.0","last_position":"","lastcontact":"","hour":""}]'
@@ -45,7 +48,7 @@ describe('JsonToSbs', () => {
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
 
-    it('return empty content when icao is not present', async () => {
+    it('returns false when icao is not present', async () => {
       const jsonContent: string =
         '[{"timestamp":"1659127350","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
         '"onground":"0","alert":"T","spi":"1","squawk":"1000","altitude":"7450.0","geoaltitude":"7450.0","last_position":"","lastcontact":"","hour":""}]'
@@ -55,7 +58,7 @@ describe('JsonToSbs', () => {
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
 
-    it('return empty content when haveLabel present but not label', async () => {
+    it('returns false when haveLabel present but not label', async () => {
       const jsonContent: string =
         '[{"timestamp":"1659127350","icao24":"34648e","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
         '"onground":"0","alert":"0","spi":"1","squawk":"1000","altitude":"7450.0","geoaltitude":"7450.0","last_position":"","lastcontact":"","hour":"","haveLabel":"1"}]'
@@ -65,7 +68,7 @@ describe('JsonToSbs', () => {
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
 
-    it('return empty content when label present but not haveLabel', async () => {
+    it('returns false when label present but not haveLabel', async () => {
       const jsonContent: string =
         '[{"timestamp":"1659127350","icao24":"34648e","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
         '"onground":"0","alert":"0","spi":"1","squawk":"1000","altitude":"7450.0","geoaltitude":"7450.0","last_position":"","lastcontact":"","hour":"","label":"1024"}]'
@@ -75,37 +78,40 @@ describe('JsonToSbs', () => {
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
 
-    it('return empty content when boolean is not a boolean for alert with extraField', async () => {
+    it('returns false when boolean is not a boolean for alert with extraField', async () => {
       const jsonContent: string =
         '[{"timestamp":"1659127350","icao24":"34648e","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
         '"onground":"0","alert":"T","spi":"1","squawk":"1000","altitude":"7450.0","geoaltitude":"7450.0","last_position":"","lastcontact":"","hour":""}]'
       const sbsContent: string = convertJSONtoSBS(jsonContent, true)
 
-      const expectedResult: string = ''
+      const expectedResult: string =
+        'MSG,3,1,1,34648e,1,2022/07/29,20:42:30.000,2022/07/29,20:42:30.000,SWN5614,7450.0,291.0,355.66173320857183,43.84039306640625,1.292171034702035,2752.0,1000,0,0,1,0,{"altitude":"7450.0","last_position":"","lastcontact":"","hour":""}\n'
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
 
-    it('return empty content when boolean is not a boolean for spi with extraField', async () => {
+    it('returns false when boolean is not a boolean for spi with extraField', async () => {
       const jsonContent: string =
         '[{"timestamp":"1659127350","icao24":"34648e","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
         '"onground":"0","alert":"0","spi":"T","squawk":"1000","altitude":"7450.0","geoaltitude":"7450.0","last_position":"","lastcontact":"","hour":""}]'
       const sbsContent: string = convertJSONtoSBS(jsonContent, true)
 
-      const expectedResult: string = ''
+      const expectedResult: string =
+        'MSG,3,1,1,34648e,1,2022/07/29,20:42:30.000,2022/07/29,20:42:30.000,SWN5614,7450.0,291.0,355.66173320857183,43.84039306640625,1.292171034702035,2752.0,1000,0,0,0,0,{"altitude":"7450.0","last_position":"","lastcontact":"","hour":""}\n'
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
 
-    it('return empty content when boolean is not a boolean for onground with extraField', async () => {
+    it('returns false when boolean is not a boolean for onground with extraField', async () => {
       const jsonContent: string =
         '[{"timestamp":"1659127350","icao24":"34648e","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
         '"onground":"T","alert":"0","spi":"0","squawk":"1000","altitude":"7450.0","geoaltitude":"7450.0","last_position":"","lastcontact":"","hour":""}]'
       const sbsContent: string = convertJSONtoSBS(jsonContent, true)
 
-      const expectedResult: string = ''
+      const expectedResult: string =
+        'MSG,3,1,1,34648e,1,2022/07/29,20:42:30.000,2022/07/29,20:42:30.000,SWN5614,7450.0,291.0,355.66173320857183,43.84039306640625,1.292171034702035,2752.0,1000,0,0,0,0,{"altitude":"7450.0","last_position":"","lastcontact":"","hour":""}\n'
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
 
-    it('return empty content when timestamp and date and time are not present with extraField', async () => {
+    it('returns false when timestamp and date and time are not present with extraField', async () => {
       const jsonContent: string =
         '[{"icao24":"34648e","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
         '"onground":"0","alert":"T","spi":"1","squawk":"1000","altitude":"7450.0","geoaltitude":"7450.0","last_position":"","lastcontact":"","hour":""}]'
@@ -115,7 +121,7 @@ describe('JsonToSbs', () => {
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
 
-    it('return empty content when icao is not present with extraField', async () => {
+    it('returns false when icao is not present with extraField', async () => {
       const jsonContent: string =
         '[{"timestamp":"1659127350","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
         '"onground":"0","alert":"T","spi":"1","squawk":"1000","altitude":"7450.0","geoaltitude":"7450.0","last_position":"","lastcontact":"","hour":""}]'
@@ -125,7 +131,7 @@ describe('JsonToSbs', () => {
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
 
-    it('return empty content when haveLabel present but not label with extraField', async () => {
+    it('returns false when haveLabel present but not label with extraField', async () => {
       const jsonContent: string =
         '[{"timestamp":"1659127350","icao24":"34648e","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
         '"onground":"0","alert":"0","spi":"1","squawk":"1000","altitude":"7450.0","geoaltitude":"7450.0","last_position":"","lastcontact":"","hour":"","haveLabel":"1"}]'
@@ -135,7 +141,7 @@ describe('JsonToSbs', () => {
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
 
-    it('return empty content when label present but not haveLabel with extraField', async () => {
+    it('returns false when label present but not haveLabel with extraField', async () => {
       const jsonContent: string =
         '[{"timestamp":"1659127350","icao24":"34648e","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
         '"onground":"0","alert":"0","spi":"1","squawk":"1000","altitude":"7450.0","geoaltitude":"7450.0","last_position":"","lastcontact":"","hour":"","label":"1024"}]'
