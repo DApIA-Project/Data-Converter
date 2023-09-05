@@ -1,12 +1,12 @@
-export function getTimestampToDate(timestamp: string): string {
-  const date = new Date(parseInt(timestamp) * 1000)
-  if (date.toString() === 'Invalid Date') {
-    return 'Error content file'
-  }
-  const year = date.getUTCFullYear()
-  const month = (date.getUTCMonth() + 1).toString().padStart(2, '0')
-  const day = date.getUTCDate().toString().padStart(2, '0')
-  return `${year}/${month}/${day}`
+import moment from 'moment/moment'
+
+export const SBS_DATE_FORMAT = 'YYYY/MM/DD'
+
+export function toSbsDate(str: string | undefined): string {
+  const date = new Date(parseInt(str || '') * 1000)
+  if (isNaN(date.getTime())) throw new Error('Invalid Date')
+
+  return moment(date).format(SBS_DATE_FORMAT)
 }
 
 export function getTimestampToTime(timestamp: string): string {
@@ -37,7 +37,7 @@ export function toSbsBoolean(str: string | undefined) {
 
 export function buildDateValue(jsonContentElement: any) {
   if (jsonContentElement.timestamp != undefined) {
-    return getTimestampToDate(jsonContentElement.timestamp)
+    return toSbsDate(jsonContentElement.timestamp)
   } else {
     return 'Error'
   }

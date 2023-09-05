@@ -1,4 +1,4 @@
-import { toSbsBoolean } from '../../src/utils/utils'
+import { toSbsBoolean, toSbsDate } from '../../src/utils/utils'
 import assert from 'assert'
 
 describe('utils', () => {
@@ -20,6 +20,19 @@ describe('utils', () => {
       assert.equal(toSbsBoolean('not_a_bool'), 0)
       assert.equal(toSbsBoolean(''), 0)
       assert.equal(toSbsBoolean(undefined), 0)
+    })
+  })
+
+  context('toSbsDate', () => {
+    it('throws an error if date is not valid', () => {
+      assert.throws(() => toSbsDate(''), Error, 'Invalid date')
+      assert.throws(() => toSbsDate('not_a_date'), Error, 'Invalid date')
+      assert.throws(() => toSbsDate('not_a_date'), Error, 'Invalid date')
+    })
+
+    it('returns a formatted date', () => {
+      assert.equal(toSbsDate('1693899121'), '2023/09/05')
+      assert.equal(toSbsDate('-1'), '1970/01/01')
     })
   })
 })

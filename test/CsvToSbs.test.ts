@@ -1,32 +1,30 @@
 import { describe } from 'mocha'
 import { convertCSVtoSBS } from '../src'
 import assert from 'assert'
-import { getTimestampToDate, getTimestampToTime } from '../src/utils/utils'
+import { toSbsDate, getTimestampToTime } from '../src/utils/utils'
 
 describe('CsvToSbs', () => {
   context('Timestamp no valid', () => {
     it('return Error when timestamp is string with letter', async () => {
-      const date: string = getTimestampToDate('test')
       const timestamp: string = getTimestampToTime('test')
-      assert.deepStrictEqual(date, 'Error content file')
       assert.deepStrictEqual(timestamp, 'Error content file')
     })
   })
   context('Timestamp valid', () => {
     it('return date valid when timestamp is normal', async () => {
-      const date: string = getTimestampToDate('1685957892')
+      const date: string = toSbsDate('1685957892')
       const timestamp: string = getTimestampToTime('1685957892')
       assert.deepStrictEqual(date, '2023/06/05')
       assert.deepStrictEqual(timestamp, '09:38:12.000')
     })
     it('return date valid when timestamp is negative', async () => {
-      const date: string = getTimestampToDate('-1685957892')
+      const date: string = toSbsDate('-1685957892')
       const timestamp: string = getTimestampToTime('-1685957892')
       assert.deepStrictEqual(date, '1916/07/29')
       assert.deepStrictEqual(timestamp, '14:21:48.000')
     })
     it('return date valid when timestamp is float', async () => {
-      const date: string = getTimestampToDate('1685957892.8222')
+      const date: string = toSbsDate('1685957892.8222')
       const timestamp: string = getTimestampToTime('1685957892.8222')
       assert.deepStrictEqual(date, '2023/06/05')
       assert.deepStrictEqual(timestamp, '09:38:12.000')
@@ -49,7 +47,7 @@ describe('CsvToSbs', () => {
         'test,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574400'
       const sbsContent: string = convertCSVtoSBS(csvContent)
 
-      assert.deepStrictEqual(sbsContent, 'Error content file')
+      assert.deepStrictEqual(sbsContent, '')
     })
   })
 
