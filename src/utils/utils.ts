@@ -30,7 +30,7 @@ export function getDateToTimestamp(date: string, time: string): string {
   return timestampInSeconds.toString()
 }
 
-export function parseSbsBoolean(str: string | undefined) {
+export function toSbsBoolean(str: string | undefined) {
   if (!str) return 0
   return str.toLowerCase() === 'true' || str === '1' ? 1 : 0
 }

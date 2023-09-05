@@ -1,5 +1,5 @@
 import {
-  parseSbsBoolean,
+  toSbsBoolean,
   buildDateValue,
   buildSquawkValueForSbs,
   buildTimeValue,
@@ -134,16 +134,16 @@ export function convertJSONtoSBS(
       ',' +
       buildSquawkValueForSbs(jsonContentElement.squawk) +
       ',' +
-      parseSbsBoolean(jsonContentElement.alert) +
+      toSbsBoolean(jsonContentElement.alert) +
       ',' +
       (jsonContentElement.emergency === undefined ||
       jsonContentElement.emergency === ''
         ? '0'
         : jsonContentElement.emergency) +
       ',' +
-      parseSbsBoolean(jsonContentElement.spi) +
+      toSbsBoolean(jsonContentElement.spi) +
       ',' +
-      parseSbsBoolean(jsonContentElement.onground)
+      toSbsBoolean(jsonContentElement.onground)
 
     if (
       jsonContentElement.haveLabel !== '' &&
