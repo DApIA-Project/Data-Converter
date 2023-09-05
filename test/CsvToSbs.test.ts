@@ -1,36 +1,9 @@
 import { describe } from 'mocha'
 import { convertCSVtoSBS } from '../src'
 import assert from 'assert'
-import { toSbsDate, getTimestampToTime } from '../src/utils/utils'
+import { toSbsDate, toSbsTime } from '../src/utils/utils'
 
 describe('CsvToSbs', () => {
-  context('Timestamp no valid', () => {
-    it('return Error when timestamp is string with letter', async () => {
-      const timestamp: string = getTimestampToTime('test')
-      assert.deepStrictEqual(timestamp, 'Error content file')
-    })
-  })
-  context('Timestamp valid', () => {
-    it('return date valid when timestamp is normal', async () => {
-      const date: string = toSbsDate('1685957892')
-      const timestamp: string = getTimestampToTime('1685957892')
-      assert.deepStrictEqual(date, '2023/06/05')
-      assert.deepStrictEqual(timestamp, '09:38:12.000')
-    })
-    it('return date valid when timestamp is negative', async () => {
-      const date: string = toSbsDate('-1685957892')
-      const timestamp: string = getTimestampToTime('-1685957892')
-      assert.deepStrictEqual(date, '1916/07/29')
-      assert.deepStrictEqual(timestamp, '14:21:48.000')
-    })
-    it('return date valid when timestamp is float', async () => {
-      const date: string = toSbsDate('1685957892.8222')
-      const timestamp: string = getTimestampToTime('1685957892.8222')
-      assert.deepStrictEqual(date, '2023/06/05')
-      assert.deepStrictEqual(timestamp, '09:38:12.000')
-    })
-  })
-
   context('Data csv no valid extrafield', () => {
     it('return Error when csv content is no valid with extrafield undefined', async () => {
       const csvContent: string =

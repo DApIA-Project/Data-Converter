@@ -1,24 +1,18 @@
 import moment from 'moment/moment'
 
 export const SBS_DATE_FORMAT = 'YYYY/MM/DD'
+export const SBS_TIME_FORMAT = 'HH:mm:ss.SSS'
 
 export function toSbsDate(str: string | undefined): string {
-  const date = new Date(parseInt(str || '') * 1000)
-  if (isNaN(date.getTime())) throw new Error('Invalid Date')
-
-  return moment(date).format(SBS_DATE_FORMAT)
+  const date = moment.utc(parseInt(str || '') * 1000)
+  if (!date.isValid()) throw new Error('Invalid Date')
+  return date.utc().format(SBS_DATE_FORMAT)
 }
 
-export function getTimestampToTime(timestamp: string): string {
-  const date = new Date(parseInt(timestamp) * 1000)
-  if (date.toString() === 'Invalid Date') {
-    return 'Error content file'
-  }
-  const hours = date.getUTCHours().toString().padStart(2, '0')
-  const minutes = date.getUTCMinutes().toString().padStart(2, '0')
-  const seconds = date.getUTCSeconds().toString().padStart(2, '0')
-  const milliseconds = date.getUTCMilliseconds().toString().padStart(3, '0')
-  return `${hours}:${minutes}:${seconds}.${milliseconds}`
+export function toSbsTime(str: string | undefined): string {
+  const date = moment.utc(parseInt(str || '') * 1000)
+  if (!date.isValid()) throw new Error('Invalid Date')
+  return date.utc().format(SBS_TIME_FORMAT)
 }
 
 export function getDateToTimestamp(date: string, time: string): string {
@@ -45,7 +39,7 @@ export function buildDateValue(jsonContentElement: any) {
 
 export function buildTimeValue(jsonContentElement: any) {
   if (jsonContentElement.timestamp != undefined) {
-    return getTimestampToTime(jsonContentElement.timestamp)
+    return toSbsTime(jsonContentElement.timestamp)
   } else {
     return 'Error'
   }

@@ -1,6 +1,6 @@
 import { ExtraFieldsCSV, ExtraFieldsSBS } from './types'
 import { parse } from 'csv-parse/sync'
-import { getTimestampToTime, toSbsDate } from './utils/utils'
+import { toSbsTime, toSbsDate } from './utils/utils'
 
 export function convertCSVtoSBS(csvContent: string): string {
   const sbsRows: string[] = []
@@ -60,9 +60,9 @@ export function convertCSVtoSBS(csvContent: string): string {
       if (sbsValues[6] === 'Error content file') {
         return 'Error content file'
       }
-      sbsValues[7] = getTimestampToTime(record.timestamp)
+      sbsValues[7] = toSbsTime(record.timestamp)
       sbsValues[8] = toSbsDate(record.timestamp)
-      sbsValues[9] = getTimestampToTime(record.timestamp)
+      sbsValues[9] = toSbsTime(record.timestamp)
 
       sbsValues[4] = record.icao24
       sbsValues[14] = record.latitude
