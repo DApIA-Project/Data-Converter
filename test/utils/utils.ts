@@ -27,7 +27,7 @@ describe('utils', () => {
     it('throws an error if date is not valid', () => {
       assert.throws(() => toSbsDate(''), Error, 'Invalid date')
       assert.throws(() => toSbsDate('not_a_date'), Error, 'Invalid date')
-      assert.throws(() => toSbsDate('not_a_date'), Error, 'Invalid date')
+      assert.throws(() => toSbsDate(undefined), Error, 'Invalid date')
     })
 
     it('returns a formatted date', () => {
@@ -40,7 +40,7 @@ describe('utils', () => {
     it('throws an error if date is not valid', () => {
       assert.throws(() => toSbsTime(''), Error, 'Invalid date')
       assert.throws(() => toSbsTime('not_a_date'), Error, 'Invalid date')
-      assert.throws(() => toSbsTime('not_a_date'), Error, 'Invalid date')
+      assert.throws(() => toSbsTime(undefined), Error, 'Invalid date')
     })
 
     it('returns a formatted time', () => {
