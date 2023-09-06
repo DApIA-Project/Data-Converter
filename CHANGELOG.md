@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/DApIA-Project/Data-Converter/compare/v1.0.1...main)
+## [Unreleased](https://github.com/DApIA-Project/Data-Converter/compare/v2.4.0...main)
 
 ### Info
 
