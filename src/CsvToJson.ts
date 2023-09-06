@@ -1,27 +1,28 @@
 import { parse } from 'csv-parse/sync'
+import moment from 'moment/moment'
 
 export function convertCSVtoJSON(
   csvContent: string,
   saveExtraField: boolean = false,
-): string {
-  const linesObject = parse(csvContent, { columns: true, quote: "'" })
-  let jsonContent: {}[] = []
-  for (const lineObject of linesObject) {
-    if (lineObject.timestamp && !isNaN(parseInt(lineObject.timestamp))) {
-      let extraField = {}
-      if (saveExtraField) {
-        extraField = lineObject.extraField
-          ? JSON.parse(
-              lineObject.extraField.replace(/([a-zA-Z0-9_]+)(\s*)/g, '"$1"$2'),
-            )
-          : {}
-      }
-      delete lineObject.extraField
+): Record<string, string>[] {
+  const lines = parse(csvContent, { columns: true, quote: "'" })
+  const jsonLines: Record<string, string>[] = []
+  for (const line of lines) {
+    if (!moment.utc(parseInt(line.timestamp || '')).isValid()) continue
 
-      // Fusionnez les données de la ligne et du champ "extraField"
-      const mergedObject = { ...lineObject, ...extraField }
-      jsonContent.push(mergedObject)
+    let extraField: Record<string, string> = {}
+    if (saveExtraField) {
+      try {
+        extraField = {
+          ...JSON.parse(
+            line.extraField.replace(/([a-zA-Z0-9_]+)(\s*)/g, '"$1"$2'),
+          ),
+        }
+      } catch (ignored) {}
     }
+    let jsonLine = { ...line, ...extraField }
+    delete jsonLine.extraField
+    jsonLines.push(jsonLine)
   }
-  return JSON.stringify(jsonContent)
+  return jsonLines
 }

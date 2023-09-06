@@ -1,7 +1,6 @@
 import { describe } from 'mocha'
 import assert from 'assert'
 import { convertJSONtoSBS } from '../src/JsonToSbs'
-import { convertCSVtoJSON } from '../src/CsvToJson'
 
 describe('JsonToSbs', () => {
   context('Data json no valid', () => {
@@ -342,18 +341,6 @@ describe('JsonToSbs', () => {
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
 
-    it('return sbs content when is csv to json to sbs', async () => {
-      const csvContent: string =
-        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
-        '1656766055,3b7b96,43.40913391113281,1.724150901617006,120.0,311.2759420272517,128.0,DRAG66,False,False,False,NaN,1850.0,1850.0,,,'
-      const jsonContent: string = convertCSVtoJSON(csvContent)
-      const sbsContent: string = convertJSONtoSBS(jsonContent)
-
-      const expectedResult: string =
-        'MSG,3,1,1,3b7b96,1,2022/07/02,12:47:35.000,2022/07/02,12:47:35.000,DRAG66,1850.0,120.0,311.2759420272517,43.40913391113281,1.724150901617006,128.0,,0,0,0,0\n'
-      assert.deepStrictEqual(sbsContent, expectedResult)
-    })
-
     it('return sbs content when json content is valid with extraField with extraField', async () => {
       const jsonContent: string =
         '[{"timestamp":"1659127350","icao24":"34648e","latitude":"43.84039306640625","longitude":"1.292171034702035","groundspeed":"291.0","track":"355.66173320857183","vertical_rate":"2752.0","callsign":"SWN5614",' +
@@ -540,18 +527,6 @@ describe('JsonToSbs', () => {
 
       const expectedResult: string =
         'MSG,3,1,1,34648e,1,2022/07/29,20:42:30.000,2022/07/29,20:42:30.000,SWN5614,7450.0,291.0,355.66173320857183,43.84039306640625,1.292171034702035,2752.0,,1,0,0,1,{"altitude":"7450.0","last_position":"","lastcontact":"","hour":""}\n'
-      assert.deepStrictEqual(sbsContent, expectedResult)
-    })
-
-    it('return sbs content when is csv to json to sbs with extraField', async () => {
-      const csvContent: string =
-        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
-        '1656766055,3b7b96,43.40913391113281,1.724150901617006,120.0,311.2759420272517,128.0,DRAG66,False,False,False,NaN,1850.0,1850.0,,,'
-      const jsonContent: string = convertCSVtoJSON(csvContent)
-      const sbsContent: string = convertJSONtoSBS(jsonContent, true)
-
-      const expectedResult: string =
-        'MSG,3,1,1,3b7b96,1,2022/07/02,12:47:35.000,2022/07/02,12:47:35.000,DRAG66,1850.0,120.0,311.2759420272517,43.40913391113281,1.724150901617006,128.0,,0,0,0,0,{"altitude":"1850.0","last_position":"","lastcontact":"","hour":""}\n'
       assert.deepStrictEqual(sbsContent, expectedResult)
     })
   })

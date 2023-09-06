@@ -1,168 +1,148 @@
 import {
-  toSbsBoolean,
   buildDateValue,
   buildSquawkValueForSbs,
   buildTimeValue,
+  toSbsBoolean,
 } from './utils/utils'
 
 export function convertJSONtoSBS(
-  jsonContentString: string,
+  array: Record<string, string>[],
   saveExtraField: boolean = false,
 ): string {
   let idForPlane: Map<string, number> = new Map<string, number>()
   let cptID = 1
-  let jsonContent = JSON.parse(jsonContentString)
   let sbsString: string = ''
   let index = 1
-  for (const jsonContentElement of jsonContent) {
+  for (const element of array) {
     let oneString: string = ''
     let arrayErrors: string[] = []
     oneString =
-      (jsonContentElement.messageType === undefined ||
-      jsonContentElement.messageType === ''
+      (element.messageType === undefined || element.messageType === ''
         ? 'MSG'
-        : jsonContentElement.messageType) +
+        : element.messageType) +
       ',' +
-      (jsonContentElement.transmissionType === undefined ||
-      jsonContentElement.transmissionType === ''
+      (element.transmissionType === undefined || element.transmissionType === ''
         ? '3'
-        : jsonContentElement.transmissionType) +
+        : element.transmissionType) +
       ',' +
-      (jsonContentElement.sessionID === undefined ||
-      jsonContentElement.sessionID === ''
+      (element.sessionID === undefined || element.sessionID === ''
         ? '1'
-        : jsonContentElement.sessionID) +
+        : element.sessionID) +
       ',' +
-      (jsonContentElement.aircraftID === undefined ||
-      jsonContentElement.aircraftID === ''
-        ? !idForPlane.has(jsonContentElement.icao24)
+      (element.aircraftID === undefined || element.aircraftID === ''
+        ? !idForPlane.has(element.icao24)
           ? (() => {
-              idForPlane.set(jsonContentElement.icao24, cptID)
+              idForPlane.set(element.icao24, cptID)
               cptID++
               return cptID - 1
             })()
-          : idForPlane.get(jsonContentElement.icao24)!.toString()
-        : jsonContentElement.aircraftID) +
+          : idForPlane.get(element.icao24)!.toString()
+        : element.aircraftID) +
       ',' +
-      (jsonContentElement.icao24 === undefined ||
-      jsonContentElement.icao24 === ''
+      (element.icao24 === undefined || element.icao24 === ''
         ? arrayErrors.push(
             `Error line ${index} : No ICAO found in this message : ${sbsString}`,
           )
-        : jsonContentElement.icao24) +
+        : element.icao24) +
       ',' +
-      (jsonContentElement.flightID === undefined ||
-      jsonContentElement.flightID === ''
-        ? !idForPlane.has(jsonContentElement.icao24)
+      (element.flightID === undefined || element.flightID === ''
+        ? !idForPlane.has(element.icao24)
           ? (() => {
-              idForPlane.set(jsonContentElement.icao24, cptID)
+              idForPlane.set(element.icao24, cptID)
               cptID++
               return cptID - 1
             })()
-          : idForPlane.get(jsonContentElement.icao24)!.toString()
-        : jsonContentElement.flightID) +
+          : idForPlane.get(element.icao24)!.toString()
+        : element.flightID) +
       ',' +
-      (jsonContentElement.dateMessageGenerated === undefined ||
-      jsonContentElement.dateMessageGenerated === ''
-        ? buildDateValue(jsonContentElement) === 'Error'
+      (element.dateMessageGenerated === undefined ||
+      element.dateMessageGenerated === ''
+        ? buildDateValue(element) === 'Error'
           ? arrayErrors.push(
               `Error line ${index} : No date is found in this message : ${sbsString}`,
             )
-          : buildDateValue(jsonContentElement)
-        : jsonContentElement.dateMessageGenerated) +
+          : buildDateValue(element)
+        : element.dateMessageGenerated) +
       ',' +
-      (jsonContentElement.timeMessageGenerated === undefined ||
-      jsonContentElement.timeMessageGenerated === ''
-        ? buildTimeValue(jsonContentElement) === 'Error'
+      (element.timeMessageGenerated === undefined ||
+      element.timeMessageGenerated === ''
+        ? buildTimeValue(element) === 'Error'
           ? arrayErrors.push(
               `Error line ${index} : No time is found in this message : ${sbsString}`,
             )
-          : buildTimeValue(jsonContentElement)
-        : jsonContentElement.timeMessageGenerated) +
+          : buildTimeValue(element)
+        : element.timeMessageGenerated) +
       ',' +
-      (jsonContentElement.dateMessageLogged === undefined ||
-      jsonContentElement.dateMessageLogged === ''
-        ? buildDateValue(jsonContentElement) === 'Error'
+      (element.dateMessageLogged === undefined ||
+      element.dateMessageLogged === ''
+        ? buildDateValue(element) === 'Error'
           ? arrayErrors.push(
               `Error line ${index} : No date is found in this message : ${sbsString}`,
             )
-          : buildDateValue(jsonContentElement)
-        : jsonContentElement.dateMessageLogged) +
+          : buildDateValue(element)
+        : element.dateMessageLogged) +
       ',' +
-      (jsonContentElement.timeMessageLogged === undefined ||
-      jsonContentElement.timeMessageLogged === ''
-        ? buildTimeValue(jsonContentElement) === 'Error'
+      (element.timeMessageLogged === undefined ||
+      element.timeMessageLogged === ''
+        ? buildTimeValue(element) === 'Error'
           ? arrayErrors.push(
               `Error line ${index} : No time is found in this message : ${sbsString}`,
             )
-          : buildTimeValue(jsonContentElement)
-        : jsonContentElement.timeMessageLogged) +
+          : buildTimeValue(element)
+        : element.timeMessageLogged) +
       ',' +
-      (jsonContentElement.callsign === undefined ||
-      jsonContentElement.callsign === ''
+      (element.callsign === undefined || element.callsign === ''
         ? ''
-        : jsonContentElement.callsign) +
+        : element.callsign) +
       ',' +
-      (jsonContentElement.geoaltitude === undefined ||
-      jsonContentElement.geoaltitude === ''
+      (element.geoaltitude === undefined || element.geoaltitude === ''
         ? ''
-        : jsonContentElement.geoaltitude) +
+        : element.geoaltitude) +
       ',' +
-      (jsonContentElement.groundspeed === undefined ||
-      jsonContentElement.groundspeed === ''
+      (element.groundspeed === undefined || element.groundspeed === ''
         ? ''
-        : jsonContentElement.groundspeed) +
+        : element.groundspeed) +
       ',' +
-      (jsonContentElement.track === undefined || jsonContentElement.track === ''
+      (element.track === undefined || element.track === ''
         ? ''
-        : jsonContentElement.track) +
+        : element.track) +
       ',' +
-      (jsonContentElement.latitude === undefined ||
-      jsonContentElement.latitude === ''
+      (element.latitude === undefined || element.latitude === ''
         ? ''
-        : jsonContentElement.latitude) +
+        : element.latitude) +
       ',' +
-      (jsonContentElement.longitude === undefined ||
-      jsonContentElement.longitude === ''
+      (element.longitude === undefined || element.longitude === ''
         ? ''
-        : jsonContentElement.longitude) +
+        : element.longitude) +
       ',' +
-      (jsonContentElement.vertical_rate === undefined ||
-      jsonContentElement.vertical_rate === ''
+      (element.vertical_rate === undefined || element.vertical_rate === ''
         ? ''
-        : jsonContentElement.vertical_rate) +
+        : element.vertical_rate) +
       ',' +
-      buildSquawkValueForSbs(jsonContentElement.squawk) +
+      buildSquawkValueForSbs(element.squawk) +
       ',' +
-      toSbsBoolean(jsonContentElement.alert) +
+      toSbsBoolean(element.alert) +
       ',' +
-      (jsonContentElement.emergency === undefined ||
-      jsonContentElement.emergency === ''
+      (element.emergency === undefined || element.emergency === ''
         ? '0'
-        : jsonContentElement.emergency) +
+        : element.emergency) +
       ',' +
-      toSbsBoolean(jsonContentElement.spi) +
+      toSbsBoolean(element.spi) +
       ',' +
-      toSbsBoolean(jsonContentElement.onground)
+      toSbsBoolean(element.onground)
 
     if (
-      jsonContentElement.haveLabel !== '' &&
-      jsonContentElement.haveLabel !== undefined &&
-      jsonContentElement.label !== '' &&
-      jsonContentElement.label !== undefined
+      element.haveLabel !== '' &&
+      element.haveLabel !== undefined &&
+      element.label !== '' &&
+      element.label !== undefined
     ) {
-      oneString =
-        oneString +
-        ',' +
-        jsonContentElement.haveLabel +
-        ',' +
-        jsonContentElement.label
+      oneString = oneString + ',' + element.haveLabel + ',' + element.label
     } else {
       if (
-        (jsonContentElement.label === '' ||
-          jsonContentElement.label === undefined) &&
-        jsonContentElement.haveLabel !== '' &&
-        jsonContentElement.haveLabel !== undefined
+        (element.label === '' || element.label === undefined) &&
+        element.haveLabel !== '' &&
+        element.haveLabel !== undefined
       ) {
         arrayErrors.push(
           `Error line ${index} : No Label is present in this message : ${sbsString}`,
@@ -170,10 +150,9 @@ export function convertJSONtoSBS(
       }
 
       if (
-        (jsonContentElement.haveLabel === '' ||
-          jsonContentElement.haveLabel === undefined) &&
-        jsonContentElement.label !== '' &&
-        jsonContentElement.label !== undefined
+        (element.haveLabel === '' || element.haveLabel === undefined) &&
+        element.label !== '' &&
+        element.label !== undefined
       ) {
         arrayErrors.push(
           `Error line ${index} : No haveLabel is present in this message : ${sbsString}`,
@@ -183,10 +162,10 @@ export function convertJSONtoSBS(
 
     if (saveExtraField) {
       let extraField: { [key: string]: any } = {
-        altitude: jsonContentElement.altitude,
-        last_position: jsonContentElement.last_position,
-        lastcontact: jsonContentElement.lastcontact,
-        hour: jsonContentElement.hour,
+        altitude: element.altitude,
+        last_position: element.last_position,
+        lastcontact: element.lastcontact,
+        hour: element.hour,
       }
       oneString = oneString + ',' + JSON.stringify(extraField)
     }
@@ -203,6 +182,5 @@ export function convertJSONtoSBS(
 
     index++
   }
-
   return sbsString
 }

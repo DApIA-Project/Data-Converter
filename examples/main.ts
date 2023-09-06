@@ -93,7 +93,7 @@ const sbsFileToWritePath: string =
   'temp/2022_07_toulouse_SWN5614_4m_FromCsvToJson.sbs'
 const csvData: string = fs.readFileSync(csvFileToReadPath, 'utf-8')
 
-const jsonContent: string = convertCSVtoJSON(csvData)
-console.log(jsonContent)
-const sbsContent: string = convertJSONtoSBS(jsonContent)
+const json = convertCSVtoJSON(csvData)
+console.log(json)
+const sbsContent: string = convertJSONtoSBS(json)
 fs.writeFileSync(sbsFileToWritePath, sbsContent, 'utf-8')
