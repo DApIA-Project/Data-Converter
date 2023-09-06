@@ -1,5 +1,5 @@
 import * as fs from 'fs'
-import { convertCSVtoJSON } from '../src/CsvToJson'
+import { csvToJson } from '../src/CsvToJson'
 import { convertJSONtoSBS } from '../src/JsonToSbs'
 
 /** CSV to SBS **/
@@ -93,7 +93,7 @@ const sbsFileToWritePath: string =
   'temp/2022_07_toulouse_SWN5614_4m_FromCsvToJson.sbs'
 const csvData: string = fs.readFileSync(csvFileToReadPath, 'utf-8')
 
-const json = convertCSVtoJSON(csvData)
+const json = csvToJson(csvData)
 console.log(json)
 const sbsContent: string = convertJSONtoSBS(json)
 fs.writeFileSync(sbsFileToWritePath, sbsContent, 'utf-8')

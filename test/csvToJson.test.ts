@@ -1,12 +1,12 @@
 import { describe } from 'mocha'
 import assert from 'assert'
-import { convertCSVtoJSON } from '../src/CsvToJson'
+import { csvToJson } from '../src/csvToJson'
 
-describe('CsvToJson', () => {
+describe('csvToJson', () => {
   context('when CSV data are invalid', () => {
     it('returns empty array if timestamp is malformed', () => {
       for (const timestamp of ['', 'not_a_number']) {
-        let json = convertCSVtoJSON(
+        const json = csvToJson(
           'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,lastposupdate,lastcontact,hour\n' +
             `${timestamp},39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574400`,
         )
@@ -16,8 +16,8 @@ describe('CsvToJson', () => {
   })
 
   context('when CSV data are valid', () => {
-    it('returns array when CSV content is valid', () => {
-      const json = convertCSVtoJSON(
+    it('returns an array', () => {
+      const json = csvToJson(
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,lastposupdate,lastcontact,hour\n' +
           '1672575671,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574400',
       )
@@ -44,8 +44,8 @@ describe('CsvToJson', () => {
       ])
     })
 
-    it('return extra fields if present in CSV', () => {
-      const json = convertCSVtoJSON(
+    it('returns extra fields if present', () => {
+      const json = csvToJson(
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,lastposupdate,lastcontact,hour,extraField\n' +
           `1672575671,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574400,'{"messageType":"MSG","transmissionType":"3","sessionID":"1","aircraftID":"1","flightID":"1","emergency":"0"}'`,
         true,
@@ -79,8 +79,8 @@ describe('CsvToJson', () => {
       ])
     })
 
-    it('return no extra fields if are empty', async () => {
-      const json = convertCSVtoJSON(
+    it('does not return no extra fields if empty', async () => {
+      const json = csvToJson(
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,lastposupdate,lastcontact,hour\n' +
           '1672575671,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574400',
         true,

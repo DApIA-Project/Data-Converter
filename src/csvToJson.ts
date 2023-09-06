@@ -1,7 +1,7 @@
 import { parse } from 'csv-parse/sync'
 import moment from 'moment/moment'
 
-export function convertCSVtoJSON(
+export function csvToJson(
   csvContent: string,
   saveExtraField: boolean = false,
 ): Record<string, string>[] {

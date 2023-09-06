@@ -1,7 +1,7 @@
 import { describe } from 'mocha'
 import assert from 'assert'
 import { convertNDJSONtoSBS } from '../src/NdjsonToSbs'
-import { convertCSVtoNDJSON } from '../src/CsvToNdjson'
+import { csvToNdjson } from '../src/csvToNdjson'
 
 describe('NdndjsonToSbs', () => {
   context('Data ndjson no valid', () => {
@@ -354,7 +354,7 @@ describe('NdndjsonToSbs', () => {
       const csvContent: string =
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
         '1656766055,3b7b96,43.40913391113281,1.724150901617006,120.0,311.2759420272517,128.0,DRAG66,False,False,False,NaN,1850.0,1850.0,,,'
-      const ndjsonContent: string = convertCSVtoNDJSON(csvContent)
+      const ndjsonContent: string = csvToNdjson(csvContent)
       const sbsContent: string = convertNDJSONtoSBS(ndjsonContent)
 
       const expectedResult: string =
@@ -555,7 +555,7 @@ describe('NdndjsonToSbs', () => {
       const csvContent: string =
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
         '1656766055,3b7b96,43.40913391113281,1.724150901617006,120.0,311.2759420272517,128.0,DRAG66,False,False,False,NaN,1850.0,1850.0,,,'
-      const ndjsonContent: string = convertCSVtoNDJSON(csvContent, true)
+      const ndjsonContent: string = csvToNdjson(csvContent, true)
       const sbsContent: string = convertNDJSONtoSBS(ndjsonContent, true)
 
       const expectedResult: string =

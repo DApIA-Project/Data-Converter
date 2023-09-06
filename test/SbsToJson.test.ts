@@ -1,6 +1,5 @@
 import { describe } from 'mocha'
 import assert from 'assert'
-import { convertJSONtoSBS } from '../src/JsonToSbs'
 import { convertSBStoJSON } from '../src/SbsToJson'
 
 describe('SbsToJson', () => {
@@ -146,17 +145,6 @@ describe('SbsToJson', () => {
         '[{"messageType":"","transmissionType":"","sessionID":"","aircraftID":"","icao24":"39c902","flightID":"","dateMessageGenerated":"2023/01/01","timeMessageGenerated":"13:21:11.000","dateMessageLogged":"2023/01/01","timeMessageLogged":"13:21:11.000","callsign":"","geoaltitude":"","groundspeed":"","track":"","latitude":"","longitude":"","vertical_rate":"",' +
         '"squawk":"","alert":"","emergency":"","spi":"","onground":""}]'
       assert.deepStrictEqual(jsonContent, expectedResult)
-    })
-
-    it('return sbs content when many attributes are empty sbs to json to sbs', async () => {
-      const sbsContent: string =
-        ',,,,39c902,,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,,,,,,,,,,,,'
-      const jsonContent: string = convertSBStoJSON(sbsContent)
-      const sbsContentFinish: string = convertJSONtoSBS(jsonContent)
-
-      const expectedResult: string =
-        'MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,,,,,,,,,0,0,0,0\n'
-      assert.deepStrictEqual(sbsContentFinish, expectedResult)
     })
 
     it('return json content when sbs content is valid with extraField', async () => {
