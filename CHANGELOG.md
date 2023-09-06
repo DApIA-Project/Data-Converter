@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - `convertCSVtoJSON` now returns a JSON object
+- when an invalid boolean is parsed it's now considered `false` instead of raising an error
 
 ### Deprecated
 
