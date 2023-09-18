@@ -1,16 +1,17 @@
 import { parse } from 'csv-parse/sync'
 import moment from 'moment/moment'
+import { JsonMessage } from './types'
 
 export function csvToJson(
   csvContent: string,
   saveExtraField: boolean = false,
-): Record<string, string>[] {
+): JsonMessage[] {
   const lines = parse(csvContent, { columns: true, quote: "'" })
-  const jsonLines: Record<string, string>[] = []
+  const jsonLines: JsonMessage[] = []
   for (const line of lines) {
     if (!moment.utc(parseInt(line.timestamp || '')).isValid()) continue
 
-    let extraField: Record<string, string> = {}
+    let extraField: JsonMessage = {}
     if (saveExtraField) {
       try {
         extraField = {

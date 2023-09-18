@@ -1,4 +1,5 @@
 import moment from 'moment/moment'
+import { JsonMessage } from '../types'
 
 export const SBS_DATE_FORMAT = 'YYYY/MM/DD'
 export const SBS_TIME_FORMAT = 'HH:mm:ss.SSS'

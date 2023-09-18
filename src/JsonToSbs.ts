@@ -4,6 +4,7 @@ import {
   buildTimeValue,
   toSbsBoolean,
 } from './utils/utils'
+import { JsonMessage } from './types'
 
 export function convertJSONtoSBS(
   array: Record<string, string>[],

@@ -1,9 +1,9 @@
 import { describe } from 'mocha'
 import assert from 'assert'
 import { convertSBStoJSON } from '../src/SbsToJson'
-import { convertJSONtoCSV } from '../src/JsonToCsv'
 import { convertSBStoNDJSON } from '../src/SbsToNdjson'
 import { convertNDJSONtoCSV } from '../src/NdjsonToCsv'
+import { jsonToCsv } from '../src/jsonToCsv'
 
 describe('SbsToNdjsonToCsv', () => {
   context('Data sbs no valid', () => {
@@ -69,7 +69,7 @@ describe('SbsToNdjsonToCsv', () => {
         'MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,7015,0,0,0,0\n' +
         ''
       const ndjsonContent: string = convertSBStoJSON(sbsContent)
-      const csvContent: string = convertJSONtoCSV(ndjsonContent, false)
+      const csvContent: string = jsonToCsv(ndjsonContent, false)
 
       const expectedResult: string =
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
