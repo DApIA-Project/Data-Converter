@@ -1,10 +1,9 @@
 import { describe } from 'mocha'
 import assert from 'assert'
-import { jsonToCsv } from '../src/jsonToCsv'
-import { JsonMessage } from '../src/types'
+import { ndjsonToCsv } from '../src/ndjsonToCsv'
 
-describe('jsonToCsv', () => {
-  const jsonMessage: JsonMessage = {
+describe('ndjsonToCsv', () => {
+  const jsonMessage: Record<string, string> = {
     timestamp: '1695026360123',
     geoaltitude: '125.2',
     icao24: '39c902',
@@ -25,23 +24,22 @@ describe('jsonToCsv', () => {
   }
 
   context('when JSON data are not valid', () => {
-    it('throws an error data are not an array', () => {
-      assert.throws(
-        () => jsonToCsv(JSON.stringify(jsonMessage)),
-        new Error('JSON data must be an array'),
+    it('throws an error data are not NDJSON', () => {
+      assert.throws(() =>
+        ndjsonToCsv('[\n ' + `${JSON.stringify(jsonMessage)}` + '\n]'),
       )
     })
 
     it('ignores message if date is missing', () => {
       assert.deepStrictEqual(
-        jsonToCsv(JSON.stringify([{ ...jsonMessage, timestamp: undefined }])),
+        ndjsonToCsv(JSON.stringify({ ...jsonMessage, timestamp: undefined })),
         '',
       )
     })
 
     it('ignores message if ICAO is missing', () => {
       assert.deepStrictEqual(
-        jsonToCsv(JSON.stringify([{ ...jsonMessage, icao24: undefined }])),
+        ndjsonToCsv(JSON.stringify({ ...jsonMessage, icao24: undefined })),
         '',
       )
     })
@@ -50,7 +48,7 @@ describe('jsonToCsv', () => {
   context('when JSON data are valid', () => {
     it('returns CSV content', () => {
       assert.deepStrictEqual(
-        jsonToCsv(JSON.stringify([jsonMessage])),
+        ndjsonToCsv(JSON.stringify(jsonMessage)),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
           `${jsonMessage.timestamp},${jsonMessage.icao24},${jsonMessage.latitude},${jsonMessage.longitude},${jsonMessage.groundspeed},${jsonMessage.track},${jsonMessage.vertical_rate},${jsonMessage.callsign},${jsonMessage.onground},${jsonMessage.alert},${jsonMessage.spi},${jsonMessage.squawk},${jsonMessage.altitude},${jsonMessage.geoaltitude},${jsonMessage.last_position},${jsonMessage.lastcontact},${jsonMessage.hour}\n`,
       )
@@ -58,10 +56,11 @@ describe('jsonToCsv', () => {
 
     it('returns empty cells if fields are missing', () => {
       assert.deepStrictEqual(
-        jsonToCsv(
-          JSON.stringify([
-            { timestamp: jsonMessage.timestamp, icao24: jsonMessage.icao24 },
-          ]),
+        ndjsonToCsv(
+          JSON.stringify({
+            timestamp: jsonMessage.timestamp,
+            icao24: jsonMessage.icao24,
+          }),
         ),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
           `${jsonMessage.timestamp},${jsonMessage.icao24},,,,,,,,,,,,,,,\n`,
@@ -70,10 +69,12 @@ describe('jsonToCsv', () => {
 
     it('return extra fields', () => {
       assert.deepStrictEqual(
-        jsonToCsv(
-          JSON.stringify([
-            { ...jsonMessage, msgType: '3', transmissionType: 'MSG' },
-          ]),
+        ndjsonToCsv(
+          JSON.stringify({
+            ...jsonMessage,
+            msgType: '3',
+            transmissionType: 'MSG',
+          }),
           true,
         ),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraFields\n' +
