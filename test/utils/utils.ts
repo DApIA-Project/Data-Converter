@@ -3,23 +3,56 @@ import assert from 'assert'
 
 describe('utils', () => {
   context('toSbsBoolean', () => {
-    it('returns `1` if the value is truthy', () => {
-      assert.equal(toSbsBoolean('1'), 1)
-      assert.equal(toSbsBoolean('true'), 1)
-      assert.equal(toSbsBoolean('TRUE'), 1)
+    it('returns empty string if the value is undefined', () => {
+      assert.strictEqual(toSbsBoolean(undefined), '')
     })
 
-    it('returns `0` if the value is falsy', () => {
-      assert.equal(toSbsBoolean('0'), 0)
-      assert.equal(toSbsBoolean('false'), 0)
-      assert.equal(toSbsBoolean('FALSE'), 0)
+    context('when value is a string', () => {
+      it('returns `1` if the value is truthy', () => {
+        assert.strictEqual(toSbsBoolean('1'), '1')
+        assert.strictEqual(toSbsBoolean('true'), '1')
+        assert.strictEqual(toSbsBoolean('TRUE'), '1')
+      })
+
+      it('returns `0` if the value is falsy', () => {
+        assert.strictEqual(toSbsBoolean('0'), '0')
+        assert.strictEqual(toSbsBoolean('false'), '0')
+        assert.strictEqual(toSbsBoolean('FALSE'), '0')
+      })
+
+      it('returns `0` if the value is not a boolean', () => {
+        assert.strictEqual(toSbsBoolean('20'), '0')
+        assert.strictEqual(toSbsBoolean('not_a_bool'), '0')
+      })
+
+      it('returns empty string if the value is empty', () => {
+        assert.strictEqual(toSbsBoolean(''), '')
+      })
     })
 
-    it('returns `0` if the value is not a boolean', () => {
-      assert.equal(toSbsBoolean('20'), 0)
-      assert.equal(toSbsBoolean('not_a_bool'), 0)
-      assert.equal(toSbsBoolean(''), 0)
-      assert.equal(toSbsBoolean(undefined), 0)
+    context('when value is a boolean', () => {
+      it('returns `1` if the value is truthy', () => {
+        assert.strictEqual(toSbsBoolean(true), '1')
+      })
+
+      it('returns `0` if the value is falsy', () => {
+        assert.strictEqual(toSbsBoolean(false), '0')
+      })
+    })
+
+    context('when value is a number', () => {
+      it('returns `1` if the value is positive', () => {
+        assert.strictEqual(toSbsBoolean(1), '1')
+        assert.strictEqual(toSbsBoolean(10), '1')
+        assert.strictEqual(toSbsBoolean(10000), '1')
+      })
+
+      it('returns `0` if the value is negative or null', () => {
+        assert.strictEqual(toSbsBoolean(0), '0')
+        assert.strictEqual(toSbsBoolean(-1), '0')
+        assert.strictEqual(toSbsBoolean(-10), '0')
+        assert.strictEqual(toSbsBoolean(-1000), '0')
+      })
     })
   })
 
@@ -31,8 +64,8 @@ describe('utils', () => {
     })
 
     it('returns a formatted date', () => {
-      assert.equal(toSbsDate('1693899121'), '2023/09/05')
-      assert.equal(toSbsDate('-1'), '1969/12/31')
+      assert.strictEqual(toSbsDate('1693899121'), '2023/09/05')
+      assert.strictEqual(toSbsDate('-1'), '1969/12/31')
     })
   })
 
@@ -44,8 +77,8 @@ describe('utils', () => {
     })
 
     it('returns a formatted time', () => {
-      assert.equal(toSbsTime('1693899121'), '07:32:01.000')
-      assert.equal(toSbsTime('-1'), '23:59:59.000')
+      assert.strictEqual(toSbsTime('1693899121'), '07:32:01.000')
+      assert.strictEqual(toSbsTime('-1'), '23:59:59.000')
     })
   })
 })

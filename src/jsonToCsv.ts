@@ -1,26 +1,6 @@
 import { createObjectCsvStringifier } from 'csv-writer'
 import { CsvRow, JsonMessage } from './types'
 
-const CSV_FIELDS = [
-  'timestamp',
-  'icao24',
-  'latitude',
-  'longitude',
-  'groundspeed',
-  'track',
-  'vertical_rate',
-  'callsign',
-  'onground',
-  'alert',
-  'spi',
-  'squawk',
-  'altitude',
-  'geoaltitude',
-  'last_position',
-  'lastcontact',
-  'hour',
-]
-
 export function jsonToCsv(
   jsonContentString: string,
   saveExtraField: boolean = false,
@@ -45,6 +25,7 @@ export function jsonToCsv(
         title: header,
       })),
     })
+
     return (
       csvStringifier.getHeaderString() +
       csvStringifier
@@ -71,23 +52,23 @@ function createCSVData(
     }
 
     const row: CsvRow = {
-      timestamp: message.timestamp || '',
-      icao24: message.icao24 || '',
-      latitude: message.latitude || '',
-      longitude: message.longitude || '',
-      groundspeed: message.groundspeed || '',
-      track: message.track || '',
-      vertical_rate: message.vertical_rate || '',
-      callsign: message.callsign || '',
-      onground: message.onground || '',
-      alert: message.alert || '',
-      spi: message.spi || '',
-      squawk: message.squawk || '',
-      altitude: message.altitude || '',
-      geoaltitude: message.geoaltitude || '',
-      last_position: message.last_position || '',
-      lastcontact: message.lastcontact || '',
-      hour: message.hour || '',
+      timestamp: `${message.timestamp || ''}`,
+      icao24: `${message.icao24 || ''}`,
+      latitude: `${message.latitude || ''}`,
+      longitude: `${message.longitude || ''}`,
+      groundspeed: `${message.groundspeed || ''}`,
+      track: `${message.track || ''}`,
+      vertical_rate: `${message.vertical_rate || ''}`,
+      callsign: `${message.callsign || ''}`,
+      onground: `${message.onground || ''}`,
+      alert: `${message.alert || ''}`,
+      spi: `${message.spi || ''}`,
+      squawk: `${message.squawk || ''}`,
+      altitude: `${message.altitude || ''}`,
+      geoaltitude: `${message.geoaltitude || ''}`,
+      last_position: `${message.last_position || ''}`,
+      lastcontact: `${message.lastcontact || ''}`,
+      hour: `${message.hour || ''}`,
     }
 
     if (saveExtraField)

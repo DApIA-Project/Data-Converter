@@ -1,5 +1,4 @@
 import moment from 'moment/moment'
-import { JsonMessage } from '../types'
 
 export const SBS_DATE_FORMAT = 'YYYY/MM/DD'
 export const SBS_TIME_FORMAT = 'HH:mm:ss.SSS'
@@ -25,9 +24,16 @@ export function getDateToTimestamp(date: string, time: string): string {
   return timestampInSeconds.toString()
 }
 
-export function toSbsBoolean(str: string | undefined) {
-  if (!str) return 0
-  return str.toLowerCase() === 'true' || str === '1' ? 1 : 0
+export function toSbsBoolean(value: boolean | string | number | undefined) {
+  if (value === undefined) return ''
+
+  if (typeof value === 'boolean') return value ? '1' : '0'
+
+  if (typeof value === 'number') return value <= 0 ? '0' : '1'
+
+  if (!value) return ''
+
+  return value.toLowerCase() === 'true' || value === '1' ? '1' : '0'
 }
 
 export function buildDateValue(jsonContentElement: any) {

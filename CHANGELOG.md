@@ -14,6 +14,8 @@ All notable changes to this project will be documented in this file.
 - when an invalid boolean is parsed it's now considered `false` instead of raising an error
 - rename `convertCSVtoJSON` to `csvToJson`
 - rename `convertCSVtoNDJSON` to `csvToNdjson`
+- rename `convertJSONtoSBS` to `jsonToSbs`
+- rename `convertNDJSONtoSBS` to `ndjsonToSbs`
 
 ### Deprecated
 

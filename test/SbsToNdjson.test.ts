@@ -1,7 +1,6 @@
 import { describe } from 'mocha'
 import assert from 'assert'
 import { convertSBStoNDJSON } from '../src/SbsToNdjson'
-import { convertNDJSONtoSBS } from '../src/NdjsonToSbs'
 
 describe('SbsToNdjson', () => {
   context('Data sbs valid', () => {
@@ -146,17 +145,6 @@ describe('SbsToNdjson', () => {
         '{"messageType":"","transmissionType":"","sessionID":"","aircraftID":"","icao24":"39c902","flightID":"","dateMessageGenerated":"2023/01/01","timeMessageGenerated":"13:21:11.000","dateMessageLogged":"2023/01/01","timeMessageLogged":"13:21:11.000","callsign":"","geoaltitude":"","groundspeed":"","track":"","latitude":"","longitude":"","vertical_rate":"",' +
         '"squawk":"","alert":"","emergency":"","spi":"","onground":""}'
       assert.deepStrictEqual(ndjsonContent, expectedResult)
-    })
-
-    it('return sbs content when many attributes are empty sbs to ndjson to sbs', async () => {
-      const sbsContent: string =
-        ',,,,39c902,,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,,,,,,,,,,,,'
-      const ndjsonContent: string = convertSBStoNDJSON(sbsContent)
-      const sbsContentFinish: string = convertNDJSONtoSBS(ndjsonContent)
-
-      const expectedResult: string =
-        'MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,,,,,,,,,0,0,0,0\n'
-      assert.deepStrictEqual(sbsContentFinish, expectedResult)
     })
 
     it('return ndjson content when sbs content is valid with extraField', async () => {

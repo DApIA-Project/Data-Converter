@@ -48,7 +48,7 @@ export interface JsonFromSbs {
   hour?: string
 }
 
-export type JsonMessage = Record<string, string | undefined>
+export type JsonMessage = Record<string, string | boolean | number | undefined>
 
 export type CsvRow = {
   timestamp: string
