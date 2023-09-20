@@ -36,6 +36,18 @@ export function toSbsBoolean(value: boolean | string | number | undefined) {
   return value.toLowerCase() === 'true' || value === '1' ? '1' : '0'
 }
 
+export function fromSbsBoolean(value: boolean | string | number | undefined) {
+  if (value === undefined || value === '') return
+  return value === '1'
+}
+
+export function cleanEmptyProperties(object: Record<string, any>) {
+  Object.keys(object).forEach(
+    (key) =>
+      (object[key] === undefined || object[key] === '') && delete object[key],
+  )
+}
+
 export function buildDateValue(jsonContentElement: any) {
   if (jsonContentElement.timestamp != undefined) {
     return toSbsDate(jsonContentElement.timestamp)

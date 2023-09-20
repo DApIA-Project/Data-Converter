@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - rename `convertCSVtoNDJSON` to `csvToNdjson`
 - rename `convertJSONtoSBS` to `jsonToSbs`
 - rename `convertNDJSONtoSBS` to `ndjsonToSbs`
+- rename `convertSBStoJSON` to `sbsToJson`
 
 ### Deprecated
 

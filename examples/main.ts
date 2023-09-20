@@ -1,6 +1,6 @@
-import * as fs from "fs";
-import { csvToJson } from "../src/CsvToJson";
-import { jsonToSbs } from "../src/JsonToSbs"; /** CSV to SBS **/
+import * as fs from 'fs'
+import { csvToJson } from '../src/CsvToJson'
+import { jsonToSbs } from '../src/JsonToSbs' /** CSV to SBS **/
 
 /** CSV to SBS **/
 /*
