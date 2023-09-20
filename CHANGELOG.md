@@ -10,13 +10,14 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- `convertCSVtoJSON` now returns a JSON object
-- when an invalid boolean is parsed it's now considered `false` instead of raising an error
 - rename `convertCSVtoJSON` to `csvToJson`
 - rename `convertCSVtoNDJSON` to `csvToNdjson`
 - rename `convertJSONtoSBS` to `jsonToSbs`
 - rename `convertNDJSONtoSBS` to `ndjsonToSbs`
 - rename `convertSBStoJSON` to `sbsToJson`
+- rename `convertSBStoNDJSON` to `sbsToNdjson`
+- `csvToJson` now returns a JSON object
+- `sbsToJson` now returns a JSON object
 
 ### Deprecated
 
