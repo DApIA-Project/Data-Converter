@@ -1,5 +1,6 @@
 import { createObjectCsvStringifier } from 'csv-writer'
 import { CsvRow, JsonMessage } from './types'
+import { getCsvExtraFields } from './utils/utils'
 
 export function jsonToCsv(
   jsonContentString: string,
@@ -72,31 +73,9 @@ function createCSVData(
     }
 
     if (saveExtraField)
-      row.extraFields = JSON.stringify(getExtraFields(message))
+      row.extraFields = JSON.stringify(getCsvExtraFields(message))
 
     rows.push(row)
   }
   return rows
-}
-
-function getExtraFields(message: JsonMessage): JsonMessage {
-  const messageCopy = { ...message }
-  delete messageCopy.timestamp
-  delete messageCopy.icao24
-  delete messageCopy.latitude
-  delete messageCopy.longitude
-  delete messageCopy.groundspeed
-  delete messageCopy.track
-  delete messageCopy.vertical_rate
-  delete messageCopy.callsign
-  delete messageCopy.onground
-  delete messageCopy.alert
-  delete messageCopy.spi
-  delete messageCopy.squawk
-  delete messageCopy.altitude
-  delete messageCopy.geoaltitude
-  delete messageCopy.last_position
-  delete messageCopy.lastcontact
-  delete messageCopy.hour
-  return messageCopy
 }

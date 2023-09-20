@@ -1,2 +1,2 @@
-export * from './CsvToSbs'
+export * from './convertCSVtoSBS'
 export * from './SbsToCsv'

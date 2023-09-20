@@ -83,7 +83,7 @@ export function jsonToSbs(
     }
 
     if (saveExtraField)
-      sbsLine = `${sbsLine},'${JSON.stringify(getExtraFields(message))}'`
+      sbsLine = `${sbsLine},${JSON.stringify(getExtraFields(message))}`
 
     sbsLines.push(sbsLine)
   }

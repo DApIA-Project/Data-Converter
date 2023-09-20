@@ -1,4 +1,5 @@
 import moment from 'moment/moment'
+import { JsonMessage } from '../types'
 
 export const SBS_DATE_FORMAT = 'YYYY/MM/DD'
 export const SBS_TIME_FORMAT = 'HH:mm:ss.SSS'
@@ -126,4 +127,26 @@ export function buildSquawkValueForCsv(squawkValue: string) {
   } else {
     return squawkValue
   }
+}
+
+export function getCsvExtraFields(message: JsonMessage): JsonMessage {
+  const messageCopy = { ...message }
+  delete messageCopy.timestamp
+  delete messageCopy.icao24
+  delete messageCopy.latitude
+  delete messageCopy.longitude
+  delete messageCopy.groundspeed
+  delete messageCopy.track
+  delete messageCopy.vertical_rate
+  delete messageCopy.callsign
+  delete messageCopy.onground
+  delete messageCopy.alert
+  delete messageCopy.spi
+  delete messageCopy.squawk
+  delete messageCopy.altitude
+  delete messageCopy.geoaltitude
+  delete messageCopy.last_position
+  delete messageCopy.lastcontact
+  delete messageCopy.hour
+  return messageCopy
 }

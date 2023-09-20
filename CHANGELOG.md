@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - rename `convertNDJSONtoSBS` to `ndjsonToSbs`
 - rename `convertSBStoJSON` to `sbsToJson`
 - rename `convertSBStoNDJSON` to `sbsToNdjson`
+- rename `convertCSVtoSBS` to `csvToSbs`
 - `csvToJson` now returns a JSON object
 - `sbsToJson` now returns a JSON object
 
