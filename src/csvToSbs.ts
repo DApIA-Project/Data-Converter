@@ -55,80 +55,12 @@ export function csvToSbs(csvContent: string): string {
       alert,
       spi,
       squawk,
-      altitude: sbsAltitude,
-      geoaltitude,
+      altitude: geoaltitude,
       last_position,
       lastcontact,
       hour,
       ...getCsvExtraFields(csvJsonMessage),
     })
-    return jsonToSbs(JSON.stringify(sbsJsonMessages), true)
   }
-
-  /*
-    timestamp     -> dateMessageGenerated
-                     timeMessageGenerated
-                     dateMessageLogged
-                     timeMessageLogged
-
-    icao24        -> hexIdent
-
-    groundspeed   -> groundSpeed
-
-    vertical_rate -> verticalRate
-
-    onground      -> isOnGround
-
-    geoaltitude
-    last_position
-    lastcontact   -> extraFields
-*/
-
-  /* CSV headers
-  timestamp
-  icao24
-  latitude
-  longitude
-  groundspeed
-  track
-  vertical_rate
-  callsign
-  onground
-  alert
-  spi
-  squawk
-  altitude
-  geoaltitude
-  last_position
-  lastcontact
-  hour
-  extraFields
-*/
-
-  /* SBS headers
-  dateMessageGenerated
-  timeMessageGenerated
-  dateMessageLogged
-  timeMessageLogged
-  hexIdent
-  aircraftID
-  messageType
-  transmissionType
-  sessionID
-  flightID
-  callsign
-  altitude
-  groundSpeed
-  track
-  latitude
-  longitude
-  verticalRate
-  squawk
-  alert
-  emergency
-  spi
-  isOnGround
-*/
-
-  return ''
+  return jsonToSbs(JSON.stringify(sbsJsonMessages), true)
 }

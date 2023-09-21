@@ -37,5 +37,5 @@ export type CsvRow = {
   last_position: string
   lastcontact: string
   hour: string
-  extraFields?: string
+  extraField?: string
 }

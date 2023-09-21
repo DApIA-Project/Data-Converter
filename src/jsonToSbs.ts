@@ -1,4 +1,4 @@
-import { toSbsBoolean } from './utils/utils'
+import { getSbsExtraFields, toSbsBoolean } from './utils/utils'
 import { JsonMessage } from './types'
 
 export function jsonToSbs(
@@ -83,38 +83,9 @@ export function jsonToSbs(
     }
 
     if (saveExtraField)
-      sbsLine = `${sbsLine},${JSON.stringify(getExtraFields(message))}`
+      sbsLine = `${sbsLine},${JSON.stringify(getSbsExtraFields(message))}`
 
     sbsLines.push(sbsLine)
   }
   return sbsLines.join('\n')
-}
-
-function getExtraFields(message: JsonMessage): JsonMessage {
-  const messageCopy = { ...message }
-  delete messageCopy.dateMessageGenerated
-  delete messageCopy.timeMessageGenerated
-  delete messageCopy.dateMessageLogged
-  delete messageCopy.timeMessageLogged
-  delete messageCopy.hexIdent
-  delete messageCopy.aircraftID
-  delete messageCopy.messageType
-  delete messageCopy.transmissionType
-  delete messageCopy.sessionID
-  delete messageCopy.flightID
-  delete messageCopy.callsign
-  delete messageCopy.altitude
-  delete messageCopy.groundSpeed
-  delete messageCopy.track
-  delete messageCopy.latitude
-  delete messageCopy.longitude
-  delete messageCopy.verticalRate
-  delete messageCopy.squawk
-  delete messageCopy.alert
-  delete messageCopy.emergency
-  delete messageCopy.spi
-  delete messageCopy.isOnGround
-  delete messageCopy.haveLabel
-  delete messageCopy.label
-  return messageCopy
 }

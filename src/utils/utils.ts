@@ -16,15 +16,6 @@ export function toSbsTime(str: string | undefined): string {
   return date.utc().format(SBS_TIME_FORMAT)
 }
 
-export function getDateToTimestamp(date: string, time: string): string {
-  const timestamp = Date.parse(date + ',' + time + ' GMT')
-  if (isNaN(timestamp)) {
-    return 'Error content file'
-  }
-  const timestampInSeconds: number = Math.floor(timestamp / 1000)
-  return timestampInSeconds.toString()
-}
-
 export function toSbsBoolean(value: boolean | string | number | undefined) {
   if (value === undefined) return ''
 
@@ -77,56 +68,10 @@ export function buildSquawkValueForSbs(squawkValue: string) {
   }
 }
 
-export function buildTimestampValue(item: any): string {
-  if (item.timestamp !== undefined && item.timestamp !== '') {
-    return item.timestamp
-  } else {
-    if (
-      item.dateMessageGenerated !== undefined &&
-      item.dateMessageGenerated !== '' &&
-      item.timeMessageGenerated !== undefined &&
-      item.timeMessageGenerated !== ''
-    ) {
-      return getDateToTimestamp(
-        item.dateMessageGenerated,
-        item.timeMessageGenerated,
-      )
-    } else {
-      return 'Error'
-    }
-  }
-}
-
-export function buildBooleanValueForCsv(boolValue: string) {
-  if (boolValue === undefined || boolValue === '') {
-    return 'False'
-  } else {
-    if (boolValue === '1' || boolValue === '0') {
-      if (boolValue === '1') {
-        return 'True'
-      } else {
-        return 'False'
-      }
-    } else {
-      if (boolValue === 'False' || boolValue === 'True') {
-        return boolValue
-      } else {
-        return 'Error'
-      }
-    }
-  }
-}
-
-export function buildSquawkValueForCsv(squawkValue: string) {
-  if (
-    squawkValue === '' ||
-    squawkValue === 'NaN' ||
-    squawkValue === undefined
-  ) {
-    return 'NaN'
-  } else {
-    return squawkValue
-  }
+export function toCsvTimestamp(date: string, time: string): number {
+  const timestamp = Date.parse(date + ',' + time + ' GMT')
+  if (isNaN(timestamp)) throw new Error('Invalid date')
+  return Math.floor(timestamp / 1000)
 }
 
 export function getCsvExtraFields(message: JsonMessage): JsonMessage {
@@ -148,5 +93,34 @@ export function getCsvExtraFields(message: JsonMessage): JsonMessage {
   delete messageCopy.last_position
   delete messageCopy.lastcontact
   delete messageCopy.hour
+  return messageCopy
+}
+
+export function getSbsExtraFields(message: JsonMessage): JsonMessage {
+  const messageCopy = { ...message }
+  delete messageCopy.dateMessageGenerated
+  delete messageCopy.timeMessageGenerated
+  delete messageCopy.dateMessageLogged
+  delete messageCopy.timeMessageLogged
+  delete messageCopy.hexIdent
+  delete messageCopy.aircraftID
+  delete messageCopy.messageType
+  delete messageCopy.transmissionType
+  delete messageCopy.sessionID
+  delete messageCopy.flightID
+  delete messageCopy.callsign
+  delete messageCopy.altitude
+  delete messageCopy.groundSpeed
+  delete messageCopy.track
+  delete messageCopy.latitude
+  delete messageCopy.longitude
+  delete messageCopy.verticalRate
+  delete messageCopy.squawk
+  delete messageCopy.alert
+  delete messageCopy.emergency
+  delete messageCopy.spi
+  delete messageCopy.isOnGround
+  delete messageCopy.haveLabel
+  delete messageCopy.label
   return messageCopy
 }

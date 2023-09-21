@@ -50,7 +50,7 @@ describe('csvToSbs', () => {
           'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
             `${timestamp},${icao24},${latitude},${longitude},${groundspeed},${track},${vertical_rate},${callsign},${onground},${alert},${spi},${squawk},${altitude},${geoaltitude},${last_position},${lastcontact},${hour}`,
         ),
-        `MSG,3,1,1,${icao24},1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,${callsign},38.1,${groundspeed},${track},${latitude},${longitude},${vertical_rate},${squawk},1,,1,1,{"geoaltitude":"${geoaltitude}","last_position":"${last_position}","lastcontact":"${lastcontact}","hour":"${hour}"}`,
+        `MSG,3,1,1,${icao24},1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,${callsign},${geoaltitude},${groundspeed},${track},${latitude},${longitude},${vertical_rate},${squawk},1,,1,1,{"last_position":"${last_position}","lastcontact":"${lastcontact}","hour":"${hour}"}`,
       )
     })
 
@@ -60,7 +60,7 @@ describe('csvToSbs', () => {
           'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
             `${timestamp},${icao24},${latitude},${longitude},${groundspeed},${track},${vertical_rate},${callsign},${onground},${alert},${spi},${squawk},${altitude},${geoaltitude},${last_position},${lastcontact},${hour},'{"messageType":"SEL","transmissionType":"2","sessionID":"3","aircraftID":"4","flightID":"5","emergency":"1"}'`,
         ),
-        `SEL,2,3,4,${icao24},5,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,${callsign},38.1,${groundspeed},${track},${latitude},${longitude},${vertical_rate},${squawk},1,1,1,1,{"geoaltitude":"${geoaltitude}","last_position":"${last_position}","lastcontact":"${lastcontact}","hour":"${hour}"}`,
+        `SEL,2,3,4,${icao24},5,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,${callsign},${geoaltitude},${groundspeed},${track},${latitude},${longitude},${vertical_rate},${squawk},1,1,1,1,{"last_position":"${last_position}","lastcontact":"${lastcontact}","hour":"${hour}"}`,
       )
     })
 
@@ -70,7 +70,7 @@ describe('csvToSbs', () => {
           'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
             `${timestamp},${icao24},${latitude},${longitude},${groundspeed},${track},${vertical_rate},${callsign},${onground},${alert},${spi},${squawk},${altitude},${geoaltitude},${last_position},${lastcontact},${hour},'{"enRoute": "1"}'`,
         ),
-        `MSG,3,1,1,${icao24},1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,${callsign},38.1,${groundspeed},${track},${latitude},${longitude},${vertical_rate},${squawk},1,,1,1,{"geoaltitude":"${geoaltitude}","last_position":"${last_position}","lastcontact":"${lastcontact}","hour":"${hour}","enRoute":"1"}`,
+        `MSG,3,1,1,${icao24},1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,${callsign},${geoaltitude},${groundspeed},${track},${latitude},${longitude},${vertical_rate},${squawk},1,,1,1,{"last_position":"${last_position}","lastcontact":"${lastcontact}","hour":"${hour}","enRoute":"1"}`,
       )
     })
   })

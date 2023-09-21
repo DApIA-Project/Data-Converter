@@ -1,5 +1,5 @@
 import { ExtraFieldsCSV, ExtraFieldsSBS } from './types'
-import { getDateToTimestamp } from './utils/utils'
+import { toCsvTimestamp } from './utils/utils'
 
 export function convertSBStoCSV(
   sbsContent: string,
@@ -101,7 +101,7 @@ export function convertSBStoCSV(
           extraFields.flightID = sbsValues[5]
           break
         case 'dateMessageGenerated':
-          csvValues[0] = getDateToTimestamp(sbsValues[6], sbsValues[7])
+          csvValues[0] = `${toCsvTimestamp(sbsValues[6], sbsValues[7])}`
           break
         case 'callsign':
           csvValues[7] = sbsValues[10]

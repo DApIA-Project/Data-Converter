@@ -81,7 +81,9 @@ export function sbsToJson(
       if (haveLabel !== undefined && haveLabel.includes('{')) {
         if (saveExtraField)
           extraFields = JSON.parse(
-            [haveLabel, label, ...maybeExtraFields].join(','),
+            [haveLabel, label, ...maybeExtraFields]
+              .filter((item) => item !== undefined)
+              .join(','),
           )
       }
     }

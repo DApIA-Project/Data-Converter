@@ -50,7 +50,7 @@ describe('ndjsonToCsv', () => {
       assert.deepStrictEqual(
         ndjsonToCsv(JSON.stringify(jsonMessage)),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
-          `${jsonMessage.timestamp},${jsonMessage.icao24},${jsonMessage.latitude},${jsonMessage.longitude},${jsonMessage.groundspeed},${jsonMessage.track},${jsonMessage.vertical_rate},${jsonMessage.callsign},${jsonMessage.onground},${jsonMessage.alert},${jsonMessage.spi},${jsonMessage.squawk},${jsonMessage.altitude},${jsonMessage.geoaltitude},${jsonMessage.last_position},${jsonMessage.lastcontact},${jsonMessage.hour}\n`,
+          `${jsonMessage.timestamp},${jsonMessage.icao24},${jsonMessage.latitude},${jsonMessage.longitude},${jsonMessage.groundspeed},${jsonMessage.track},${jsonMessage.vertical_rate},${jsonMessage.callsign},${jsonMessage.onground},${jsonMessage.alert},${jsonMessage.spi},${jsonMessage.squawk},${jsonMessage.altitude},${jsonMessage.geoaltitude},${jsonMessage.last_position},${jsonMessage.lastcontact},${jsonMessage.hour}`,
       )
     })
 
@@ -63,7 +63,7 @@ describe('ndjsonToCsv', () => {
           }),
         ),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
-          `${jsonMessage.timestamp},${jsonMessage.icao24},,,,,,,,,,,,,,,\n`,
+          `${jsonMessage.timestamp},${jsonMessage.icao24},,,,,,,,,,,,,,,`,
       )
     })
 
@@ -77,7 +77,7 @@ describe('ndjsonToCsv', () => {
           }),
           true,
         ),
-        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraFields\n' +
+        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
           `${jsonMessage.timestamp},${jsonMessage.icao24},${
             jsonMessage.latitude
           },${jsonMessage.longitude},${jsonMessage.groundspeed},${
@@ -91,7 +91,7 @@ describe('ndjsonToCsv', () => {
           },${jsonMessage.hour},"${JSON.stringify({
             msgType: '3',
             transmissionType: 'MSG',
-          })}"\n`,
+          })}"`,
       )
     })
   })

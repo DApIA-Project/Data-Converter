@@ -34,7 +34,7 @@ export function jsonToCsv(
         .replace(/""/g, '"')
         .replace(/'"/g, "'")
         .replace(/"'/g, "'")
-    )
+    ).trim()
   }
 }
 
@@ -73,7 +73,7 @@ function createCSVData(
     }
 
     if (saveExtraField)
-      row.extraFields = JSON.stringify(getCsvExtraFields(message))
+      row.extraField = JSON.stringify(getCsvExtraFields(message))
 
     rows.push(row)
   }
