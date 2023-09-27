@@ -1,4 +1,4 @@
-timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField
+time,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField
 1481274814,39644C,,,185,268.8,-960,,,,,,,,,,,"{"aircraftID":1252,"messageType":"MSG","transmissionType":4,"sessionID":1,"flightID":17982}"
 1481274814,396441,,,416.8,321.2,-1408,,,,,,,,,,,"{"aircraftID":2173,"messageType":"MSG","transmissionType":4,"sessionID":1,"flightID":18125}"
 1481274814,396441,,,,,,,False,False,False,,,35175,,,,"{"aircraftID":2173,"messageType":"MSG","transmissionType":5,"sessionID":1,"flightID":18125}"

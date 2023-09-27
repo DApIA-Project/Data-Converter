@@ -61,7 +61,7 @@ describe('sbsToCsv', () => {
         sbsToCsv(
           `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundSpeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}`,
         ),
-        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
+        'time,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
           `1672579271,${hexIdent},${latitude},${longitude},${groundSpeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude},,,,"{"aircraftID":${aircraftID},"messageType":"${messageType}","transmissionType":${transmissionType},"sessionID":${sessionID},"flightID":${flightID},"emergency":false}"`,
       )
     })
@@ -71,7 +71,7 @@ describe('sbsToCsv', () => {
         sbsToCsv(
           `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundSpeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround},{"enRoute":"1"}`,
         ),
-        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
+        'time,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
           `1672579271,${hexIdent},${latitude},${longitude},${groundSpeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude},,,,"{"aircraftID":${aircraftID},"messageType":"${messageType}","transmissionType":${transmissionType},"sessionID":${sessionID},"flightID":${flightID},"emergency":false,"enRoute":"1"}"`,
       )
     })
