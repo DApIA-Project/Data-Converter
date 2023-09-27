@@ -31,7 +31,7 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    "@dapia-project/data-converter": "^2.4.0"
+    "@dapia-project/data-converter": "^3.0.0"
   }
 }
 ```

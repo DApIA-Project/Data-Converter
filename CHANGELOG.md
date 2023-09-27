@@ -2,11 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/DApIA-Project/Data-Converter/compare/v2.4.0...main)
-
-### Info
-
-### Added
+## [v3.0.0](https://github.com/DApIA-Project/Data-Converter/compare/v2.4.0...v3.0.0)
 
 ### Changed
 
@@ -20,12 +16,6 @@ All notable changes to this project will be documented in this file.
 - rename `convertSBStoCSV` to `sbsToCsv`
 - `csvToJson` now returns a JSON object
 - `sbsToJson` now returns a JSON object
-
-### Deprecated
-
-### Removed
-
-### Fixed
 
 ## [v2.4.0](https://github.com/DApIA-Project/Data-Converter/compare/v2.3.0...v2.4.0)
 
