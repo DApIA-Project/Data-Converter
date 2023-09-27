@@ -10,16 +10,18 @@
     "build": "tsc",
     "test": "ts-mocha --config .mocharc-ts.json --timeout 10000",
     "test:coverage": "nyc --reporter=html ts-mocha -p ./test/tsconfig.json 'test/*.test.ts'",
-    "start": "ts-node ./examples/main.ts",
+    "start": "ts-node src/main.ts",
     "prettier-check": "prettier --check .",
     "prettier-write": "prettier --write ."
   },
   "dependencies": {
+    "command-line-args": "^5.2.1",
     "csv-parse": "^5.4.0",
     "csv-parser": "^3.0.0",
     "csv-writer": "^1.6.0",
     "esbuild": "^0.15.13",
-    "moment": "^2.29.4"
+    "moment": "^2.29.4",
+    "@types/command-line-args": "^5.2.0"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.1",
