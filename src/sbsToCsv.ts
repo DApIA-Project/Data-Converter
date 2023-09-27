@@ -1,4 +1,4 @@
-import { getSbsExtraFields, toCsvTime } from './utils/utils'
+import { getSbsExtraFields, toCsvTimestamp } from './utils/utils'
 import { JsonMessage } from './types'
 import { jsonToCsv } from './jsonToCsv'
 import { sbsToJson } from './sbsToJson'
@@ -37,7 +37,10 @@ export function sbsToCsv(sbsContent: string): string {
 
     try {
       csvJsonMessages.push({
-        time: toCsvTime(`${dateMessageGenerated}`, `${timeMessageGenerated}`),
+        timestamp: toCsvTimestamp(
+          `${dateMessageGenerated}`,
+          `${timeMessageGenerated}`,
+        ),
         icao24: hexIdent,
         groundspeed: groundSpeed,
         vertical_rate: verticalRate,

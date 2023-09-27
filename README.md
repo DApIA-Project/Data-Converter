@@ -191,7 +191,7 @@ a CSV to SBS conversion does not follow a certain pattern.
 
 | Number   | Field         |
 | -------- | ------------- |
-| Field 1  | time          |
+| Field 1  | timestamp     |
 | Field 2  | icao24        |
 | Field 3  | latitude      |
 | Field 4  | longitude     |
@@ -231,7 +231,7 @@ For JSON and NDJSON files :
 
 | Field                 |
 | --------------------- |
-| time?                 |
+| timestamp?            |
 | icao24?               |
 | latitude?             |
 | longitude?            |

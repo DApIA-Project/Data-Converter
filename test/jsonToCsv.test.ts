@@ -5,7 +5,7 @@ import { JsonMessage } from '../src/types'
 
 describe('jsonToCsv', () => {
   const jsonMessage: JsonMessage = {
-    time: '1695026360123',
+    timestamp: '1695026360123',
     geoaltitude: '125.2',
     icao24: '39c902',
     callsign: 'SWN5614',
@@ -34,7 +34,7 @@ describe('jsonToCsv', () => {
 
     it('ignores message if date is missing', () => {
       assert.deepStrictEqual(
-        jsonToCsv(JSON.stringify([{ ...jsonMessage, time: undefined }])),
+        jsonToCsv(JSON.stringify([{ ...jsonMessage, timestamp: undefined }])),
         '',
       )
     })
@@ -51,8 +51,8 @@ describe('jsonToCsv', () => {
     it('returns CSV content', () => {
       assert.deepStrictEqual(
         jsonToCsv(JSON.stringify([jsonMessage])),
-        'time,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
-          `${jsonMessage.time},${jsonMessage.icao24},${jsonMessage.latitude},${jsonMessage.longitude},${jsonMessage.groundspeed},${jsonMessage.track},${jsonMessage.vertical_rate},${jsonMessage.callsign},False,True,False,${jsonMessage.squawk},${jsonMessage.altitude},${jsonMessage.geoaltitude},${jsonMessage.last_position},${jsonMessage.lastcontact},${jsonMessage.hour}`,
+        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
+          `${jsonMessage.timestamp},${jsonMessage.icao24},${jsonMessage.latitude},${jsonMessage.longitude},${jsonMessage.groundspeed},${jsonMessage.track},${jsonMessage.vertical_rate},${jsonMessage.callsign},False,True,False,${jsonMessage.squawk},${jsonMessage.altitude},${jsonMessage.geoaltitude},${jsonMessage.last_position},${jsonMessage.lastcontact},${jsonMessage.hour}`,
       )
     })
 
@@ -60,11 +60,11 @@ describe('jsonToCsv', () => {
       assert.deepStrictEqual(
         jsonToCsv(
           JSON.stringify([
-            { time: jsonMessage.time, icao24: jsonMessage.icao24 },
+            { timestamp: jsonMessage.timestamp, icao24: jsonMessage.icao24 },
           ]),
         ),
-        'time,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
-          `${jsonMessage.time},${jsonMessage.icao24},,,,,,,,,,,,,,,`,
+        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
+          `${jsonMessage.timestamp},${jsonMessage.icao24},,,,,,,,,,,,,,,`,
       )
     })
 
@@ -76,16 +76,18 @@ describe('jsonToCsv', () => {
           ]),
           true,
         ),
-        'time,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
-          `${jsonMessage.time},${jsonMessage.icao24},${jsonMessage.latitude},${
-            jsonMessage.longitude
-          },${jsonMessage.groundspeed},${jsonMessage.track},${
-            jsonMessage.vertical_rate
-          },${jsonMessage.callsign},False,True,False,${jsonMessage.squawk},${
-            jsonMessage.altitude
-          },${jsonMessage.geoaltitude},${jsonMessage.last_position},${
-            jsonMessage.lastcontact
-          },${jsonMessage.hour},'${JSON.stringify({
+        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
+          `${jsonMessage.timestamp},${jsonMessage.icao24},${
+            jsonMessage.latitude
+          },${jsonMessage.longitude},${jsonMessage.groundspeed},${
+            jsonMessage.track
+          },${jsonMessage.vertical_rate},${
+            jsonMessage.callsign
+          },False,True,False,${jsonMessage.squawk},${jsonMessage.altitude},${
+            jsonMessage.geoaltitude
+          },${jsonMessage.last_position},${jsonMessage.lastcontact},${
+            jsonMessage.hour
+          },'${JSON.stringify({
             msgType: '3',
             transmissionType: 'MSG',
           })}'`,

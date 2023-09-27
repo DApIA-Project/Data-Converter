@@ -46,7 +46,35 @@ export function cleanEmptyProperties(object: Record<string, any>) {
   )
 }
 
-export function toCsvTime(date: string, time: string): number {
+export function buildDateValue(jsonContentElement: any) {
+  if (jsonContentElement.timestamp != undefined) {
+    return toSbsDate(jsonContentElement.timestamp)
+  } else {
+    return 'Error'
+  }
+}
+
+export function buildTimeValue(jsonContentElement: any) {
+  if (jsonContentElement.timestamp != undefined) {
+    return toSbsTime(jsonContentElement.timestamp)
+  } else {
+    return 'Error'
+  }
+}
+
+export function buildSquawkValueForSbs(squawkValue: string) {
+  if (
+    squawkValue === '' ||
+    squawkValue === 'NaN' ||
+    squawkValue === undefined
+  ) {
+    return ''
+  } else {
+    return squawkValue
+  }
+}
+
+export function toCsvTimestamp(date: string, time: string): number {
   const timestamp = Date.parse(date + ',' + time + ' GMT')
   if (isNaN(timestamp)) throw new Error('Invalid date')
   return Math.floor(timestamp / 1000)
@@ -54,7 +82,7 @@ export function toCsvTime(date: string, time: string): number {
 
 export function getCsvExtraFields(message: JsonMessage): JsonMessage {
   const messageCopy = { ...message }
-  delete messageCopy.time
+  delete messageCopy.timestamp
   delete messageCopy.icao24
   delete messageCopy.latitude
   delete messageCopy.longitude

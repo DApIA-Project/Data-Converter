@@ -20,7 +20,7 @@ export interface ExtraFieldsCSV {
 export type JsonMessage = Record<string, string | boolean | number | undefined>
 
 export type CsvRow = {
-  time: string
+  timestamp: string
   icao24: string
   latitude: string
   longitude: string

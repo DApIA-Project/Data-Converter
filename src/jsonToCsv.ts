@@ -45,15 +45,15 @@ function createCSVData(
   const rows: CsvRow[] = []
 
   for (const message of messages) {
-    if (!message.time || !message.icao24) {
+    if (!message.timestamp || !message.icao24) {
       console.error(
-        `Time or ICAO is missing for message ${JSON.stringify(message)}`,
+        `Timestamp or ICAO is missing for message ${JSON.stringify(message)}`,
       )
       continue
     }
 
     const row: CsvRow = {
-      time: `${message.time || ''}`,
+      timestamp: `${message.timestamp || ''}`,
       icao24: `${message.icao24 || ''}`,
       latitude: `${message.latitude || ''}`,
       longitude: `${message.longitude || ''}`,

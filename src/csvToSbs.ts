@@ -9,7 +9,7 @@ export function csvToSbs(csvContent: string): string {
 
   for (const csvJsonMessage of csvJsonMessages) {
     const {
-      time,
+      timestamp,
       icao24,
       latitude,
       longitude,
@@ -28,14 +28,14 @@ export function csvToSbs(csvContent: string): string {
       hour,
     } = csvJsonMessage
 
-    if (!time || !icao24) {
+    if (!timestamp || !icao24) {
       continue
     }
 
-    const dateMessageGenerated = toSbsDate(`${time}`)
-    const timeMessageGenerated = toSbsTime(`${time}`)
-    const dateMessageLogged = toSbsDate(`${time}`)
-    const timeMessageLogged = toSbsTime(`${time}`)
+    const dateMessageGenerated = toSbsDate(`${timestamp}`)
+    const timeMessageGenerated = toSbsTime(`${timestamp}`)
+    const dateMessageLogged = toSbsDate(`${timestamp}`)
+    const timeMessageLogged = toSbsTime(`${timestamp}`)
     const sbsAltitude =
       (parseFloat(`${altitude}`) + parseFloat(`${geoaltitude}`)) / 2
 

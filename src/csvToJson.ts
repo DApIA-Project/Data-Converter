@@ -9,7 +9,7 @@ export function csvToJson(
   const lines = parse(csvContent, { columns: true, quote: "'" })
   const jsonLines: JsonMessage[] = []
   for (const line of lines) {
-    if (!moment.utc(parseInt(line.time || '')).isValid()) continue
+    if (!moment.utc(parseInt(line.timestamp || '')).isValid()) continue
 
     let extraField: JsonMessage = {}
     if (saveExtraField) {
