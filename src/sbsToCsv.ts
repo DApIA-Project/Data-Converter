@@ -29,6 +29,7 @@ export function sbsToCsv(sbsContent: string): string {
       emergency,
       spi,
       isOnGround,
+      baroaltitude,
     } = sbsJsonMessage
 
     if (!dateMessageGenerated || !timeMessageGenerated || !hexIdent) {
@@ -52,6 +53,7 @@ export function sbsToCsv(sbsContent: string): string {
         alert,
         spi,
         squawk,
+        altitude: baroaltitude,
         geoaltitude: altitude,
         aircraftID,
         messageType,
@@ -59,7 +61,7 @@ export function sbsToCsv(sbsContent: string): string {
         sessionID,
         flightID,
         emergency,
-        ...getSbsExtraFields(sbsJsonMessage),
+        ...getSbsExtraFields({ ...sbsJsonMessage, baroaltitude: undefined }),
       })
     } catch (ignored) {
       console.error(

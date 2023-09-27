@@ -36,8 +36,6 @@ export function csvToSbs(csvContent: string): string {
     const timeMessageGenerated = toSbsTime(`${timestamp}`)
     const dateMessageLogged = toSbsDate(`${timestamp}`)
     const timeMessageLogged = toSbsTime(`${timestamp}`)
-    const sbsAltitude =
-      (parseFloat(`${altitude}`) + parseFloat(`${geoaltitude}`)) / 2
 
     sbsJsonMessages.push({
       dateMessageGenerated,
@@ -59,6 +57,7 @@ export function csvToSbs(csvContent: string): string {
       last_position,
       lastcontact,
       hour,
+      baroaltitude: altitude,
       ...getCsvExtraFields(csvJsonMessage),
     })
   }
