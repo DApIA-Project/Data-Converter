@@ -32,8 +32,8 @@ export function jsonToCsv(
       csvStringifier
         .stringifyRecords(csvData)
         .replace(/""/g, '"')
-        .replace(/'"/g, "'")
-        .replace(/"'/g, "'")
+        .replace(/"{/g, "'{")
+        .replace(/}"/g, "}'")
     ).trim()
   }
 }

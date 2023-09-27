@@ -85,10 +85,10 @@ describe('jsonToCsv', () => {
             jsonMessage.altitude
           },${jsonMessage.geoaltitude},${jsonMessage.last_position},${
             jsonMessage.lastcontact
-          },${jsonMessage.hour},"${JSON.stringify({
+          },${jsonMessage.hour},'${JSON.stringify({
             msgType: '3',
             transmissionType: 'MSG',
-          })}"`,
+          })}'`,
       )
     })
   })
