@@ -1,6 +1,6 @@
 import { describe } from 'mocha'
 import assert from 'assert'
-import { jsonToCsv } from '../src/jsonToCsv'
+import { jsonToCsv } from '../src'
 import { JsonMessage } from '../src/types'
 
 describe('jsonToCsv', () => {
@@ -16,9 +16,9 @@ describe('jsonToCsv', () => {
     longitude: '1.292171034702035',
     vertical_rate: '2752.0',
     squawk: '1000',
-    alert: '1',
-    spi: '0',
-    onground: '0',
+    onground: false,
+    alert: true,
+    spi: false,
     last_position: 'location',
     lastcontact: '5',
     hour: '1',
@@ -52,7 +52,7 @@ describe('jsonToCsv', () => {
       assert.deepStrictEqual(
         jsonToCsv(JSON.stringify([jsonMessage])),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
-          `${jsonMessage.timestamp},${jsonMessage.icao24},${jsonMessage.latitude},${jsonMessage.longitude},${jsonMessage.groundspeed},${jsonMessage.track},${jsonMessage.vertical_rate},${jsonMessage.callsign},${jsonMessage.onground},${jsonMessage.alert},${jsonMessage.spi},${jsonMessage.squawk},${jsonMessage.altitude},${jsonMessage.geoaltitude},${jsonMessage.last_position},${jsonMessage.lastcontact},${jsonMessage.hour}`,
+          `${jsonMessage.timestamp},${jsonMessage.icao24},${jsonMessage.latitude},${jsonMessage.longitude},${jsonMessage.groundspeed},${jsonMessage.track},${jsonMessage.vertical_rate},${jsonMessage.callsign},False,True,False,${jsonMessage.squawk},${jsonMessage.altitude},${jsonMessage.geoaltitude},${jsonMessage.last_position},${jsonMessage.lastcontact},${jsonMessage.hour}`,
       )
     })
 
@@ -81,13 +81,13 @@ describe('jsonToCsv', () => {
             jsonMessage.latitude
           },${jsonMessage.longitude},${jsonMessage.groundspeed},${
             jsonMessage.track
-          },${jsonMessage.vertical_rate},${jsonMessage.callsign},${
-            jsonMessage.onground
-          },${jsonMessage.alert},${jsonMessage.spi},${jsonMessage.squawk},${
-            jsonMessage.altitude
-          },${jsonMessage.geoaltitude},${jsonMessage.last_position},${
-            jsonMessage.lastcontact
-          },${jsonMessage.hour},"${JSON.stringify({
+          },${jsonMessage.vertical_rate},${
+            jsonMessage.callsign
+          },False,True,False,${jsonMessage.squawk},${jsonMessage.altitude},${
+            jsonMessage.geoaltitude
+          },${jsonMessage.last_position},${jsonMessage.lastcontact},${
+            jsonMessage.hour
+          },"${JSON.stringify({
             msgType: '3',
             transmissionType: 'MSG',
           })}"`,

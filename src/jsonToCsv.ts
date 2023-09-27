@@ -1,6 +1,6 @@
 import { createObjectCsvStringifier } from 'csv-writer'
 import { CsvRow, JsonMessage } from './types'
-import { getCsvExtraFields } from './utils/utils'
+import { getCsvExtraFields, toCsvBoolean } from './utils/utils'
 
 export function jsonToCsv(
   jsonContentString: string,
@@ -61,9 +61,9 @@ function createCSVData(
       track: `${message.track || ''}`,
       vertical_rate: `${message.vertical_rate || ''}`,
       callsign: `${message.callsign || ''}`,
-      onground: `${message.onground || ''}`,
-      alert: `${message.alert || ''}`,
-      spi: `${message.spi || ''}`,
+      onground: toCsvBoolean(message.onground),
+      alert: toCsvBoolean(message.alert),
+      spi: toCsvBoolean(message.spi),
       squawk: `${message.squawk || ''}`,
       altitude: `${message.altitude || ''}`,
       geoaltitude: `${message.geoaltitude || ''}`,

@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import { csvToJson } from './csvToJson'
-import { jsonToSbs } from './jsonToSbs' /** CSV to SBS **/
+import { jsonToSbs } from './jsonToSbs'
 import commandLineArgs from 'command-line-args'
 import { jsonToCsv } from './jsonToCsv'
 import { ndjsonToSbs } from './ndjsonToSbs'

@@ -35,8 +35,6 @@ export function sbsToCsv(sbsContent: string): string {
       continue
     }
 
-    // const csvAltitude = Number(`${altitude}`) * 2 - Number(`${geoaltitude}`)
-
     try {
       csvJsonMessages.push({
         timestamp: toCsvTimestamp(

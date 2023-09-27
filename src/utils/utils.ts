@@ -28,6 +28,12 @@ export function toSbsBoolean(value: boolean | string | number | undefined) {
   return value.toLowerCase() === 'true' || value === '1' ? '1' : '0'
 }
 
+export function toCsvBoolean(value: boolean | string | number | undefined) {
+  const sbsBoolean = toSbsBoolean(value)
+  if (sbsBoolean === '') return sbsBoolean
+  return sbsBoolean === '1' ? 'True' : 'False'
+}
+
 export function fromSbsBoolean(value: boolean | string | number | undefined) {
   if (value === undefined || value === '') return
   return value === '1'

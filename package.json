@@ -11,6 +11,7 @@
     "test": "ts-mocha --config .mocharc-ts.json --timeout 10000",
     "test:coverage": "nyc --reporter=html ts-mocha -p ./test/tsconfig.json 'test/*.test.ts'",
     "start": "ts-node src/main.ts",
+    "start:sbs:to:csv": "ts-node src/main.ts --file examples/record_AFR.sbs -o csv",
     "prettier-check": "prettier --check .",
     "prettier-write": "prettier --write ."
   },

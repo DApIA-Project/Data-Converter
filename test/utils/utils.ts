@@ -1,4 +1,9 @@
-import { toSbsBoolean, toSbsDate, toSbsTime } from '../../src/utils/utils'
+import {
+  toCsvBoolean,
+  toSbsBoolean,
+  toSbsDate,
+  toSbsTime,
+} from '../../src/utils/utils'
 import assert from 'assert'
 
 describe('utils', () => {
@@ -52,6 +57,60 @@ describe('utils', () => {
         assert.strictEqual(toSbsBoolean(-1), '0')
         assert.strictEqual(toSbsBoolean(-10), '0')
         assert.strictEqual(toSbsBoolean(-1000), '0')
+      })
+    })
+  })
+
+  context('toCsvBoolean', () => {
+    it('returns empty string if the value is undefined', () => {
+      assert.strictEqual(toCsvBoolean(undefined), '')
+    })
+
+    context('when value is a string', () => {
+      it('returns `1` if the value is truthy', () => {
+        assert.strictEqual(toCsvBoolean('1'), 'True')
+        assert.strictEqual(toCsvBoolean('true'), 'True')
+        assert.strictEqual(toCsvBoolean('TRUE'), 'True')
+      })
+
+      it('returns `0` if the value is falsy', () => {
+        assert.strictEqual(toCsvBoolean('0'), 'False')
+        assert.strictEqual(toCsvBoolean('false'), 'False')
+        assert.strictEqual(toCsvBoolean('FALSE'), 'False')
+      })
+
+      it('returns `0` if the value is not a boolean', () => {
+        assert.strictEqual(toCsvBoolean('20'), 'False')
+        assert.strictEqual(toCsvBoolean('not_a_bool'), 'False')
+      })
+
+      it('returns empty string if the value is empty', () => {
+        assert.strictEqual(toCsvBoolean(''), '')
+      })
+    })
+
+    context('when value is a boolean', () => {
+      it('returns `1` if the value is truthy', () => {
+        assert.strictEqual(toCsvBoolean(true), 'True')
+      })
+
+      it('returns `0` if the value is falsy', () => {
+        assert.strictEqual(toCsvBoolean(false), 'False')
+      })
+    })
+
+    context('when value is a number', () => {
+      it('returns `1` if the value is positive', () => {
+        assert.strictEqual(toCsvBoolean(1), 'True')
+        assert.strictEqual(toCsvBoolean(10), 'True')
+        assert.strictEqual(toCsvBoolean(10000), 'True')
+      })
+
+      it('returns `0` if the value is negative or null', () => {
+        assert.strictEqual(toCsvBoolean(0), 'False')
+        assert.strictEqual(toCsvBoolean(-1), 'False')
+        assert.strictEqual(toCsvBoolean(-10), 'False')
+        assert.strictEqual(toCsvBoolean(-1000), 'False')
       })
     })
   })
