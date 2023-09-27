@@ -11,6 +11,13 @@ import { sbsToNdjson } from './sbsToNdjson'
 import { sbsToJson } from './sbsToJson'
 import { sbsToCsv } from './sbsToCsv'
 
+enum Errors {
+  MISSING_ARG,
+  FILE_NOT_FOUND,
+  BAD_INPUT_FORMAT,
+  BAD_OUTPUT_FORMAT,
+}
+
 const { file, output } = commandLineArgs([
   { name: 'file', type: String },
   { name: 'output', type: String, alias: 'o' },
@@ -18,18 +25,24 @@ const { file, output } = commandLineArgs([
 
 if (!file) {
   console.error('`file` argument is missing')
-  process.exit(1)
+  process.exit(Errors.MISSING_ARG)
 }
 
 if (!output) {
   console.error('`output` argument is missing')
-  process.exit(1)
+  process.exit(Errors.MISSING_ARG)
 }
 
 const path = file as string
-const fileContent = fs.readFileSync(path, 'utf-8')
+let fileContent = ''
+try {
+  fileContent = fs.readFileSync(path, 'utf-8')
+} catch (e) {
+  console.error(`Unable to read file: ${(e as any).message}`)
+  process.exit(Errors.FILE_NOT_FOUND)
+}
 
-let pathSegment = path.split('.')
+const pathSegment = path.split('.')
 const extension = pathSegment.slice(-1)[0] || ''
 const fileName = pathSegment.slice(0, -1).join('.')
 
@@ -51,7 +64,7 @@ switch (extension.toLowerCase()) {
     console.error(
       'Unknown extension: `.json`, `.ndjson`, `.csv` and `.sbs` are allowed',
     )
-    process.exit(2)
+    process.exit(Errors.BAD_INPUT_FORMAT)
 }
 fs.writeFileSync(
   `${fileName}.${(output as string).toLowerCase()}`,
@@ -79,7 +92,7 @@ function convertNdjson(fileContent: string, output: string): string {
       return ndjsonToSbs(fileContent, true)
     default:
       console.error('NDJSON can only be converted to CSV or SBS')
-      process.exit(3)
+      process.exit(Errors.BAD_OUTPUT_FORMAT)
   }
 }
 
@@ -93,7 +106,7 @@ function convertCsv(fileContent: string, output: string): string {
       return csvToSbs(fileContent)
     default:
       console.error('CSV can only be converted to JSON, NDJSON or SBS')
-      process.exit(3)
+      process.exit(Errors.BAD_OUTPUT_FORMAT)
   }
 }
 
@@ -107,6 +120,6 @@ function convertSbs(fileContent: string, output: string): string {
       return sbsToCsv(fileContent)
     default:
       console.error('SBS can only be converted to JSON, NDJSON or CSV')
-      process.exit(3)
+      process.exit(Errors.BAD_OUTPUT_FORMAT)
   }
 }
