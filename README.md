@@ -31,7 +31,7 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    "@dapia-project/data-converter": "^3.0.0"
+    "@dapia-project/data-converter": "^3.0.1"
   }
 }
 ```
@@ -260,3 +260,19 @@ For JSON and NDJSON files :
 | timeMessageLogged?    |
 | haveLabel?            |
 | label?                |
+
+## Commands line
+
+You can also run a command line conversion like this:
+
+First, download library globally :
+```shell
+npm i @dapia-project/data-converter -g
+```
+
+
+Then :
+```shell
+data-converter --file "path/to/fileToConvert.ext" --output "path/to/fileConverted.ext"
+```
+Possible extension types are `.sbs`, `.csv`, `.json` and `.ndjson`
