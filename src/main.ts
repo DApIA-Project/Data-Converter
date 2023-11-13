@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import * as fs from 'fs'
 import { csvToJson } from './csvToJson'
 import { jsonToSbs } from './jsonToSbs'
