@@ -47,19 +47,24 @@ const pathSegment = path.split('.')
 const extension = pathSegment.slice(-1)[0] || ''
 const fileName = pathSegment.slice(0, -1).join('.')
 
+
+const pathSegmentOutput = output.split('.')
+const extensionOutput = pathSegmentOutput.slice(-1)[0] || ''
+const fileNameOutput = pathSegmentOutput.slice(0, -1).join('.')
+
 let outputFileContent = ''
 switch (extension.toLowerCase()) {
   case 'json':
-    outputFileContent = convertJson(fileContent, output)
+    outputFileContent = convertJson(fileContent, extensionOutput)
     break
   case 'ndjson':
-    outputFileContent = convertNdjson(fileContent, output)
+    outputFileContent = convertNdjson(fileContent, extensionOutput)
     break
   case 'csv':
-    outputFileContent = convertCsv(fileContent, output)
+    outputFileContent = convertCsv(fileContent, extensionOutput)
     break
   case 'sbs':
-    outputFileContent = convertSbs(fileContent, output)
+    outputFileContent = convertSbs(fileContent, extensionOutput)
     break
   default:
     console.error(
@@ -68,7 +73,7 @@ switch (extension.toLowerCase()) {
     process.exit(Errors.BAD_INPUT_FORMAT)
 }
 fs.writeFileSync(
-  `${fileName}.${(output as string).toLowerCase()}`,
+  `${fileNameOutput}.${(extensionOutput as string).toLowerCase()}`,
   outputFileContent,
 )
 process.exit(0)

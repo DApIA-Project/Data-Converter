@@ -31,7 +31,7 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    "@dapia-project/data-converter": "^3.0.3"
+    "@dapia-project/data-converter": "^3.1.0"
   }
 }
 ```
@@ -273,6 +273,6 @@ npm i @dapia-project/data-converter -g
 
 Then :
 ```shell
-data-converter --file "path/to/fileToConvert.ext" --output "path/to/fileConverted.ext"
+data-converter --file "path/to/fileToConvert.ext" --output "path/to/fileWillBeConvert.ext"
 ```
 Possible extension types are `.sbs`, `.csv`, `.json` and `.ndjson`
