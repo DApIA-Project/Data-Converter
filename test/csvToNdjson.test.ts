@@ -50,5 +50,16 @@ describe('csvToNdjson', () => {
         '{"timestamp":"1672575671","icao24":"39c902","latitude":"43.289794921875","longitude":"5.40233523346657","groundspeed":"3.450995263850706","track":"296.565051177078","vertical_rate":"5.85216","callsign":"SAMU13","onground":"True","alert":"True","spi":"True","squawk":"NaN","altitude":"-45.72","geoaltitude":"121.92","lastposupdate":"1672575670.76","lastcontact":"1672575670.797","hour":"1672574400"}',
       )
     })
+
+    it('returns ndjson without fields last_position, lastcontact and hour', () => {
+      const ndjson: string = csvToNdjson(
+          'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude\n' +
+          '1672575671,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92',
+      )
+      assert.deepStrictEqual(
+          ndjson,
+          '{"timestamp":"1672575671","icao24":"39c902","latitude":"43.289794921875","longitude":"5.40233523346657","groundspeed":"3.450995263850706","track":"296.565051177078","vertical_rate":"5.85216","callsign":"SAMU13","onground":"True","alert":"True","spi":"True","squawk":"NaN","altitude":"-45.72","geoaltitude":"121.92"}',
+      )
+    })
   })
 })

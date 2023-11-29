@@ -73,5 +73,15 @@ describe('csvToSbs', () => {
         `MSG,3,1,1,${icao24},1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,${callsign},${geoaltitude},${groundspeed},${track},${latitude},${longitude},${vertical_rate},${squawk},1,,1,1,{"last_position":"${last_position}","lastcontact":"${lastcontact}","hour":"${hour}","baroaltitude":"-45.72","enRoute":"1"}`,
       )
     })
+
+    it('returns SBS message with extra fields without fields last_position, lastcontact and hour', async () => {
+      assert.deepStrictEqual(
+          csvToSbs(
+              'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,extraField\n' +
+              `${timestamp},${icao24},${latitude},${longitude},${groundspeed},${track},${vertical_rate},${callsign},${onground},${alert},${spi},${squawk},${altitude},${geoaltitude},'{"enRoute": "1"}'`,
+          ),
+          `MSG,3,1,1,${icao24},1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,${callsign},${geoaltitude},${groundspeed},${track},${latitude},${longitude},${vertical_rate},${squawk},1,,1,1,{"baroaltitude":"-45.72","enRoute":"1"}`,
+      )
+    })
   })
 })

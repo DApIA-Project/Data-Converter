@@ -34,8 +34,8 @@ export type CsvRow = {
   squawk: string
   altitude: string
   geoaltitude: string
-  last_position: string
-  lastcontact: string
-  hour: string
+  last_position?: string
+  lastcontact?: string
+  hour?: string
   extraField?: string
 }
