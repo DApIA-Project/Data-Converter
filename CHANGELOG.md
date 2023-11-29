@@ -16,6 +16,12 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+## [v3.2.0](https://github.com/DApIA-Project/Data-Converter/compare/v3.1.0...v3.2.0)
+
+### Changed
+
+- Fields `last_position`, `lastcontact` and `hour` are optional
+
 ## [v3.1.0](https://github.com/DApIA-Project/Data-Converter/compare/v3.0.3...v3.1.0)
 
 ### Changed
