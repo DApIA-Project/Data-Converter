@@ -54,6 +54,16 @@ describe('csvToSbs', () => {
       )
     })
 
+    it('returns SBS message with double \\n', async () => {
+      assert.deepStrictEqual(
+          csvToSbs(
+              'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
+              `${timestamp},${icao24},${latitude},${longitude},${groundspeed},${track},${vertical_rate},${callsign},${onground},${alert},${spi},${squawk},${altitude},${geoaltitude},${last_position},${lastcontact},${hour}\n\n`,
+          ),
+          `MSG,3,1,1,${icao24},1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,${callsign},${geoaltitude},${groundspeed},${track},${latitude},${longitude},${vertical_rate},${squawk},1,,1,1,{"last_position":"${last_position}","lastcontact":"${lastcontact}","hour":"${hour}","baroaltitude":"-45.72"}`,
+      )
+    })
+
     it('uses CSV extra field as SBS message properties if matching', async () => {
       assert.deepStrictEqual(
         csvToSbs(

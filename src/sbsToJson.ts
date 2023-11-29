@@ -6,6 +6,7 @@ export function sbsToJson(
   sbsContent: string,
   saveExtraField: boolean = false,
 ): JsonMessage[] {
+  sbsContent=sbsContent.replace(/\n\s*$/, '')
   const lines: string[] = parse(sbsContent, { columns: false, quote: "'" })
   const jsonLines: JsonMessage[] = []
   for (const line of lines) {

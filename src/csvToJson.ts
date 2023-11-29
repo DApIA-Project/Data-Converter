@@ -6,6 +6,7 @@ export function csvToJson(
   csvContent: string,
   saveExtraField: boolean = false,
 ): JsonMessage[] {
+  csvContent=csvContent.replace(/\n\s*$/, '')
   const lines = parse(csvContent, { columns: true, quote: "'" })
   const jsonLines: JsonMessage[] = []
   for (const line of lines) {

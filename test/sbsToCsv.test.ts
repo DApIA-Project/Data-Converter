@@ -66,6 +66,16 @@ describe('sbsToCsv', () => {
       )
     })
 
+    it('returns CSV message with double \\n', async () => {
+      assert.deepStrictEqual(
+          sbsToCsv(
+              `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundSpeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}\n\n`,
+          ),
+          'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,extraField\n' +
+          `1672579271,${hexIdent},${latitude},${longitude},${groundSpeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude},'{"aircraftID":${aircraftID},"messageType":"${messageType}","transmissionType":${transmissionType},"sessionID":${sessionID},"flightID":${flightID},"emergency":false}'`,
+      )
+    })
+
     it('uses extra fields as CSV message properies if matching', async () => {
       assert.deepStrictEqual(
         sbsToCsv(
