@@ -16,6 +16,12 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+## [v3.2.1](https://github.com/DApIA-Project/Data-Converter/compare/v3.2.0...v3.2.1)
+
+### Fixed
+
+- Replace '\n\n' by '' in file content
+
 ## [v3.2.0](https://github.com/DApIA-Project/Data-Converter/compare/v3.1.0...v3.2.0)
 
 ### Changed
