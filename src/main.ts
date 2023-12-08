@@ -123,7 +123,7 @@ function convertSbs(fileContent: string, output: string): string {
     case 'json':
       return JSON.stringify(sbsToJson(fileContent, true))
     case 'csv':
-      return sbsToCsv(fileContent)
+      return sbsToCsv(fileContent,true)
     default:
       console.error('SBS can only be converted to JSON, NDJSON or CSV')
       process.exit(Errors.BAD_OUTPUT_FORMAT)
