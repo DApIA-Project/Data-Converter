@@ -16,6 +16,12 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+## [v3.3.0](https://github.com/DApIA-Project/Data-Converter/compare/v3.2.1...v3.3.0)
+
+### Added
+
+- Add option to save ExtraField in sbsToCsv
+
 ## [v3.2.1](https://github.com/DApIA-Project/Data-Converter/compare/v3.2.0...v3.2.1)
 
 ### Fixed

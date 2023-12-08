@@ -3,7 +3,7 @@ import { JsonMessage } from './types'
 import { jsonToCsv } from './jsonToCsv'
 import { sbsToJson } from './sbsToJson'
 
-export function sbsToCsv(sbsContent: string, saveExtrafield : boolean): string {
+export function sbsToCsv(sbsContent: string, saveExtrafield : boolean = false): string {
   sbsContent=sbsContent.replace(/\n\s*$/, '')
   const sbsJsonMessages = sbsToJson(sbsContent, true)
   const csvJsonMessages: JsonMessage[] = []

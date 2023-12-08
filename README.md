@@ -31,7 +31,7 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    "@dapia-project/data-converter": "^3.2.1"
+    "@dapia-project/data-converter": "^3.3.0"
   }
 }
 ```
@@ -41,93 +41,86 @@ In your `package.json`, add the following:
 Import SBS to JSON converter:
 
 ```typescript
-import { convertSBStoJSON } from '@dapia-project/data-converter/src/SbsToJson'
+import { sbsToJson } from '@dapia-project/data-converter/src/sbsToJson'
 
-const jsonData: string = convertSBStoJSON(options)
+const jsonData: string = sbsToJson(options)
 ```
 
 Import JSON to SBS converter:
 
 ```typescript
-import { convertJSONtoSBS } from '@dapia-project/data-converter/src/JsonToSbs'
+import { jsonToSbs } from '@dapia-project/data-converter/src/jsonToSbs'
 
-const sbsData: string = convertJSONtoSBS(options)
+const sbsData: string = jsonToSbs(options)
 ```
 
 Import SBS to NDJSON converter:
 
 ```typescript
-import { convertSBStoNDJSON } from '@dapia-project/data-converter/src/SbsToNdjson'
+import { sbsToNdjson } from '@dapia-project/data-converter/src/sbsToNdjson'
 
-const ndjsonData: string = convertSBStoNDJSON(options)
+const ndjsonData: string = sbsToNdjson(options)
 ```
 
 Import NDJSON to SBS converter:
 
 ```typescript
-import { convertNDJSONtoSBS } from '@dapia-project/data-converter/src/NdjsonToSbs'
+import { ndjsonToSbs } from '@dapia-project/data-converter/src/ndjsonToSbs'
 
-const sbsData: string = convertNDJSONtoSBS(options)
+const sbsData: string = ndjsonToSbs(options)
 ```
 
 Import CSV to JSON converter:
 
 ```typescript
-import { convertCSVtoJSON } from '@dapia-project/data-converter/src/CsvToJson'
+import { csvToJson } from '@dapia-project/data-converter/src/csvToJson'
 
-const jsonData: string = convertCSVtoJSON(options)
+const jsonData: string = csvToJson(options)
 ```
 
 Import JSON to CSV converter:
 
 ```typescript
-import { convertJSONtoCSV } from '@dapia-project/data-converter/src/JsonToCsv'
+import { jsonToCsv } from '@dapia-project/data-converter/src/jsonToCsv'
 
-const csvData: string = convertJSONtoCSV(options)
+const csvData: string = jsonToCsv(options)
 ```
 
 Import CSV to NDJSON converter:
 
 ```typescript
-import { convertCSVtoNDJSON } from '@dapia-project/data-converter/src/CsvToNdjson'
+import { csvToNdjson } from '@dapia-project/data-converter/src/csvToNdjson'
 
-const ndjsonData: string = convertCSVtoNDJSON(options)
+const ndjsonData: string = csvToNdjson(options)
 ```
 
 Import NDJSON to CSV converter:
 
 ```typescript
-import { convertNDJSONtoCSV } from '@dapia-project/data-converter/src/NdjsonToCsv'
+import { ndjsonToCsv } from '@dapia-project/data-converter/src/ndjsonToCsv'
 
-const csvData: string = convertNDJSONtoCSV(options)
+const csvData: string = ndjsonToCsv(options)
 ```
 
 Import CSV to SBS converter:
 
 ```typescript
-import { convertCSVtoSBS } from '@dapia-project/data-converter/src/CsvToSbs'
+import { csvToSbs } from '@dapia-project/data-converter/src/csvToSbs'
 
-const sbsData: string = convertCSVtoSBS(options)
+const sbsData: string = csvToSbs(options)
 ```
 
 Import SBS to CSV converter:
 
 ```typescript
-import { convertSBStoCSV } from '@dapia-project/data-converter/src/SbsToCsv'
+import { sbsToCsv } from '@dapia-project/data-converter/src/sbsToCsv'
 
-const csvData: string = convertSBStoCSV(options)
+const csvData: string = sbsToCsv(options)
 ```
 
 ## Options
 
-For SBStoCSV :
-
-| key     | type   | use                            | default value |
-| ------- | ------ | ------------------------------ | ------------- |
-| content | String | The content of file to convert |               |
-
-\
-For all except SBStoCSV :
+For all :
 
 | key             | type    | use                                             | default value |
 | --------------- | ------- | ----------------------------------------------- | ------------- |
