@@ -17,6 +17,7 @@
     "start:csv:to:sbs": "ts-node src/main.ts --file examples/FHJAT.39a413.csv -o examples/FHJAT.39a413.sbs",
     "start:csv:to:json": "ts-node src/main.ts --file examples/FHJAT.39a413.csv -o examples/FHJAT.39a413.json",
     "start:csv:to:ndjson": "ts-node src/main.ts --file examples/FHJAT.39a413.csv -o examples/FHJAT.39a413.ndjson",
+    "start:dronecsv:to:sbs": "ts-node src/main.ts --file examples/FAZER-02_out.csv -o examples/FAZER-02_out.sbs",
     "prettier-check": "prettier --check .",
     "prettier-write": "prettier --write ."
   },

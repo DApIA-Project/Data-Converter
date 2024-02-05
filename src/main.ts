@@ -11,6 +11,8 @@ import { csvToSbs } from './csvToSbs'
 import { sbsToNdjson } from './sbsToNdjson'
 import { sbsToJson } from './sbsToJson'
 import { sbsToCsv } from './sbsToCsv'
+import {getDataType} from "./utils/utils";
+import {droneCsvToSbs} from "./droneCsvToSbs";
 
 enum Errors {
   MISSING_ARG,
@@ -109,7 +111,12 @@ function convertCsv(fileContent: string, output: string): string {
     case 'json':
       return JSON.stringify(csvToJson(fileContent, true))
     case 'sbs':
-      return csvToSbs(fileContent)
+      let dataType : string = getDataType(fileContent)
+        if(dataType==='drone'){
+          return droneCsvToSbs(fileContent)
+        }else{
+          return csvToSbs(fileContent)
+        }
     default:
       console.error('CSV can only be converted to JSON, NDJSON or SBS')
       process.exit(Errors.BAD_OUTPUT_FORMAT)

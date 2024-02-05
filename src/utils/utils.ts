@@ -1,5 +1,6 @@
 import moment from 'moment/moment'
-import { JsonMessage } from '../types'
+import {JsonMessage} from '../types'
+import {parse} from 'csv-parse/sync'
 
 export const SBS_DATE_FORMAT = 'YYYY/MM/DD'
 export const SBS_TIME_FORMAT = 'HH:mm:ss.SSS'
@@ -129,4 +130,36 @@ export function getSbsExtraFields(message: JsonMessage): JsonMessage {
   delete messageCopy.haveLabel
   delete messageCopy.label
   return messageCopy
+}
+
+
+export function getDataType(csvContent : string) : string{
+  csvContent=csvContent.replace(/\n\s*$/, '')
+  csvContent=csvContent.replace(/,/g, '.')
+  csvContent=csvContent.replace(/;/g, ',')
+  const lines = parse(csvContent, { columns: true})
+  const header = Object.keys(lines[0])
+  if(header.includes('name')){
+    return 'drone'
+  }else{
+    return 'opensky'
+  }
+}
+
+
+export function getDateFromDroneToSbs(date : string | undefined) : string{
+  const dateTime = new Date(date || '')
+  const year = dateTime.getFullYear()
+  const month = (dateTime.getMonth() + 1).toString().padStart(2, '0')
+  const day = dateTime.getDate().toString().padStart(2, '0')
+  return `${year}/${month}/${day}`;
+}
+
+export function getTimeFromDroneToSbs(date : string | undefined) : string{
+  const dateTime = new Date(date || '')
+  const hours = dateTime.getHours().toString().padStart(2, '0');
+  const minutes = dateTime.getMinutes().toString().padStart(2, '0');
+  const seconds = dateTime.getSeconds().toString().padStart(2, '0');
+  const milliseconds = dateTime.getMilliseconds().toString().padStart(3, '0');
+  return `${hours}:${minutes}:${seconds}.${milliseconds}`
 }
