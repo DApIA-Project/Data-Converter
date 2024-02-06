@@ -180,17 +180,17 @@ export function getDataType(csvContent : string) : string{
 
 export function getDateFromDroneToSbs(date : string | undefined) : string{
   const dateTime = new Date(date || '')
-  const year = dateTime.getFullYear()
-  const month = (dateTime.getMonth() + 1).toString().padStart(2, '0')
-  const day = dateTime.getDate().toString().padStart(2, '0')
+  const year = dateTime.getUTCFullYear()
+  const month = (dateTime.getUTCMonth() + 1).toString().padStart(2, '0')
+  const day = dateTime.getUTCDate().toString().padStart(2, '0')
   return `${year}/${month}/${day}`;
 }
 
 export function getTimeFromDroneToSbs(date : string | undefined) : string{
   const dateTime = new Date(date || '')
-  const hours = dateTime.getHours().toString().padStart(2, '0');
-  const minutes = dateTime.getMinutes().toString().padStart(2, '0');
-  const seconds = dateTime.getSeconds().toString().padStart(2, '0');
-  const milliseconds = dateTime.getMilliseconds().toString().padStart(3, '0');
+  const hours = dateTime.getUTCHours().toString().padStart(2, '0');
+  const minutes = dateTime.getUTCMinutes().toString().padStart(2, '0');
+  const seconds = dateTime.getUTCSeconds().toString().padStart(2, '0');
+  const milliseconds = dateTime.getUTCMilliseconds().toString().padStart(3, '0');
   return `${hours}:${minutes}:${seconds}.${milliseconds}`
 }
