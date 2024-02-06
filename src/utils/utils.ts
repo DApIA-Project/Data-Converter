@@ -132,11 +132,42 @@ export function getSbsExtraFields(message: JsonMessage): JsonMessage {
   return messageCopy
 }
 
+export function getCsvDroneExtraFields(message: JsonMessage): JsonMessage {
+  const messageCopy = { ...message }
+  delete messageCopy.name
+  delete messageCopy.icao24
+  delete messageCopy.date
+  delete messageCopy.fixName
+  delete messageCopy.significantPoint
+  delete messageCopy.timeElapsed
+  delete messageCopy['position.latitude (deg)']
+  delete messageCopy['position.longitude (deg)']
+  delete messageCopy['position.altitude (ft)']
+  delete messageCopy.altitudeMax
+  delete messageCopy.airSpeed
+  delete messageCopy.cas
+  delete messageCopy.mach
+  delete messageCopy['heading (deg)']
+  delete messageCopy['groundSpeed (kt)']
+  delete messageCopy.distanceToNextWaypoint
+  delete messageCopy.flownDistance
+  delete messageCopy.windEastward
+  delete messageCopy.windNorthward
+  delete messageCopy.windUpward
+  delete messageCopy.route
+  delete messageCopy.mass
+  delete messageCopy.isOneWay
+  return messageCopy
+}
+
 
 export function getDataType(csvContent : string) : string{
   csvContent=csvContent.replace(/\n\s*$/, '')
-  csvContent=csvContent.replace(/,/g, '.')
-  csvContent=csvContent.replace(/;/g, ',')
+  let lines1 = csvContent.split('\n')
+  if(lines1[0].includes(';')){
+    csvContent=csvContent.replace(/,/g, '.')
+    csvContent=csvContent.replace(/;/g, ',')
+  }
   const lines = parse(csvContent, { columns: true})
   const header = Object.keys(lines[0])
   if(header.includes('name')){

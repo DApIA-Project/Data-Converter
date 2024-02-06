@@ -1,5 +1,6 @@
 import { csvToJson } from './csvToJson'
 import {
+    getCsvDroneExtraFields,
     getCsvExtraFields,
     getDataType,
     getDateFromDroneToSbs,
@@ -9,15 +10,17 @@ import {
 } from './utils/utils'
 import { JsonMessage } from './types'
 import { jsonToSbs } from './jsonToSbs'
+import {droneCsvToJson} from "./droneCsvToJson";
 
 export function droneCsvToSbs(csvContent: string): string {
     csvContent=csvContent.replace(/\n\s*$/, '')
-    const csvJsonMessages = csvToJson(csvContent, true)
+    const csvJsonMessages = droneCsvToJson(csvContent, true)
     const sbsJsonMessages: JsonMessage[] = []
     for (const csvJsonMessage of csvJsonMessages) {
 
         const {
             name,
+            icao24,
             date,
             fixName,
             significantPoint,
@@ -41,6 +44,10 @@ export function droneCsvToSbs(csvContent: string): string {
             isOneWay
         } = csvJsonMessage
 
+        if (!date || !icao24) {
+            continue
+        }
+
 
         let dateMessageGenerated : string =getDateFromDroneToSbs(`${date}`)
         let timeMessageGenerated : string =getTimeFromDroneToSbs(`${date}`)
@@ -51,23 +58,34 @@ export function droneCsvToSbs(csvContent: string): string {
             timeMessageGenerated,
             dateMessageLogged,
             timeMessageLogged,
-            hexIdent: name,
+            hexIdent: icao24,
             groundSpeed: groundSpeed,
             verticalRate: "",
             isOnGround: "0",
             latitude : positionLatitude,
             longitude : positionLongitude,
             track : heading,
-            callsign : "",
+            callsign : name,
             alert : "0",
             spi : "0",
             squawk : "",
             altitude: positionAltitude,
-            last_position : "",
-            lastcontact : "",
-            hour : "",
-            baroaltitude: positionAltitude,
-            ...getCsvExtraFields(csvJsonMessage),
+            fixName : fixName,
+            significantPoint : significantPoint,
+            "timeElapsed (s)" : timeElapsed,
+            "altitudeMax (ft)": altitudeMax,
+            "airSpeed (kt)": airSpeed,
+            "cas (kt)": cas,
+            mach: mach,
+            "distanceToNextWaypoint (NM)": distanceToNextWaypoint,
+            "flownDistance (NM)": flownDistance,
+            "wind.eastward (kt)": windEastward,
+            "wind.northward (kt)": windNorthward,
+            "wind.upward (ft/min)": windUpward,
+            "route (deg)": route,
+            "mass (kg)": mass,
+            isOneWay: isOneWay,
+            ...getCsvDroneExtraFields(csvJsonMessage),
         })
 
     }

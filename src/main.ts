@@ -13,6 +13,8 @@ import { sbsToJson } from './sbsToJson'
 import { sbsToCsv } from './sbsToCsv'
 import {getDataType} from "./utils/utils";
 import {droneCsvToSbs} from "./droneCsvToSbs";
+import {droneCsvToJson} from "./droneCsvToJson";
+import {droneCsvToNdjson} from "./droneCsvToNdjson";
 
 enum Errors {
   MISSING_ARG,
@@ -105,13 +107,23 @@ function convertNdjson(fileContent: string, output: string): string {
 }
 
 function convertCsv(fileContent: string, output: string): string {
+  let dataType : string = getDataType(fileContent)
   switch (output.toLowerCase()) {
     case 'ndjson':
-      return csvToNdjson(fileContent, true)
+      if(dataType==='drone'){
+        return droneCsvToNdjson(fileContent, true)
+      }else{
+        return csvToNdjson(fileContent, true)
+      }
+
     case 'json':
-      return JSON.stringify(csvToJson(fileContent, true))
+      if(dataType==='drone'){
+        return JSON.stringify(droneCsvToJson(fileContent))
+      }else{
+        return JSON.stringify(csvToJson(fileContent, true))
+      }
     case 'sbs':
-      let dataType : string = getDataType(fileContent)
+
         if(dataType==='drone'){
           return droneCsvToSbs(fileContent)
         }else{

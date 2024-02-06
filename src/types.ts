@@ -39,3 +39,30 @@ export type CsvRow = {
   hour?: string
   extraField?: string
 }
+
+export type CsvDroneRow = {
+  name: string,
+  icao24: string,
+  date: string,
+  fixName: string,
+  significantPoint: string,
+  timeElapsed: string,
+  positionLatitude: string,
+  positionLongitude: string,
+  positionAltitude: string,
+  altitudeMax: string,
+  airSpeed: string,
+  cas: string,
+  mach: string,
+  heading: string,
+  groundSpeed: string,
+  distanceToNextWaypoint: string,
+  flownDistance: string,
+  windEastward: string,
+  windNorthward: string,
+  windUpward: string,
+  route: string,
+  mass: string,
+  isOneWay: string,
+
+}
