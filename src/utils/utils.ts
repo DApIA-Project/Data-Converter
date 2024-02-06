@@ -194,3 +194,9 @@ export function getTimeFromDroneToSbs(date : string | undefined) : string{
   const milliseconds = dateTime.getUTCMilliseconds().toString().padStart(3, '0');
   return `${hours}:${minutes}:${seconds}.${milliseconds}`
 }
+
+export function getTimestampFromDroneToCsv(date : string) : number{
+  const timestamp = Date.parse(date)
+  if (isNaN(timestamp)) throw new Error('Invalid date')
+  return Math.floor(timestamp / 1000)
+}

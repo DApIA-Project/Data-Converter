@@ -20,6 +20,7 @@
     "start:dronecsv:to:sbs": "ts-node src/main.ts --file examples/FAZER-02_out.csv -o examples/FAZER-02_out.sbs",
     "start:dronecsv:to:json": "ts-node src/main.ts --file examples/FAZER-02_out.csv -o examples/FAZER-02_out.json",
     "start:dronecsv:to:ndjson": "ts-node src/main.ts --file examples/FAZER-02_out.csv -o examples/FAZER-02_out.ndjson",
+    "start:dronecsv:to:csv": "ts-node src/main.ts --file examples/FAZER-02_out.csv -o examples/FAZER-02_out.opensky.csv",
     "prettier-check": "prettier --check .",
     "prettier-write": "prettier --write ."
   },
