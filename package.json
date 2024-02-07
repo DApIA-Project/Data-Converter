@@ -24,6 +24,7 @@
     "start:sbs:to:dronecsv": "ts-node src/main.ts --file examples/record_AFR.sbs -o examples/record_AFR.drone.csv",
     "start:ndjson:to:dronecsv": "ts-node src/main.ts --file examples/record_AFR.ndjson -o examples/record_AFR2.drone.csv",
     "start:json:to:dronecsv": "ts-node src/main.ts --file examples/record_AFR.json -o examples/record_AFR3.drone.csv",
+    "start:csv:to:dronecsv": "ts-node src/main.ts --file examples/FHJAT.39a413.csv -o examples/FHJAT39a413.drone.csv",
     "prettier-check": "prettier --check .",
     "prettier-write": "prettier --write ."
   },

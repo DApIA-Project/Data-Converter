@@ -19,9 +19,15 @@ export function toSbsTime(str: string | undefined): string {
 }
 
 export function toDroneCsvDate(str: string | undefined): string {
-  const date = moment.utc(parseInt(str || '') * 1000)
-  if (!date.isValid()) throw new Error('Invalid Date')
-  return date.utc().format(DRONE_CSV_DATE_FORMAT)
+  const dateTime = new Date(parseInt(str || '') *1000)
+  const year = dateTime.getUTCFullYear()
+  const month = (dateTime.getUTCMonth() + 1).toString().padStart(2, '0')
+  const day = dateTime.getUTCDate().toString().padStart(2, '0')
+  const hours = dateTime.getUTCHours().toString().padStart(2, '0');
+  const minutes = dateTime.getUTCMinutes().toString().padStart(2, '0');
+  const seconds = dateTime.getUTCSeconds().toString().padStart(2, '0');
+  const milliseconds = dateTime.getUTCMilliseconds().toString().padStart(3, '0');
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}Z`;
 }
 
 export function toSbsBoolean(value: boolean | string | number | undefined) {
