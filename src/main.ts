@@ -17,6 +17,8 @@ import {droneCsvToJson} from "./droneCsvToJson";
 import {droneCsvToNdjson} from "./droneCsvToNdjson";
 import {droneCsvToCsv} from "./droneCsvToCsv";
 import {sbsToDroneCsv} from "./sbsToDroneCsv";
+import {ndjsonToDroneCsv} from "./ndjsonToDroneCsv";
+import {jsonToDroneCsv} from "./jsonToDroneCsv";
 
 enum Errors {
   MISSING_ARG,
@@ -96,6 +98,8 @@ function convertJson(fileContent: string, output: string): string {
       return jsonToCsv(fileContent, true)
     case 'sbs':
       return jsonToSbs(fileContent, true)
+    case 'drone.csv':
+      return jsonToDroneCsv(fileContent,true)
     default:
       console.error('JSON can only be converted to CSV or SBS')
       process.exit(3)
@@ -108,6 +112,8 @@ function convertNdjson(fileContent: string, output: string): string {
       return ndjsonToCsv(fileContent, true)
     case 'sbs':
       return ndjsonToSbs(fileContent, true)
+    case 'drone.csv':
+      return ndjsonToDroneCsv(fileContent,true)
     default:
       console.error('NDJSON can only be converted to CSV or SBS')
       process.exit(Errors.BAD_OUTPUT_FORMAT)

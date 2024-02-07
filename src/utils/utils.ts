@@ -4,6 +4,7 @@ import {parse} from 'csv-parse/sync'
 
 export const SBS_DATE_FORMAT = 'YYYY/MM/DD'
 export const SBS_TIME_FORMAT = 'HH:mm:ss.SSS'
+export const DRONE_CSV_DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ss.SSSZ'
 
 export function toSbsDate(str: string | undefined): string {
   const date = moment.utc(parseInt(str || '') * 1000)
@@ -15,6 +16,12 @@ export function toSbsTime(str: string | undefined): string {
   const date = moment.utc(parseInt(str || '') * 1000)
   if (!date.isValid()) throw new Error('Invalid Date')
   return date.utc().format(SBS_TIME_FORMAT)
+}
+
+export function toDroneCsvDate(str: string | undefined): string {
+  const date = moment.utc(parseInt(str || '') * 1000)
+  if (!date.isValid()) throw new Error('Invalid Date')
+  return date.utc().format(DRONE_CSV_DATE_FORMAT)
 }
 
 export function toSbsBoolean(value: boolean | string | number | undefined) {
