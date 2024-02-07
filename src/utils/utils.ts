@@ -139,23 +139,23 @@ export function getCsvDroneExtraFields(message: JsonMessage): JsonMessage {
   delete messageCopy.date
   delete messageCopy.fixName
   delete messageCopy.significantPoint
-  delete messageCopy.timeElapsed
+  delete messageCopy['timeElapsed (s)']
   delete messageCopy['position.latitude (deg)']
   delete messageCopy['position.longitude (deg)']
   delete messageCopy['position.altitude (ft)']
-  delete messageCopy.altitudeMax
-  delete messageCopy.airSpeed
-  delete messageCopy.cas
+  delete messageCopy['altitudeMax (ft)']
+  delete messageCopy['airSpeed (kt)']
+  delete messageCopy['cas (kt)']
   delete messageCopy.mach
   delete messageCopy['heading (deg)']
   delete messageCopy['groundSpeed (kt)']
-  delete messageCopy.distanceToNextWaypoint
-  delete messageCopy.flownDistance
-  delete messageCopy.windEastward
-  delete messageCopy.windNorthward
-  delete messageCopy.windUpward
-  delete messageCopy.route
-  delete messageCopy.mass
+  delete messageCopy['distanceToNextWaypoint (NM)']
+  delete messageCopy['flownDistance (NM)']
+  delete messageCopy['wind.eastward (kt)']
+  delete messageCopy['wind.northward (kt)']
+  delete messageCopy['wind.upward (ft/min)']
+  delete messageCopy['route (deg)']
+  delete messageCopy['mass (kg)']
   delete messageCopy.isOneWay
   return messageCopy
 }
@@ -199,4 +199,9 @@ export function getTimestampFromDroneToCsv(date : string) : number{
   const timestamp = Date.parse(date)
   if (isNaN(timestamp)) throw new Error('Invalid date')
   return Math.floor(timestamp / 1000)
+}
+
+export function getDateFromSbsToDroneCsv(date: string, time: string) : string{
+  let dateTimeString = `${date}T${time}Z`
+  return dateTimeString.replace(/\//g,'-')
 }

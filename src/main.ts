@@ -16,6 +16,7 @@ import {droneCsvToSbs} from "./droneCsvToSbs";
 import {droneCsvToJson} from "./droneCsvToJson";
 import {droneCsvToNdjson} from "./droneCsvToNdjson";
 import {droneCsvToCsv} from "./droneCsvToCsv";
+import {sbsToDroneCsv} from "./sbsToDroneCsv";
 
 enum Errors {
   MISSING_ARG,
@@ -52,10 +53,16 @@ const pathSegment = path.split('.')
 const extension = pathSegment.slice(-1)[0] || ''
 const fileName = pathSegment.slice(0, -1).join('.')
 
-
-const pathSegmentOutput = output.split('.')
-const extensionOutput = pathSegmentOutput.slice(-1)[0] || ''
-const fileNameOutput = pathSegmentOutput.slice(0, -1).join('.')
+/** Récupérer extension fichier de sortie (doit être .csv .sbs .json .ndjson ou .drone.csv) **/
+const pathSegmentsOutput = output.split('.');
+let extensionOutput = pathSegmentsOutput.slice(-1)[0] || '';
+let fileNameOutput = '';
+if (pathSegmentsOutput.length > 2 && pathSegmentsOutput[pathSegmentsOutput.length - 2] === 'drone') {
+  fileNameOutput = pathSegmentsOutput.slice(0, -2).join('.');
+  extensionOutput = 'drone.' + extensionOutput;
+} else {
+  fileNameOutput = pathSegmentsOutput.slice(0, -1).join('.');
+}
 
 let outputFileContent = ''
 switch (extension.toLowerCase()) {
@@ -151,6 +158,8 @@ function convertSbs(fileContent: string, output: string): string {
       return JSON.stringify(sbsToJson(fileContent, true))
     case 'csv':
       return sbsToCsv(fileContent,true)
+    case 'drone.csv':
+      return sbsToDroneCsv(fileContent,true)
     default:
       console.error('SBS can only be converted to JSON, NDJSON or CSV')
       process.exit(Errors.BAD_OUTPUT_FORMAT)
