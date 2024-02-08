@@ -44,7 +44,7 @@ export function openskyCsvToSbs(openskyCsvContent: string): string {
       dateMessageLogged,
       timeMessageLogged,
       hexIdent: icao24,
-      groundSpeed: groundspeed,
+      groundspeed,
       verticalRate: vertical_rate,
       isOnGround: onground,
       latitude,

@@ -55,7 +55,7 @@ export type CsvDroneRow = {
   cas: string,
   mach: string,
   heading: string,
-  groundSpeed: string,
+  groundspeed: string,
   distanceToNextWaypoint: string,
   flownDistance: string,
   "wind.eastward": string,

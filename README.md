@@ -15,6 +15,14 @@ This library contains several conversion tools for ADS-B messages. We find :
 - NDJSON to CSV Opensky
 - SBS to CSV Opensky
 - CSV Opensky to SBS
+- CSV Drone to SBS
+- SBS to CSV Drone
+- CSV Drone to CSV Opensky
+- CSV Opensky to CSV Drone
+- CSV Drone to JSON
+- JSON to CSV Drone
+- CSV Drone to NDJSON
+- NDJSON to CSV Drone
 
 ## Setup
 
@@ -31,7 +39,7 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    "@dapia-project/data-converter": "^3.3.0"
+    "@dapia-project/data-converter": "^4.0.0"
   }
 }
 ```
@@ -118,46 +126,102 @@ import { sbsToOpenskyCsv } from '@dapia-project/data-converter/src/sbsToOpenskyC
 const openskyCsvData: string = sbsToOpenskyCsv(options)
 ```
 
+Import SBS to CSV Drone converter:
+```typescript
+import { sbsToDroneCsv } from '@dapia-project/data-converter/src/sbsToDroneCsv'
+
+const droneCsvData: string = sbsToDroneCsv(options)
+```
+
+Import JSON to CSV Drone converter:
+```typescript
+import { jsonToDroneCsv } from '@dapia-project/data-converter/src/jsonToDroneCsv'
+
+const droneCsvData: string = jsonToDroneCsv(options)
+```
+
+Import NDJSON to CSV Drone converter:
+```typescript
+import { ndjsonToDroneCsv } from '@dapia-project/data-converter/src/ndjsonToDroneCsv'
+
+const droneCsvData: string = ndjsonToDroneCsv(options)
+```
+
+Import CSV Opensky to CSV Drone converter:
+```typescript
+import { openskyCsvToDroneCsv } from '@dapia-project/data-converter/src/openskyCsvToDroneCsv'
+
+const droneCsvData: string = openskyCsvToDroneCsv(options)
+```
+
+Import CSV Drone to SBS converter:
+```typescript
+import { droneCsvToSbs } from '@dapia-project/data-converter/src/droneCsvToSbs'
+
+const sbsData: string = droneCsvToSbs(options)
+```
+
+Import CSV Drone to JSON converter:
+```typescript
+import { droneCsvToJson } from '@dapia-project/data-converter/src/droneCsvToJson'
+
+const jsonData: string = droneCsvToJson(options)
+```
+
+Import CSV Drone to NDJSON converter:
+```typescript
+import { droneCsvToNdjson } from '@dapia-project/data-converter/src/droneCsvToNdjson'
+
+const ndjsonData: string = droneCsvToNdjson(options)
+```
+
+Import CSV Drone to CSV Opensky converter:
+```typescript
+import { droneCsvToOpenskyCSV } from '@dapia-project/data-converter/src/droneCsvToOpenskyCsv'
+
+const openskyCsvData: string = droneCsvToOpenskyCsv(options)
+```
+
 ## Options
 
 For all :
 
-| key             | type    | use                                             | default value |
-| --------------- | ------- | ----------------------------------------------- | ------------- |
-| content         | String  | The content of sbs file to convert              |               |
+| key             | type    | use                                         | default value |
+| --------------- | ------- | ------------------------------------------- | ------------- |
+| content         | String  | The content file to convert              |               |
 | saveExtraField? | boolean | Choice to have extraField of Format1 in Format2 | false         |
 
 ## Order of fields
 
 For SBS files :
 
-| Number         | Field                |
-| -------------- | -------------------- |
-| Field 1        | messageType          |
-| Field 2        | transmissionType     |
-| Field 3        | sessionID            |
-| Field 4        | aircraftID           |
-| Field 5        | icao24               |
-| Field 6        | flightID             |
-| Field 7        | dateMessageGenerated |
-| Field 8        | timeMessageGenerated |
-| Field 9        | dateMessageLogged    |
-| Field 10       | timeMessageLogged    |
-| Field 11       | callsign             |
-| Field 12       | geoaltitude          |
-| Field 13       | groundspeed          |
-| Field 14       | track                |
-| Field 15       | latitude             |
-| Field 16       | longitude            |
-| Field 17       | vertical_rate        |
-| Field 18       | squawk               |
-| Field 19       | alert                |
-| Field 20       | emergency            |
-| Field 21       | spi                  |
-| Field 22       | onground             |
-| Field 23       | haveLabel?           |
-| Field 24       | label?               |
-| Field 23 or 25 | extraField?          |
+| Number         | Field                               |
+| -------------- |-------------------------------------|
+| Field 1        | messageType                         |
+| Field 2        | transmissionType                    |
+| Field 3        | sessionID                           |
+| Field 4        | aircraftID                          |
+| Field 5        | icao24                              |
+| Field 6        | flightID                            |
+| Field 7        | dateMessageGenerated (AAAA/MM/DD)   |
+| Field 8        | timeMessageGenerated (HH:mm:ss.SSS) |
+| Field 9        | dateMessageLogged (AAAA/MM/DD)      |
+| Field 10       | timeMessageLogged (HH:mm:ss.SSS)    |
+| Field 11       | callsign                            |
+| Field 12       | geoaltitude                         |
+| Field 13       | groundspeed                         |
+| Field 14       | track                               |
+| Field 15       | latitude                            |
+| Field 16       | longitude                           |
+| Field 17       | vertical_rate                       |
+| Field 18       | squawk                              |
+| Field 19       | alert                               |
+| Field 20       | emergency                           |
+| Field 21       | spi                                 |
+| Field 22       | onground                            |
+| Field 23       | haveLabel?                          |
+| Field 24       | label?                              |
+| Field 23 or 25 | extraField?                         |
 
 \
 The HaveLabel and Label fields are not required. But if one is present then so is the other.
@@ -179,7 +243,7 @@ You can find information about the SBS format here: http://woodair.net/sbs/Artic
 \
 For CSV Opensky files :
 
-The order of the fields below is the order when converting SBS to CSV Opensky. However, the order of fields in a CSV file during
+The order of the fields below is the order when converting SBS to CSV Opensky. However, the order of fields in a CSV Opensky file during
 a CSV Opensky to SBS conversion does not follow a certain pattern.
 
 | Number   | Field          |
@@ -217,40 +281,91 @@ It is not mandatory to add this field when converting. Here is an exemple:
   "emergency": ""
 }
 ```
+\
+\
+For CSV Drone files :
+
+| Number   | Field                           |
+|----------|---------------------------------|
+| Field 1  | name                            |
+| Field 2  | icao24                          |
+| Field 3  | date (AAAA-MM-DDTHH:mm:ss.SSSZ) |
+| Field 4  | fixName                         |
+| Field 5  | significantPoint                |
+| Field 6  | timeElapsed                     |
+| Field 7  | position.latitude               |
+| Field 8  | position.longitude              |
+| Field 9  | position.altitude               |
+| Field 10 | altitudeMax                     |
+| Field 11 | airSpeed                        |
+| Field 12 | cas                             |
+| Field 13 | mach                            |
+| Field 14 | heading                         |
+| Field 15 | groundspeed                     |
+| Field 16 | distanceToNextWaypoint          |
+| Field 17 | flownDistance                   |
+| Field 18 | wind.eastward                   |
+| Field 19 | wind.northward                  |
+| Field 20 | wind.upward                     |
+| Field 21 | route                           |
+| Field 22 | mass                            |
+| Field 23 | isOneWay                        |
+| Field 24 | extraField?                     |
 
 For JSON and NDJSON files :
 
-| Field                 |
-| --------------------- |
-| timestamp?            |
-| icao24?               |
-| latitude?             |
-| longitude?            |
-| groundspeed?          |
-| track?                |
-| vertical_rate?        |
-| callsign?             |
-| onground?             |
-| alert?                |
-| spi?                  |
-| squawk?               |
-| altitude?             |
-| geoaltitude?          |
-| last_position?        |
-| lastcontact?          |
-| hour?                 |
-| messageType?          |
-| transmissionType?     |
-| sessionID?            |
-| aircraftID?           |
-| flightID?             |
-| emergency?            |
+| Field         |
+|---------------|
+| timestamp?    |
+| icao24?       |
+| latitude?     |
+| longitude?    |
+| groundspeed?  |
+| track?        |
+| vertical_rate? |
+| callsign?     |
+| onground?     |
+| alert?        |
+| spi?          |
+| squawk?       |
+| altitude?     |
+| geoaltitude?  |
+| last_position? |
+| lastcontact?  |
+| hour?         |
+| messageType?  |
+| transmissionType? |
+| sessionID?    |
+| aircraftID?   |
+| flightID?     |
+| emergency?    |
 | dateMessageGenerated? |
 | timeMessageGenerated? |
-| dateMessageLogged?    |
-| timeMessageLogged?    |
-| haveLabel?            |
-| label?                |
+| dateMessageLogged? |
+| timeMessageLogged? |
+| haveLabel?    |
+| label?        |
+| name?         |
+| date?         |
+| fixName?      |
+| significantPoint? |
+| timeElapsed?  |
+| position.latitude? |
+| position.longitude? |
+| position.altitude? |
+| altitudeMax?  |
+| airSpeed?     |
+| cas?          |
+| mach?         |
+| heading?      |
+| distanceToNextWaypoint? |
+| flownDistance? |
+| wind.eastward? |
+| wind.northward? |
+| wind.upward?  |
+| route?       |
+| mass?        |
+| isOneWay?    |
 
 ## Commands line
 
@@ -267,3 +382,5 @@ Then :
 data-converter --file "path/to/fileToConvert.ext" --output "path/to/fileWillBeConvert.ext"
 ```
 Possible extension types are `.sbs`, `.csv`, `.json` and `.ndjson`
+\
+If you wish to convert a file into a Drone CSV file please put the extension `.drone.csv` to the output file

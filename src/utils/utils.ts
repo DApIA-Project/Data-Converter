@@ -130,7 +130,7 @@ export function getSbsExtraFields(message: JsonMessage): JsonMessage {
   delete messageCopy.flightID
   delete messageCopy.callsign
   delete messageCopy.altitude
-  delete messageCopy.groundSpeed
+  delete messageCopy.groundspeed
   delete messageCopy.track
   delete messageCopy.latitude
   delete messageCopy.longitude
@@ -161,7 +161,7 @@ export function getCsvDroneExtraFields(message: JsonMessage): JsonMessage {
   delete messageCopy.cas
   delete messageCopy.mach
   delete messageCopy.heading
-  delete messageCopy.groundSpeed
+  delete messageCopy.groundspeed
   delete messageCopy.distanceToNextWaypoint
   delete messageCopy.flownDistance
   delete messageCopy['wind.eastward']

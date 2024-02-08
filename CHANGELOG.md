@@ -16,6 +16,23 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+## [v4.0.0](https://github.com/DApIA-Project/Data-Converter/compare/v3.3.0...v4.0.0)
+
+### Added
+
+- 8 new types of converters `SbsToDroneCsv`,`DroneCsvToSbs`,`DroneCsvToNdjson`,`NdjsonToDroneCsv`,`OpenskyCsvToDroneCsv`,`DroneCsvToOpenskyCsv`,`DroneCsvToJson`
+  and `JsonToDroneCsv`
+- Unit Tests
+
+### Changed
+
+- rename `csvToJson` to `openskyCsvToJson`
+- rename `csvToNdjson` to `openskyCsvToNdjson`
+- rename `jsonToCsv` to `jsonToOpenskyCsv`
+- rename `ndjsonToCsv` to `ndjsonToOpenskyCsv`
+- rename `csvToSbs` to `openskyCsvToSbs`
+- rename `sbsToCsv` to `sbsToOpenskyCsv`
+
 ## [v3.3.0](https://github.com/DApIA-Project/Data-Converter/compare/v3.2.1...v3.3.0)
 
 ### Added

@@ -71,7 +71,7 @@ function createDroneCSVData(
             cas: `${message.cas || ''}`,
             mach: `${message.mach || ''}`,
             heading: `${message.heading || ''}`,
-            groundSpeed: `${message.groundSpeed || ''}`,
+            groundspeed: `${message.groundspeed || ''}`,
             distanceToNextWaypoint: `${message.distanceToNextWaypoint || ''}`,
             flownDistance: `${message.flownDistance || ''}`,
             "wind.eastward": `${message["wind.eastward"] || ''}`,

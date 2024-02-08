@@ -1,7 +1,7 @@
 {
   "name": "@dapia-project/data-converter",
   "description": "Lib for convert .sbs file to .csv file and to convert .csv file to .sbs file with JSON or NDJSON",
-  "version": "3.3.0",
+  "version": "4.0.0",
   "main": "dist/src/Main.js",
   "types": "dist/src/types.d.ts",
   "scripts": {

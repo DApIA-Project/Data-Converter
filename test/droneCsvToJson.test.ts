@@ -7,7 +7,7 @@ describe('droneCsvToJson', () => {
         it('returns empty array if date is malformed', () => {
             for (const timestamp of ['', 'not_a_number']) {
                 const json = droneCsvToJson(
-                    'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
+                    'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundspeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
                     `DRONE1;AAAAAA;${timestamp};;;1;43.6138206887089;1.401640313032366;10.84251968503937;57094.800177084115;0;0;0;180;0;0;0;0;0;0;180;20;N/A`
                 )
                 assert.deepStrictEqual(json, [])
@@ -18,7 +18,7 @@ describe('droneCsvToJson', () => {
     context('when CSV drone data are valid', () => {
         it('returns an array', () => {
             const json = droneCsvToJson(
-                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
+                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundspeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
                 `DRONE1;AAAAAA;2023-10-02T08:00:01Z;;;1;43.6138206887089;1.401640313032366;10.84251968503937;57094.800177084115;0;0;0;180;0;0;0;0;0;0;180;20;N/A`
             )
             assert.deepStrictEqual(json, [
@@ -37,7 +37,7 @@ describe('droneCsvToJson', () => {
                     cas: '0',
                     mach: '0',
                     heading: '180',
-                    groundSpeed: '0',
+                    groundspeed: '0',
                     distanceToNextWaypoint: '0',
                     flownDistance: '0',
                     'wind.eastward': '0',
@@ -52,7 +52,7 @@ describe('droneCsvToJson', () => {
 
         it('returns an array with double \\n', () => {
             const json = droneCsvToJson(
-                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
+                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundspeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
                 `DRONE1;AAAAAA;2023-10-02T08:00:01Z;;;1;43.6138206887089;1.401640313032366;10.84251968503937;57094.800177084115;0;0;0;180;0;0;0;0;0;0;180;20;N/A\n\n`
             )
             assert.deepStrictEqual(json, [
@@ -71,7 +71,7 @@ describe('droneCsvToJson', () => {
                     cas: '0',
                     mach: '0',
                     heading: '180',
-                    groundSpeed: '0',
+                    groundspeed: '0',
                     distanceToNextWaypoint: '0',
                     flownDistance: '0',
                     'wind.eastward': '0',
@@ -86,7 +86,7 @@ describe('droneCsvToJson', () => {
 
         it('returns extra fields if present', () => {
             const json = droneCsvToJson(
-                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n' +
+                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundspeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n' +
                 `DRONE1;AAAAAA;2023-10-02T08:00:01Z;;;1;43.6138206887089;1.401640313032366;10.84251968503937;57094.800177084115;0;0;0;180;0;0;0;0;0;0;180;20;N/A;'{"messageType":"MSG","transmissionType":"3","sessionID":"1","aircraftID":"1","flightID":"1","emergency":"0"}'\n`,
                 true
             )
@@ -107,7 +107,7 @@ describe('droneCsvToJson', () => {
                     cas: '0',
                     mach: '0',
                     heading: '180',
-                    groundSpeed: '0',
+                    groundspeed: '0',
                     distanceToNextWaypoint: '0',
                     flownDistance: '0',
                     'wind.eastward': '0',
@@ -128,7 +128,7 @@ describe('droneCsvToJson', () => {
 
         it('does not return no extra fields if empty', async () => {
             const json = droneCsvToJson(
-                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
+                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundspeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
                 `DRONE1;AAAAAA;2023-10-02T08:00:01Z;;;1;43.6138206887089;1.401640313032366;10.84251968503937;57094.800177084115;0;0;0;180;0;0;0;0;0;0;180;20;N/A\n`,
                 true
             )
@@ -148,7 +148,7 @@ describe('droneCsvToJson', () => {
                     cas: '0',
                     mach: '0',
                     heading: '180',
-                    groundSpeed: '0',
+                    groundspeed: '0',
                     distanceToNextWaypoint: '0',
                     flownDistance: '0',
                     'wind.eastward': '0',

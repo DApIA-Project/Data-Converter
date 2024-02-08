@@ -26,7 +26,7 @@ export function jsonToSbs(
       flightID,
       callsign,
       altitude,
-      groundSpeed,
+      groundspeed,
       track,
       latitude,
       longitude,
@@ -67,7 +67,7 @@ export function jsonToSbs(
       `${timeMessageLogged || timeMessageGenerated},` +
       `${callsign || ''},` +
       `${altitude || ''},` +
-      `${groundSpeed || ''},` +
+      `${groundspeed || ''},` +
       `${track || ''},` +
       `${latitude || ''},` +
       `${longitude || ''},` +

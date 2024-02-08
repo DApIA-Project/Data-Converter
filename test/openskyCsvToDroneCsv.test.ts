@@ -50,7 +50,7 @@ describe('openskyCsvToDroneCsv', () => {
                     'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
                     `${timestamp},${icao24},${latitude},${longitude},${groundspeed},${track},${vertical_rate},${callsign},${onground},${alert},${spi},${squawk},${altitude},${geoaltitude},${last_position},${lastcontact},${hour}`,
                 ),
-                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n'+
+                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundspeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n'+
                 `${callsign};${icao24};2023-01-01T12:21:11.000Z;;;;${latitude};${longitude};${geoaltitude};;;;;${track};${groundspeed};;;;;;;;;'{"vertical_rate":"${vertical_rate}","onground":"${onground}","alert":"${alert}","spi":"${spi}","squawk":"${squawk}","baroaltitude":"-45.72","last_position":"${last_position}","lastcontact":"${lastcontact}","hour":"${hour}"}'`,
             )
         })
@@ -61,7 +61,7 @@ describe('openskyCsvToDroneCsv', () => {
                     'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
                     `${timestamp},${icao24},${latitude},${longitude},${groundspeed},${track},${vertical_rate},${callsign},${onground},${alert},${spi},${squawk},${altitude},${geoaltitude},${last_position},${lastcontact},${hour}\n\n`,
                 ),
-                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n'+
+                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundspeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n'+
                 `${callsign};${icao24};2023-01-01T12:21:11.000Z;;;;${latitude};${longitude};${geoaltitude};;;;;${track};${groundspeed};;;;;;;;;'{"vertical_rate":"${vertical_rate}","onground":"${onground}","alert":"${alert}","spi":"${spi}","squawk":"${squawk}","baroaltitude":"-45.72","last_position":"${last_position}","lastcontact":"${lastcontact}","hour":"${hour}"}'`,
             )
         })
@@ -72,7 +72,7 @@ describe('openskyCsvToDroneCsv', () => {
                     'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
                     `${timestamp},${icao24},${latitude},${longitude},${groundspeed},${track},${vertical_rate},${callsign},${onground},${alert},${spi},${squawk},${altitude},${geoaltitude},${last_position},${lastcontact},${hour},'{"mach":"0"}'`,
                 ),
-                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n'+
+                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundspeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n'+
                 `${callsign};${icao24};2023-01-01T12:21:11.000Z;;;;${latitude};${longitude};${geoaltitude};;;;0;${track};${groundspeed};;;;;;;;;'{"vertical_rate":"${vertical_rate}","onground":"${onground}","alert":"${alert}","spi":"${spi}","squawk":"${squawk}","baroaltitude":"-45.72","last_position":"${last_position}","lastcontact":"${lastcontact}","hour":"${hour}"}'`,
             )
         })
@@ -83,7 +83,7 @@ describe('openskyCsvToDroneCsv', () => {
                     'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
                     `${timestamp},${icao24},${latitude},${longitude},${groundspeed},${track},${vertical_rate},${callsign},${onground},${alert},${spi},${squawk},${altitude},${geoaltitude},${last_position},${lastcontact},${hour},'{"enRoute":"1"}'`,
                 ),
-                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n'+
+                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundspeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n'+
                 `${callsign};${icao24};2023-01-01T12:21:11.000Z;;;;${latitude};${longitude};${geoaltitude};;;;;${track};${groundspeed};;;;;;;;;'{"vertical_rate":"${vertical_rate}","onground":"${onground}","alert":"${alert}","spi":"${spi}","squawk":"${squawk}","baroaltitude":"-45.72","last_position":"${last_position}","lastcontact":"${lastcontact}","hour":"${hour}","enRoute":"1"}'`,
             )
         })

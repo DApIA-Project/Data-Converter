@@ -46,7 +46,7 @@ describe('sbsToJson', () => {
       timeMessageLogged: '13:21:11.000',
       callsign: 'SAMU13',
       altitude: 121.92,
-      groundSpeed: 3.450995263850706,
+      groundspeed: 3.450995263850706,
       track: 296.565051177078,
       latitude: 43.289794921875,
       longitude: 5.40233523346657,

@@ -16,7 +16,7 @@ describe('jsonToSbs', () => {
     flightID: 5,
     callsign: 'SWN5614',
     altitude: 7450.0,
-    groundSpeed: 291.0,
+    groundspeed: 291.0,
     track: 355.66173320857183,
     latitude: 43.84039306640625,
     longitude: 1.292171034702035,
@@ -66,7 +66,7 @@ describe('jsonToSbs', () => {
           `${jsonMessage.timeMessageLogged},` +
           `${jsonMessage.callsign},` +
           `${jsonMessage.altitude},` +
-          `${jsonMessage.groundSpeed},` +
+          `${jsonMessage.groundspeed},` +
           `${jsonMessage.track},` +
           `${jsonMessage.latitude},` +
           `${jsonMessage.longitude},` +

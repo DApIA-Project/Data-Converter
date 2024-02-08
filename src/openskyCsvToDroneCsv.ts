@@ -51,7 +51,7 @@ export function openskyCsvToDroneCsv(openskyCsvContent: string): string {
             cas : "",
             mach : "",
             heading : track,
-            groundSpeed : groundspeed,
+            groundspeed,
             distanceToNextWaypoint : "",
             flownDistance : "",
             "wind.eastward" : "",
