@@ -1,6 +1,6 @@
 import { describe } from 'mocha'
 import assert from 'assert'
-import { sbsToJson } from '../src/sbsToJson'
+import { sbsToJson } from '../src'
 
 describe('sbsToJson', () => {
   context('when SBS data are not valid', () => {
