@@ -152,23 +152,23 @@ export function getCsvDroneExtraFields(message: JsonMessage): JsonMessage {
   delete messageCopy.date
   delete messageCopy.fixName
   delete messageCopy.significantPoint
-  delete messageCopy['timeElapsed (s)']
-  delete messageCopy['position.latitude (deg)']
-  delete messageCopy['position.longitude (deg)']
-  delete messageCopy['position.altitude (ft)']
-  delete messageCopy['altitudeMax (ft)']
-  delete messageCopy['airSpeed (kt)']
-  delete messageCopy['cas (kt)']
+  delete messageCopy.timeElapsed
+  delete messageCopy["position.latitude"]
+  delete messageCopy["position.longitude"]
+  delete messageCopy["position.altitude"]
+  delete messageCopy.altitudeMax
+  delete messageCopy.airSpeed
+  delete messageCopy.cas
   delete messageCopy.mach
-  delete messageCopy['heading (deg)']
-  delete messageCopy['groundSpeed (kt)']
-  delete messageCopy['distanceToNextWaypoint (NM)']
-  delete messageCopy['flownDistance (NM)']
-  delete messageCopy['wind.eastward (kt)']
-  delete messageCopy['wind.northward (kt)']
-  delete messageCopy['wind.upward (ft/min)']
-  delete messageCopy['route (deg)']
-  delete messageCopy['mass (kg)']
+  delete messageCopy.heading
+  delete messageCopy.groundSpeed
+  delete messageCopy.distanceToNextWaypoint
+  delete messageCopy.flownDistance
+  delete messageCopy['wind.eastward']
+  delete messageCopy['wind.northward']
+  delete messageCopy['wind.upward']
+  delete messageCopy.route
+  delete messageCopy.mass
   delete messageCopy.isOneWay
   return messageCopy
 }

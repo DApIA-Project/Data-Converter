@@ -10,23 +10,23 @@ describe('jsonTodroneCsv', () => {
         date: '2023-10-02T08:00:01Z',
         fixName: '',
         significantPoint: '',
-        'timeElapsed (s)': '1',
-        'position.latitude (deg)': '43.6138206887089',
-        'position.longitude (deg)': '1.401640313032366',
-        'position.altitude (ft)': '10.84251968503937',
-        'altitudeMax (ft)': '57094.800177084115',
-        'airSpeed (kt)': '0',
-        'cas (kt)': '0',
+        timeElapsed: '1',
+        'position.latitude': '43.6138206887089',
+        'position.longitude': '1.401640313032366',
+        'position.altitude': '10.84251968503937',
+        altitudeMax: '57094.800177084115',
+        airSpeed: '0',
+        cas: '0',
         mach: '0',
-        'heading (deg)': '180',
-        'groundSpeed (kt)': '0',
-        'distanceToNextWaypoint (NM)': '0',
-        'flownDistance (NM)': '0',
-        'wind.eastward (kt)': '0',
-        'wind.northward (kt)': '0',
-        'wind.upward (ft/min)': '0',
-        'route (deg)': '180',
-        'mass (kg)': '20',
+        heading: '180',
+        groundSpeed: '0',
+        distanceToNextWaypoint: '0',
+        flownDistance: '0',
+        'wind.eastward': '0',
+        'wind.northward': '0',
+        'wind.upward': '0',
+        route: '180',
+        mass: '20',
         isOneWay: 'N/A',
     }
 
@@ -57,8 +57,8 @@ describe('jsonTodroneCsv', () => {
         it('returns CSV drone content', () => {
             assert.deepStrictEqual(
                 jsonToDroneCsv(JSON.stringify([jsonMessage])),
-                'name;icao24;date;fixName;significantPoint;timeElapsed (s);position.latitude (deg);position.longitude (deg);position.altitude (ft);altitudeMax (ft);airSpeed (kt);cas (kt);mach;heading (deg);groundSpeed (kt);distanceToNextWaypoint (NM);flownDistance (NM);wind.eastward (kt);wind.northward (kt);wind.upward (ft/min);route (deg);mass (kg);isOneWay\n' +
-                `${jsonMessage.name};${jsonMessage.icao24};${jsonMessage.date};${jsonMessage.fixName};${jsonMessage.significantPoint};${jsonMessage["timeElapsed (s)"]};${jsonMessage["position.latitude (deg)"]};${jsonMessage["position.longitude (deg)"]};${jsonMessage["position.altitude (ft)"]};${jsonMessage["altitudeMax (ft)"]};${jsonMessage["airSpeed (kt)"]};${jsonMessage["cas (kt)"]};${jsonMessage.mach};${jsonMessage["heading (deg)"]};${jsonMessage["groundSpeed (kt)"]};${jsonMessage["distanceToNextWaypoint (NM)"]};${jsonMessage["flownDistance (NM)"]};${jsonMessage["wind.eastward (kt)"]};${jsonMessage["wind.northward (kt)"]};${jsonMessage["wind.upward (ft/min)"]};${jsonMessage["route (deg)"]};${jsonMessage["mass (kg)"]};${jsonMessage.isOneWay}`,
+                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
+                `${jsonMessage.name};${jsonMessage.icao24};${jsonMessage.date};${jsonMessage.fixName};${jsonMessage.significantPoint};${jsonMessage.timeElapsed};${jsonMessage["position.latitude"]};${jsonMessage["position.longitude"]};${jsonMessage["position.altitude"]};${jsonMessage.altitudeMax};${jsonMessage.airSpeed};${jsonMessage.cas};${jsonMessage.mach};${jsonMessage.heading};${jsonMessage.groundSpeed};${jsonMessage.distanceToNextWaypoint};${jsonMessage.flownDistance};${jsonMessage["wind.eastward"]};${jsonMessage["wind.northward"]};${jsonMessage["wind.upward"]};${jsonMessage.route};${jsonMessage.mass};${jsonMessage.isOneWay}`,
             )
         })
 
@@ -70,7 +70,7 @@ describe('jsonTodroneCsv', () => {
                         { date: jsonMessage.date, icao24: jsonMessage.icao24 },
                     ]),
                 ),
-                'name;icao24;date;fixName;significantPoint;timeElapsed (s);position.latitude (deg);position.longitude (deg);position.altitude (ft);altitudeMax (ft);airSpeed (kt);cas (kt);mach;heading (deg);groundSpeed (kt);distanceToNextWaypoint (NM);flownDistance (NM);wind.eastward (kt);wind.northward (kt);wind.upward (ft/min);route (deg);mass (kg);isOneWay\n' +
+                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
                 `;${jsonMessage.icao24};${jsonMessage.date};;;;;;;;;;;;;;;;;;;;`,
             )
         })
@@ -84,8 +84,8 @@ describe('jsonTodroneCsv', () => {
                     true,
                 ),
 
-                'name;icao24;date;fixName;significantPoint;timeElapsed (s);position.latitude (deg);position.longitude (deg);position.altitude (ft);altitudeMax (ft);airSpeed (kt);cas (kt);mach;heading (deg);groundSpeed (kt);distanceToNextWaypoint (NM);flownDistance (NM);wind.eastward (kt);wind.northward (kt);wind.upward (ft/min);route (deg);mass (kg);isOneWay;extraField\n' +
-                `${jsonMessage.name};${jsonMessage.icao24};${jsonMessage.date};${jsonMessage.fixName};${jsonMessage.significantPoint};${jsonMessage["timeElapsed (s)"]};${jsonMessage["position.latitude (deg)"]};${jsonMessage["position.longitude (deg)"]};${jsonMessage["position.altitude (ft)"]};${jsonMessage["altitudeMax (ft)"]};${jsonMessage["airSpeed (kt)"]};${jsonMessage["cas (kt)"]};${jsonMessage.mach};${jsonMessage["heading (deg)"]};${jsonMessage["groundSpeed (kt)"]};${jsonMessage["distanceToNextWaypoint (NM)"]};${jsonMessage["flownDistance (NM)"]};${jsonMessage["wind.eastward (kt)"]};${jsonMessage["wind.northward (kt)"]};${jsonMessage["wind.upward (ft/min)"]};${jsonMessage["route (deg)"]};${jsonMessage["mass (kg)"]};${jsonMessage.isOneWay};'${JSON.stringify({
+                'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n' +
+                `${jsonMessage.name};${jsonMessage.icao24};${jsonMessage.date};${jsonMessage.fixName};${jsonMessage.significantPoint};${jsonMessage.timeElapsed};${jsonMessage["position.latitude"]};${jsonMessage["position.longitude"]};${jsonMessage["position.altitude"]};${jsonMessage.altitudeMax};${jsonMessage.airSpeed};${jsonMessage.cas};${jsonMessage.mach};${jsonMessage.heading};${jsonMessage.groundSpeed};${jsonMessage.distanceToNextWaypoint};${jsonMessage.flownDistance};${jsonMessage["wind.eastward"]};${jsonMessage["wind.northward"]};${jsonMessage["wind.upward"]};${jsonMessage.route};${jsonMessage.mass};${jsonMessage.isOneWay};'${JSON.stringify({
                     msgType: '3',
                     transmissionType: 'MSG',
                 })}'`,
