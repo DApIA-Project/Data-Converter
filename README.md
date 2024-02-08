@@ -9,12 +9,12 @@ This library contains several conversion tools for ADS-B messages. We find :
 - JSON to SBS
 - SBS to NDJSON
 - NDJSON to SBS
-- CSV to JSON
-- JSON to CSV
-- CSV to NDJSON
-- NDJSON to CSV
-- SBS to CSV
-- CSV to SBS
+- CSV Opensky to JSON
+- JSON to CSV Opensky
+- CSV Opensky to NDJSON
+- NDJSON to CSV Opensky
+- SBS to CSV Opensky
+- CSV Opensky to SBS
 
 ## Setup
 
@@ -70,52 +70,52 @@ import { ndjsonToSbs } from '@dapia-project/data-converter/src/ndjsonToSbs'
 const sbsData: string = ndjsonToSbs(options)
 ```
 
-Import CSV to JSON converter:
+Import CSV Opensky to JSON converter:
 
 ```typescript
-import { csvToJson } from '@dapia-project/data-converter/src/csvToJson'
+import { openskyCsvToJson } from '@dapia-project/data-converter/src/openskyCsvToJson'
 
-const jsonData: string = csvToJson(options)
+const jsonData: string = openskyCsvToJson(options)
 ```
 
-Import JSON to CSV converter:
+Import JSON to CSV Opensky converter:
 
 ```typescript
-import { jsonToCsv } from '@dapia-project/data-converter/src/jsonToCsv'
+import { jsonToOpenskyCsv } from '@dapia-project/data-converter/src/jsonToOpenskyCsv'
 
-const csvData: string = jsonToCsv(options)
+const openskyCsvData: string = jsonToOpenskyCsv(options)
 ```
 
-Import CSV to NDJSON converter:
+Import CSV Opensky to NDJSON converter:
 
 ```typescript
-import { csvToNdjson } from '@dapia-project/data-converter/src/csvToNdjson'
+import { openskyCsvToNdjson } from '@dapia-project/data-converter/src/openskyCsvToNdjson'
 
-const ndjsonData: string = csvToNdjson(options)
+const ndjsonData: string = openskyCsvToNdjson(options)
 ```
 
-Import NDJSON to CSV converter:
+Import NDJSON to CSV Opensky converter:
 
 ```typescript
-import { ndjsonToCsv } from '@dapia-project/data-converter/src/ndjsonToCsv'
+import { ndjsonToOpenskyCsv } from '@dapia-project/data-converter/src/ndjsonToOpenskyCsv'
 
-const csvData: string = ndjsonToCsv(options)
+const openskyCsvData: string = ndjsonToOpenskyCsv(options)
 ```
 
-Import CSV to SBS converter:
+Import CSV Opensky to SBS converter:
 
 ```typescript
-import { csvToSbs } from '@dapia-project/data-converter/src/csvToSbs'
+import { openskyCsvToSbs } from '@dapia-project/data-converter/src/openskyCsvToSbs'
 
-const sbsData: string = csvToSbs(options)
+const sbsData: string = openskyCsvToSbs(options)
 ```
 
-Import SBS to CSV converter:
+Import SBS to CSV Opensky converter:
 
 ```typescript
-import { sbsToCsv } from '@dapia-project/data-converter/src/sbsToCsv'
+import { sbsToOpenskyCsv } from '@dapia-project/data-converter/src/sbsToOpenskyCsv'
 
-const csvData: string = sbsToCsv(options)
+const openskyCsvData: string = sbsToOpenskyCsv(options)
 ```
 
 ## Options
@@ -163,7 +163,7 @@ For SBS files :
 The HaveLabel and Label fields are not required. But if one is present then so is the other.
 \
 The ExtraField field is a JSON object that contains information present in a converted csv file not present in sbs file.
-Here is its structure:
+Here is an example:
 
 ```json
 {
@@ -177,10 +177,10 @@ Here is its structure:
 You can find information about the SBS format here: http://woodair.net/sbs/Article/Barebones42_Socket_Data.htm
 \
 \
-For CSV files :
+For CSV Opensky files :
 
-The order of the fields below is the order when converting SBS to CSV. However, the order of fields in a CSV file during
-a CSV to SBS conversion does not follow a certain pattern.
+The order of the fields below is the order when converting SBS to CSV Opensky. However, the order of fields in a CSV file during
+a CSV Opensky to SBS conversion does not follow a certain pattern.
 
 | Number   | Field          |
 | -------- |----------------|
@@ -205,7 +205,7 @@ a CSV to SBS conversion does not follow a certain pattern.
 
 \
 The ExtraField field is a JSON object that contains information present in a converted sbs file not present in csv file.
-It is not mandatory to add this field when converting. Here is its structure:
+It is not mandatory to add this field when converting. Here is an exemple:
 
 ```json
 {
@@ -214,9 +214,7 @@ It is not mandatory to add this field when converting. Here is its structure:
   "sessionID": "",
   "aircraftID": "",
   "flightID": "",
-  "emergency": "",
-  "haveLabel?": "",
-  "label?": ""
+  "emergency": ""
 }
 ```
 

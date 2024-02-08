@@ -10,7 +10,7 @@ export interface ExtraFieldsSBS {
   label?: string
 }
 
-export interface ExtraFieldsCSV {
+export interface ExtraFieldsOpenskyCSV {
   altitude: string
   last_position: string
   lastcontact: string
@@ -19,7 +19,7 @@ export interface ExtraFieldsCSV {
 
 export type JsonMessage = Record<string, string | boolean | number | undefined>
 
-export type CsvRow = {
+export type CsvOpenskyRow = {
   timestamp: string
   icao24: string
   latitude: string

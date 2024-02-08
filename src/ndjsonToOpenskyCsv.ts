@@ -1,6 +1,6 @@
-import { jsonToCsv } from './jsonToCsv'
+import { jsonToOpenskyCsv } from './jsonToOpenskyCsv'
 
-export function ndjsonToCsv(
+export function ndjsonToOpenskyCsv(
   ndjsonContentString: string,
   saveExtraField: boolean = false,
 ): string {
@@ -9,5 +9,5 @@ export function ndjsonToCsv(
     .split('\n')
     .map((line) => JSON.parse(line))
 
-  return jsonToCsv(JSON.stringify(json), saveExtraField)
+  return jsonToOpenskyCsv(JSON.stringify(json), saveExtraField)
 }

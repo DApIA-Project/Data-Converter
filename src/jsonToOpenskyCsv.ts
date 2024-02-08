@@ -1,8 +1,8 @@
 import { createObjectCsvStringifier } from 'csv-writer'
-import { CsvRow, JsonMessage } from './types'
-import { getCsvExtraFields, toCsvBoolean } from './utils/utils'
+import { CsvOpenskyRow, JsonMessage } from './types'
+import { getCsvOpenskyExtraFields, toCsvOpenskyBoolean } from './utils/utils'
 
-export function jsonToCsv(
+export function jsonToOpenskyCsv(
   jsonContentString: string,
   saveExtraField: boolean = false,
 ): string {
@@ -10,27 +10,27 @@ export function jsonToCsv(
   if (!Array.isArray(json)) throw new Error('JSON data must be an array')
 
   const messages = json as JsonMessage[]
-  const csvData = createCSVData(messages, saveExtraField)
+  const openskyCsvData = createCSVData(messages, saveExtraField)
 
   if (
-    csvData.length === 0 ||
-    csvData.every((item) =>
+    openskyCsvData.length === 0 ||
+    openskyCsvData.every((item) =>
       Object.values(item).every((value) => value === '' || value === null),
     )
   ) {
     return '' // Retournez seulement l'en-tête
   } else {
-    const csvStringifier = createObjectCsvStringifier({
-      header: Object.keys(csvData[0]).map((header) => ({
+    const openskyCsvStringifier = createObjectCsvStringifier({
+      header: Object.keys(openskyCsvData[0]).map((header) => ({
         id: header,
         title: header,
       })),
     })
 
     return (
-      csvStringifier.getHeaderString() +
-      csvStringifier
-        .stringifyRecords(csvData)
+      openskyCsvStringifier.getHeaderString() +
+      openskyCsvStringifier
+        .stringifyRecords(openskyCsvData)
         .replace(/""/g, '"')
         .replace(/"{/g, "'{")
         .replace(/}"/g, "}'")
@@ -41,8 +41,8 @@ export function jsonToCsv(
 function createCSVData(
   messages: JsonMessage[],
   saveExtraField: boolean,
-): CsvRow[] {
-  const rows: CsvRow[] = []
+): CsvOpenskyRow[] {
+  const rows: CsvOpenskyRow[] = []
 
   for (const message of messages) {
     if (!message.timestamp || !message.icao24) {
@@ -52,7 +52,7 @@ function createCSVData(
       continue
     }
 
-    const row: CsvRow = {
+    const row: CsvOpenskyRow = {
       timestamp: `${message.timestamp || ''}`,
       icao24: `${message.icao24 || ''}`,
       latitude: `${message.latitude || ''}`,
@@ -61,9 +61,9 @@ function createCSVData(
       track: `${message.track || ''}`,
       vertical_rate: `${message.vertical_rate || ''}`,
       callsign: `${message.callsign || ''}`,
-      onground: toCsvBoolean(message.onground),
-      alert: toCsvBoolean(message.alert),
-      spi: toCsvBoolean(message.spi),
+      onground: toCsvOpenskyBoolean(message.onground),
+      alert: toCsvOpenskyBoolean(message.alert),
+      spi: toCsvOpenskyBoolean(message.spi),
       squawk: `${message.squawk || ''}`,
       altitude: `${message.altitude || ''}`,
       geoaltitude: `${message.geoaltitude || ''}`
@@ -82,7 +82,7 @@ function createCSVData(
     }
 
     if (saveExtraField)
-      row.extraField = JSON.stringify(getCsvExtraFields(message))
+      row.extraField = JSON.stringify(getCsvOpenskyExtraFields(message))
 
     rows.push(row)
   }

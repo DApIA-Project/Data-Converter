@@ -1,9 +1,9 @@
 import { describe } from 'mocha'
 import assert from 'assert'
-import {jsonToCsv, ndjsonToCsv} from '../src'
+import { jsonToOpenskyCsv } from '../src'
 import { JsonMessage } from '../src/types'
 
-describe('ndjsonToCsv', () => {
+describe('jsonToOpenskyCsv', () => {
   const jsonMessage: JsonMessage = {
     timestamp: '1695026360123',
     geoaltitude: '125.2',
@@ -25,39 +25,40 @@ describe('ndjsonToCsv', () => {
   }
 
   context('when JSON data are not valid', () => {
-    it('throws an error data are not NDJSON', () => {
-      assert.throws(() =>
-        ndjsonToCsv('[\n ' + `${JSON.stringify(jsonMessage)}` + '\n]'),
+    it('throws an error data are not an array', () => {
+      assert.throws(
+        () => jsonToOpenskyCsv(JSON.stringify(jsonMessage)),
+        new Error('JSON data must be an array'),
       )
     })
 
     it('ignores message if date is missing', () => {
       assert.deepStrictEqual(
-        ndjsonToCsv(JSON.stringify({ ...jsonMessage, timestamp: undefined })),
+        jsonToOpenskyCsv(JSON.stringify([{ ...jsonMessage, timestamp: undefined }])),
         '',
       )
     })
 
     it('ignores message if ICAO is missing', () => {
       assert.deepStrictEqual(
-        ndjsonToCsv(JSON.stringify({ ...jsonMessage, icao24: undefined })),
+        jsonToOpenskyCsv(JSON.stringify([{ ...jsonMessage, icao24: undefined }])),
         '',
       )
     })
   })
 
   context('when JSON data are valid', () => {
-    it('returns CSV content', () => {
+    it('returns CSV Opensky content', () => {
       assert.deepStrictEqual(
-        ndjsonToCsv(JSON.stringify(jsonMessage)),
+        jsonToOpenskyCsv(JSON.stringify([jsonMessage])),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
           `${jsonMessage.timestamp},${jsonMessage.icao24},${jsonMessage.latitude},${jsonMessage.longitude},${jsonMessage.groundspeed},${jsonMessage.track},${jsonMessage.vertical_rate},${jsonMessage.callsign},False,True,False,${jsonMessage.squawk},${jsonMessage.altitude},${jsonMessage.geoaltitude},${jsonMessage.last_position},${jsonMessage.lastcontact},${jsonMessage.hour}`,
       )
     })
 
-    it('returns CSV content without fields last_position, lastcontact and hour', () => {
+    it('returns CSV Opensky content without fields last_position, lastcontact and hour', () => {
       assert.deepStrictEqual(
-          ndjsonToCsv(JSON.stringify({
+          jsonToOpenskyCsv(JSON.stringify([{
             timestamp: '1695026360123',
             geoaltitude: '125.2',
             icao24: '39c902',
@@ -72,7 +73,7 @@ describe('ndjsonToCsv', () => {
             onground: false,
             alert: true,
             spi: false,
-          })),
+          }])),
           'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude\n' +
           `${jsonMessage.timestamp},${jsonMessage.icao24},${jsonMessage.latitude},${jsonMessage.longitude},${jsonMessage.groundspeed},${jsonMessage.track},${jsonMessage.vertical_rate},${jsonMessage.callsign},False,True,False,${jsonMessage.squawk},${jsonMessage.altitude},${jsonMessage.geoaltitude}`,
       )
@@ -80,11 +81,10 @@ describe('ndjsonToCsv', () => {
 
     it('returns empty cells if fields are missing', () => {
       assert.deepStrictEqual(
-        ndjsonToCsv(
-          JSON.stringify({
-            timestamp: jsonMessage.timestamp,
-            icao24: jsonMessage.icao24,
-          }),
+        jsonToOpenskyCsv(
+          JSON.stringify([
+            { timestamp: jsonMessage.timestamp, icao24: jsonMessage.icao24 },
+          ]),
         ),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude\n' +
           `${jsonMessage.timestamp},${jsonMessage.icao24},,,,,,,,,,,,`,
@@ -93,12 +93,10 @@ describe('ndjsonToCsv', () => {
 
     it('return extra fields', () => {
       assert.deepStrictEqual(
-        ndjsonToCsv(
-          JSON.stringify({
-            ...jsonMessage,
-            msgType: '3',
-            transmissionType: 'MSG',
-          }),
+        jsonToOpenskyCsv(
+          JSON.stringify([
+            { ...jsonMessage, msgType: '3', transmissionType: 'MSG' },
+          ]),
           true,
         ),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +

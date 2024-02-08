@@ -1,14 +1,14 @@
-import { csvToJson } from './csvToJson'
-import { getCsvExtraFields, toSbsDate, toSbsTime } from './utils/utils'
+import { openskyCsvToJson } from './openskyCsvToJson'
+import { getCsvOpenskyExtraFields, toSbsDate, toSbsTime } from './utils/utils'
 import { JsonMessage } from './types'
 import { jsonToSbs } from './jsonToSbs'
 
-export function csvToSbs(csvContent: string): string {
-  csvContent=csvContent.replace(/\n\s*$/, '')
-  const csvJsonMessages = csvToJson(csvContent, true)
+export function openskyCsvToSbs(openskyCsvContent: string): string {
+  openskyCsvContent=openskyCsvContent.replace(/\n\s*$/, '')
+  const openskyCsvJsonMessages = openskyCsvToJson(openskyCsvContent, true)
   const sbsJsonMessages: JsonMessage[] = []
 
-  for (const csvJsonMessage of csvJsonMessages) {
+  for (const openskyCsvJsonMessage of openskyCsvJsonMessages) {
     const {
       timestamp,
       icao24,
@@ -27,7 +27,7 @@ export function csvToSbs(csvContent: string): string {
       last_position,
       lastcontact,
       hour,
-    } = csvJsonMessage
+    } = openskyCsvJsonMessage
 
     if (!timestamp || !icao24) {
       continue
@@ -59,7 +59,7 @@ export function csvToSbs(csvContent: string): string {
       lastcontact,
       hour,
       baroaltitude: altitude,
-      ...getCsvExtraFields(csvJsonMessage),
+      ...getCsvOpenskyExtraFields(openskyCsvJsonMessage),
     })
   }
   return jsonToSbs(JSON.stringify(sbsJsonMessages), true)

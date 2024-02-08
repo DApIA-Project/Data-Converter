@@ -42,7 +42,7 @@ export function toSbsBoolean(value: boolean | string | number | undefined) {
   return value.toLowerCase() === 'true' || value === '1' ? '1' : '0'
 }
 
-export function toCsvBoolean(value: boolean | string | number | undefined) {
+export function toCsvOpenskyBoolean(value: boolean | string | number | undefined) {
   const sbsBoolean = toSbsBoolean(value)
   if (sbsBoolean === '') return sbsBoolean
   return sbsBoolean === '1' ? 'True' : 'False'
@@ -88,13 +88,13 @@ export function buildSquawkValueForSbs(squawkValue: string) {
   }
 }
 
-export function toCsvTimestamp(date: string, time: string): number {
+export function toCsvOpenskyTimestamp(date: string, time: string): number {
   const timestamp = Date.parse(date + ',' + time + ' GMT')
   if (isNaN(timestamp)) throw new Error('Invalid date')
   return Math.floor(timestamp / 1000)
 }
 
-export function getCsvExtraFields(message: JsonMessage): JsonMessage {
+export function getCsvOpenskyExtraFields(message: JsonMessage): JsonMessage {
   const messageCopy = { ...message }
   delete messageCopy.timestamp
   delete messageCopy.icao24

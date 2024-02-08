@@ -1,25 +1,25 @@
 #!/usr/bin/env node
 import * as fs from 'fs'
-import { csvToJson } from './csvToJson'
+import { openskyCsvToJson } from './openskyCsvToJson'
 import { jsonToSbs } from './jsonToSbs'
 import commandLineArgs from 'command-line-args'
-import { jsonToCsv } from './jsonToCsv'
+import { jsonToOpenskyCsv } from './jsonToOpenskyCsv'
 import { ndjsonToSbs } from './ndjsonToSbs'
-import { ndjsonToCsv } from './ndjsonToCsv'
-import { csvToNdjson } from './csvToNdjson'
-import { csvToSbs } from './csvToSbs'
+import { ndjsonToOpenskyCsv } from './ndjsonToOpenskyCsv'
+import { openskyCsvToNdjson } from './openskyCsvToNdjson'
+import { openskyCsvToSbs } from './openskyCsvToSbs'
 import { sbsToNdjson } from './sbsToNdjson'
 import { sbsToJson } from './sbsToJson'
-import { sbsToCsv } from './sbsToCsv'
+import { sbsToOpenskyCsv } from './sbsToOpenskyCsv'
 import {getDataType} from "./utils/utils";
 import {droneCsvToSbs} from "./droneCsvToSbs";
 import {droneCsvToJson} from "./droneCsvToJson";
 import {droneCsvToNdjson} from "./droneCsvToNdjson";
-import {droneCsvToCsv} from "./droneCsvToCsv";
+import {droneCsvToOpenskyCsv} from "./droneCsvToOpenskyCsv";
 import {sbsToDroneCsv} from "./sbsToDroneCsv";
 import {ndjsonToDroneCsv} from "./ndjsonToDroneCsv";
 import {jsonToDroneCsv} from "./jsonToDroneCsv";
-import {csvToDroneCsv} from "./csvToDroneCsv";
+import {openskyCsvToDroneCsv} from "./openskyCsvToDroneCsv";
 
 enum Errors {
   MISSING_ARG,
@@ -96,7 +96,7 @@ process.exit(0)
 function convertJson(fileContent: string, output: string): string {
   switch (output.toLowerCase()) {
     case 'csv':
-      return jsonToCsv(fileContent, true)
+      return jsonToOpenskyCsv(fileContent, true)
     case 'sbs':
       return jsonToSbs(fileContent, true)
     case 'drone.csv':
@@ -110,7 +110,7 @@ function convertJson(fileContent: string, output: string): string {
 function convertNdjson(fileContent: string, output: string): string {
   switch (output.toLowerCase()) {
     case 'csv':
-      return ndjsonToCsv(fileContent, true)
+      return ndjsonToOpenskyCsv(fileContent, true)
     case 'sbs':
       return ndjsonToSbs(fileContent, true)
     case 'drone.csv':
@@ -128,32 +128,32 @@ function convertCsv(fileContent: string, output: string): string {
       if(dataType==='drone'){
         return droneCsvToNdjson(fileContent, true)
       }else{
-        return csvToNdjson(fileContent, true)
+        return openskyCsvToNdjson(fileContent, true)
       }
 
     case 'json':
       if(dataType==='drone'){
         return JSON.stringify(droneCsvToJson(fileContent))
       }else{
-        return JSON.stringify(csvToJson(fileContent, true))
+        return JSON.stringify(openskyCsvToJson(fileContent, true))
       }
     case 'sbs':
 
         if(dataType==='drone'){
           return droneCsvToSbs(fileContent)
         }else{
-          return csvToSbs(fileContent)
+          return openskyCsvToSbs(fileContent)
         }
     case 'csv':
       if(dataType==='drone'){
-        return droneCsvToCsv(fileContent)
+        return droneCsvToOpenskyCsv(fileContent)
       }else{
         console.error('CSV can\'t be converted to CSV')
         process.exit(Errors.BAD_OUTPUT_FORMAT)
       }
     case 'drone.csv':
       if(dataType !=='drone'){
-        return csvToDroneCsv(fileContent)
+        return openskyCsvToDroneCsv(fileContent)
       }else{
         console.error('CSV Drone can\'t be converted to CSV Drone')
         process.exit(Errors.BAD_OUTPUT_FORMAT)
@@ -171,7 +171,7 @@ function convertSbs(fileContent: string, output: string): string {
     case 'json':
       return JSON.stringify(sbsToJson(fileContent, true))
     case 'csv':
-      return sbsToCsv(fileContent,true)
+      return sbsToOpenskyCsv(fileContent,true)
     case 'drone.csv':
       return sbsToDroneCsv(fileContent,true)
     default:

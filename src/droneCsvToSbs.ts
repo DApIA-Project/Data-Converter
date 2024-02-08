@@ -1,12 +1,8 @@
-import { csvToJson } from './csvToJson'
+import { openskyCsvToJson } from './openskyCsvToJson'
 import {
     getCsvDroneExtraFields,
-    getCsvExtraFields,
-    getDataType,
     getDateFromDroneToSbs,
     getTimeFromDroneToSbs,
-    toSbsDate,
-    toSbsTime
 } from './utils/utils'
 import { JsonMessage } from './types'
 import { jsonToSbs } from './jsonToSbs'

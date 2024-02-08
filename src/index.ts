@@ -1,13 +1,13 @@
-export { csvToNdjson } from './csvToNdjson'
-export { csvToSbs } from './csvToSbs'
-export { csvToJson } from './csvToJson'
+export { openskyCsvToNdjson } from './openskyCsvToNdjson'
+export { openskyCsvToSbs } from './openskyCsvToSbs'
+export { openskyCsvToJson } from './openskyCsvToJson'
 
 export { jsonToSbs } from './jsonToSbs'
-export { jsonToCsv } from './jsonToCsv'
+export { jsonToOpenskyCsv } from './jsonToOpenskyCsv'
 
 export { ndjsonToSbs } from './ndjsonToSbs'
-export { ndjsonToCsv } from './ndjsonToCsv'
+export { ndjsonToOpenskyCsv } from './ndjsonToOpenskyCsv'
 
 export { sbsToNdjson } from './sbsToNdjson'
-export { sbsToCsv } from './sbsToCsv'
+export { sbsToOpenskyCsv } from './sbsToOpenskyCsv'
 export { sbsToJson } from './sbsToJson'

@@ -1,6 +1,6 @@
 import { describe } from 'mocha'
 import assert from 'assert'
-import { sbsToCsv } from '../src'
+import { sbsToOpenskyCsv } from '../src'
 import {sbsToDroneCsv} from "../src/sbsToDroneCsv";
 
 describe('sbsToDroneCsv', () => {

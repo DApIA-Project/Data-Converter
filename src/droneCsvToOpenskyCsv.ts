@@ -1,22 +1,15 @@
-import { csvToJson } from './csvToJson'
 import {
     getCsvDroneExtraFields,
-    getCsvExtraFields,
-    getDataType,
-    getDateFromDroneToSbs, getSbsExtraFields,
-    getTimeFromDroneToSbs, getTimestampFromDroneToCsv, toCsvTimestamp,
-    toSbsDate,
-    toSbsTime
+    getTimestampFromDroneToCsv
 } from './utils/utils'
 import { JsonMessage } from './types'
-import { jsonToSbs } from './jsonToSbs'
 import {droneCsvToJson} from "./droneCsvToJson";
-import {jsonToCsv} from "./jsonToCsv";
+import {jsonToOpenskyCsv} from "./jsonToOpenskyCsv";
 
-export function droneCsvToCsv(csvContent: string): string {
-    csvContent=csvContent.replace(/\n\s*$/, '')
-    const csvDroneJsonMessages = droneCsvToJson(csvContent, true)
-    const csvJsonMessages: JsonMessage[] = []
+export function droneCsvToOpenskyCsv(openskyCsvContent: string): string {
+    openskyCsvContent=openskyCsvContent.replace(/\n\s*$/, '')
+    const csvDroneJsonMessages = droneCsvToJson(openskyCsvContent, true)
+    const openskyCsvJsonMessages: JsonMessage[] = []
 
 
     for (const csvDroneJsonMessage of csvDroneJsonMessages) {
@@ -51,7 +44,7 @@ export function droneCsvToCsv(csvContent: string): string {
             continue
         }
 
-        csvJsonMessages.push({
+        openskyCsvJsonMessages.push({
             timestamp: getTimestampFromDroneToCsv(
                 `${date}`,
             ),
@@ -87,7 +80,7 @@ export function droneCsvToCsv(csvContent: string): string {
         })
 
     }
-    return jsonToCsv(JSON.stringify(csvJsonMessages), true)
+    return jsonToOpenskyCsv(JSON.stringify(openskyCsvJsonMessages), true)
 
 
 }

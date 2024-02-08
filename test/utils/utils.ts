@@ -1,5 +1,5 @@
 import {
-  toCsvBoolean,
+  toCsvOpenskyBoolean,
   toSbsBoolean,
   toSbsDate,
   toSbsTime,
@@ -63,54 +63,54 @@ describe('utils', () => {
 
   context('toCsvBoolean', () => {
     it('returns empty string if the value is undefined', () => {
-      assert.strictEqual(toCsvBoolean(undefined), '')
+      assert.strictEqual(toCsvOpenskyBoolean(undefined), '')
     })
 
     context('when value is a string', () => {
       it('returns `1` if the value is truthy', () => {
-        assert.strictEqual(toCsvBoolean('1'), 'True')
-        assert.strictEqual(toCsvBoolean('true'), 'True')
-        assert.strictEqual(toCsvBoolean('TRUE'), 'True')
+        assert.strictEqual(toCsvOpenskyBoolean('1'), 'True')
+        assert.strictEqual(toCsvOpenskyBoolean('true'), 'True')
+        assert.strictEqual(toCsvOpenskyBoolean('TRUE'), 'True')
       })
 
       it('returns `0` if the value is falsy', () => {
-        assert.strictEqual(toCsvBoolean('0'), 'False')
-        assert.strictEqual(toCsvBoolean('false'), 'False')
-        assert.strictEqual(toCsvBoolean('FALSE'), 'False')
+        assert.strictEqual(toCsvOpenskyBoolean('0'), 'False')
+        assert.strictEqual(toCsvOpenskyBoolean('false'), 'False')
+        assert.strictEqual(toCsvOpenskyBoolean('FALSE'), 'False')
       })
 
       it('returns `0` if the value is not a boolean', () => {
-        assert.strictEqual(toCsvBoolean('20'), 'False')
-        assert.strictEqual(toCsvBoolean('not_a_bool'), 'False')
+        assert.strictEqual(toCsvOpenskyBoolean('20'), 'False')
+        assert.strictEqual(toCsvOpenskyBoolean('not_a_bool'), 'False')
       })
 
       it('returns empty string if the value is empty', () => {
-        assert.strictEqual(toCsvBoolean(''), '')
+        assert.strictEqual(toCsvOpenskyBoolean(''), '')
       })
     })
 
     context('when value is a boolean', () => {
       it('returns `1` if the value is truthy', () => {
-        assert.strictEqual(toCsvBoolean(true), 'True')
+        assert.strictEqual(toCsvOpenskyBoolean(true), 'True')
       })
 
       it('returns `0` if the value is falsy', () => {
-        assert.strictEqual(toCsvBoolean(false), 'False')
+        assert.strictEqual(toCsvOpenskyBoolean(false), 'False')
       })
     })
 
     context('when value is a number', () => {
       it('returns `1` if the value is positive', () => {
-        assert.strictEqual(toCsvBoolean(1), 'True')
-        assert.strictEqual(toCsvBoolean(10), 'True')
-        assert.strictEqual(toCsvBoolean(10000), 'True')
+        assert.strictEqual(toCsvOpenskyBoolean(1), 'True')
+        assert.strictEqual(toCsvOpenskyBoolean(10), 'True')
+        assert.strictEqual(toCsvOpenskyBoolean(10000), 'True')
       })
 
       it('returns `0` if the value is negative or null', () => {
-        assert.strictEqual(toCsvBoolean(0), 'False')
-        assert.strictEqual(toCsvBoolean(-1), 'False')
-        assert.strictEqual(toCsvBoolean(-10), 'False')
-        assert.strictEqual(toCsvBoolean(-1000), 'False')
+        assert.strictEqual(toCsvOpenskyBoolean(0), 'False')
+        assert.strictEqual(toCsvOpenskyBoolean(-1), 'False')
+        assert.strictEqual(toCsvOpenskyBoolean(-10), 'False')
+        assert.strictEqual(toCsvOpenskyBoolean(-1000), 'False')
       })
     })
   })

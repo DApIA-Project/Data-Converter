@@ -1,10 +1,10 @@
 import { describe } from 'mocha'
 import assert from 'assert'
-import { sbsToCsv } from '../src'
-import {droneCsvToCsv} from "../src/droneCsvToCsv";
+import { sbsToOpenskyCsv } from '../src'
+import {droneCsvToOpenskyCsv} from "../src/droneCsvToOpenskyCsv";
 import {droneCsvToSbs} from "../src/droneCsvToSbs";
 
-describe('droneCsvToCsv', () => {
+describe('droneCsvToOpenskyCsv', () => {
     const messageType = 'MSG'
     const transmissionType = '3'
     const sessionID = '1'
@@ -31,7 +31,7 @@ describe('droneCsvToCsv', () => {
     context('when Csv drone data are not valid', () => {
         it('returns empty string if generated date is missing', async () => {
             assert.deepStrictEqual(
-                droneCsvToCsv(
+                droneCsvToOpenskyCsv(
                     'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
                     'FAZER-01-bubble;AAAAAA;;;;1;43.6138206887089;1.401640313032366;10.84251968503937;57094.800177084115;0;0;0;180;0;0;0;0;0;0;180;20;N/A'
                 ),
@@ -41,7 +41,7 @@ describe('droneCsvToCsv', () => {
 
         it('returns empty string if hexIdent (ICAO) is missing', async () => {
             assert.deepStrictEqual(
-                droneCsvToCsv(
+                droneCsvToOpenskyCsv(
                     'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
                     'FAZER-01-bubble;;2023-10-02T08:00:01Z;;;1;43.6138206887089;1.401640313032366;10.84251968503937;57094.800177084115;0;0;0;180;0;0;0;0;0;0;180;20;N/A'
                 ),
@@ -75,9 +75,9 @@ describe('droneCsvToCsv', () => {
         const mass = '20'
         const isOneWay = 'N/A'
 
-        it('returns CSV message', async () => {
+        it('returns CSV Opensky message', async () => {
             assert.deepStrictEqual(
-                droneCsvToCsv(
+                droneCsvToOpenskyCsv(
                     'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
                     `${name};${icao24};${date};${fixName};${significantPoint};${timeElapsed};${positionLatitude};${positionLongitude};${positionAltitude};${altitudeMax};${airSpeed};${cas};${mach};${heading};${groundSpeed};${distanceToNextWaypoint};${flownDistance};${windEastward};${windNorthward};${windUpward};${route};${mass};${isOneWay}`,
                 ),
@@ -86,9 +86,9 @@ describe('droneCsvToCsv', () => {
             )
         })
 
-        it('returns CSV message with double \\n', async () => {
+        it('returns CSV Opensky message with double \\n', async () => {
             assert.deepStrictEqual(
-                droneCsvToCsv(
+                droneCsvToOpenskyCsv(
                     'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
                     `${name};${icao24};${date};${fixName};${significantPoint};${timeElapsed};${positionLatitude};${positionLongitude};${positionAltitude};${altitudeMax};${airSpeed};${cas};${mach};${heading};${groundSpeed};${distanceToNextWaypoint};${flownDistance};${windEastward};${windNorthward};${windUpward};${route};${mass};${isOneWay}\n\n`,
                 ),
@@ -97,9 +97,9 @@ describe('droneCsvToCsv', () => {
             )
         })
 
-        it('uses extra fields as CSV message properies if matching', async () => {
+        it('uses extra fields as CSV Opensky message properies if matching', async () => {
             assert.deepStrictEqual(
-                droneCsvToCsv(
+                droneCsvToOpenskyCsv(
                     'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n' +
                     `${name};${icao24};${date};${fixName};${significantPoint};${timeElapsed};${positionLatitude};${positionLongitude};${positionAltitude};${altitudeMax};${airSpeed};${cas};${mach};${heading};${groundSpeed};${distanceToNextWaypoint};${flownDistance};${windEastward};${windNorthward};${windUpward};${route};${mass};${isOneWay};'{"messageType":"SEL","transmissionType":"2","sessionID":"3","aircraftID":"4","flightID":"5","emergency":"1"}'`,
                 ),
@@ -108,9 +108,9 @@ describe('droneCsvToCsv', () => {
             )
         })
 
-        it('returns CSV message with extra fields', async () => {
+        it('returns CSV Opensky message with extra fields', async () => {
             assert.deepStrictEqual(
-                droneCsvToCsv(
+                droneCsvToOpenskyCsv(
                     'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundSpeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n' +
                     `${name};${icao24};${date};${fixName};${significantPoint};${timeElapsed};${positionLatitude};${positionLongitude};${positionAltitude};${altitudeMax};${airSpeed};${cas};${mach};${heading};${groundSpeed};${distanceToNextWaypoint};${flownDistance};${windEastward};${windNorthward};${windUpward};${route};${mass};${isOneWay};'{"enRoute": "1"}'`,
                 ),

@@ -1,12 +1,12 @@
-import { getSbsExtraFields, toCsvTimestamp } from './utils/utils'
+import { getSbsExtraFields, toCsvOpenskyTimestamp } from './utils/utils'
 import { JsonMessage } from './types'
-import { jsonToCsv } from './jsonToCsv'
+import { jsonToOpenskyCsv } from './jsonToOpenskyCsv'
 import { sbsToJson } from './sbsToJson'
 
-export function sbsToCsv(sbsContent: string, saveExtrafield : boolean = false): string {
+export function sbsToOpenskyCsv(sbsContent: string, saveExtrafield : boolean = false): string {
   sbsContent=sbsContent.replace(/\n\s*$/, '')
   const sbsJsonMessages = sbsToJson(sbsContent, true)
-  const csvJsonMessages: JsonMessage[] = []
+  const openskyCsvJsonMessages: JsonMessage[] = []
 
   for (const sbsJsonMessage of sbsJsonMessages) {
     const {
@@ -38,8 +38,8 @@ export function sbsToCsv(sbsContent: string, saveExtrafield : boolean = false): 
     }
 
     try {
-      csvJsonMessages.push({
-        timestamp: toCsvTimestamp(
+      openskyCsvJsonMessages.push({
+        timestamp: toCsvOpenskyTimestamp(
           `${dateMessageGenerated}`,
           `${timeMessageGenerated}`,
         ),
@@ -70,5 +70,5 @@ export function sbsToCsv(sbsContent: string, saveExtrafield : boolean = false): 
       )
     }
   }
-  return jsonToCsv(JSON.stringify(csvJsonMessages), saveExtrafield)
+  return jsonToOpenskyCsv(JSON.stringify(openskyCsvJsonMessages), saveExtrafield)
 }

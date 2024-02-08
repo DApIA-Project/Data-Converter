@@ -1,12 +1,12 @@
 import { describe } from 'mocha'
 import assert from 'assert'
-import {csvToDroneCsv} from "../src/csvToDroneCsv";
+import {openskyCsvToDroneCsv} from "../src/openskyCsvToDroneCsv";
 
-describe('csvToDroneCsv', () => {
-    context('when CSV data are not valid', () => {
+describe('openskyCsvToDroneCsv', () => {
+    context('when CSV Opensky data are not valid', () => {
         it('returns empty string if timestamp is missing', async () => {
             assert.deepStrictEqual(
-                csvToDroneCsv(
+                openskyCsvToDroneCsv(
                     'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
                     ',39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574400',
                 ),
@@ -16,7 +16,7 @@ describe('csvToDroneCsv', () => {
 
         it('returns empty string if ICAO is missing', async () => {
             assert.deepStrictEqual(
-                csvToDroneCsv(
+                openskyCsvToDroneCsv(
                     'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
                     '1695215918,,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574400',
                 ),
@@ -25,7 +25,7 @@ describe('csvToDroneCsv', () => {
         })
     })
 
-    context('when CSV data are valid', () => {
+    context('when CSV Opensky data are valid', () => {
         const timestamp = '1672575671'
         const icao24 = '39c902'
         const latitude = '43.289794921875'
@@ -44,9 +44,9 @@ describe('csvToDroneCsv', () => {
         const last_position = '1672575670.76'
         const hour = '1672574400'
 
-        it('returns SBS message', async () => {
+        it('returns CSV Drone message', async () => {
             assert.deepStrictEqual(
-                csvToDroneCsv(
+                openskyCsvToDroneCsv(
                     'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
                     `${timestamp},${icao24},${latitude},${longitude},${groundspeed},${track},${vertical_rate},${callsign},${onground},${alert},${spi},${squawk},${altitude},${geoaltitude},${last_position},${lastcontact},${hour}`,
                 ),
@@ -57,7 +57,7 @@ describe('csvToDroneCsv', () => {
 
         it('returns CSV drone message with double \\n', async () => {
             assert.deepStrictEqual(
-                csvToDroneCsv(
+                openskyCsvToDroneCsv(
                     'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
                     `${timestamp},${icao24},${latitude},${longitude},${groundspeed},${track},${vertical_rate},${callsign},${onground},${alert},${spi},${squawk},${altitude},${geoaltitude},${last_position},${lastcontact},${hour}\n\n`,
                 ),
@@ -68,7 +68,7 @@ describe('csvToDroneCsv', () => {
 
         it('uses CSV extra field as CSV drone message properties if matching', async () => {
             assert.deepStrictEqual(
-                csvToDroneCsv(
+                openskyCsvToDroneCsv(
                     'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
                     `${timestamp},${icao24},${latitude},${longitude},${groundspeed},${track},${vertical_rate},${callsign},${onground},${alert},${spi},${squawk},${altitude},${geoaltitude},${last_position},${lastcontact},${hour},'{"mach":"0"}'`,
                 ),
@@ -77,9 +77,9 @@ describe('csvToDroneCsv', () => {
             )
         })
 
-        it('returns SBS message with extra fields', async () => {
+        it('returns CSV Drone message with extra fields', async () => {
             assert.deepStrictEqual(
-                csvToDroneCsv(
+                openskyCsvToDroneCsv(
                     'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
                     `${timestamp},${icao24},${latitude},${longitude},${groundspeed},${track},${vertical_rate},${callsign},${onground},${alert},${spi},${squawk},${altitude},${geoaltitude},${last_position},${lastcontact},${hour},'{"enRoute":"1"}'`,
                 ),

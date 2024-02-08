@@ -1,8 +1,8 @@
 import { describe } from 'mocha'
 import assert from 'assert'
-import { sbsToCsv } from '../src'
+import { sbsToOpenskyCsv } from '../src'
 
-describe('sbsToCsv', () => {
+describe('sbsToOpenskyCsv', () => {
   const messageType = 'MSG'
   const transmissionType = '3'
   const sessionID = '1'
@@ -29,7 +29,7 @@ describe('sbsToCsv', () => {
   context('when SBS data are not valid', () => {
     it('returns empty string if generated date is missing', async () => {
       assert.deepStrictEqual(
-        sbsToCsv(
+        sbsToOpenskyCsv(
           `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},,${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundSpeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}`,
         true),
         '',
@@ -38,7 +38,7 @@ describe('sbsToCsv', () => {
 
     it('returns empty string if generated time is missing', async () => {
       assert.deepStrictEqual(
-        sbsToCsv(
+        sbsToOpenskyCsv(
           `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},,${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundSpeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}`,
         true),
         '',
@@ -47,7 +47,7 @@ describe('sbsToCsv', () => {
 
     it('returns empty string if hexIdent (ICAO) is missing', async () => {
       assert.deepStrictEqual(
-        sbsToCsv(
+        sbsToOpenskyCsv(
           `${messageType},${transmissionType},${sessionID},${aircraftID},,${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundSpeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}`,
         true),
         '',
@@ -56,9 +56,9 @@ describe('sbsToCsv', () => {
   })
 
   context('when SBS data are valid', () => {
-    it('returns CSV message', async () => {
+    it('returns CSV Opensky message', async () => {
       assert.deepStrictEqual(
-        sbsToCsv(
+        sbsToOpenskyCsv(
           `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundSpeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}`,
         true),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,extraField\n' +
@@ -66,9 +66,9 @@ describe('sbsToCsv', () => {
       )
     })
 
-    it('returns CSV message with double \\n', async () => {
+    it('returns CSV Opensky message with double \\n', async () => {
       assert.deepStrictEqual(
-          sbsToCsv(
+          sbsToOpenskyCsv(
               `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundSpeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}\n\n`,
           true),
           'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,extraField\n' +
@@ -76,9 +76,9 @@ describe('sbsToCsv', () => {
       )
     })
 
-    it('uses extra fields as CSV message properies if matching', async () => {
+    it('uses extra fields as CSV Opensky message properies if matching', async () => {
       assert.deepStrictEqual(
-        sbsToCsv(
+        sbsToOpenskyCsv(
           `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundSpeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround},{"baroaltitude":"-45.5"}`,
         true),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,extraField\n' +
@@ -86,9 +86,9 @@ describe('sbsToCsv', () => {
       )
     })
 
-    it('returns CSV message with extra fields', async () => {
+    it('returns CSV Opensky message with extra fields', async () => {
       assert.deepStrictEqual(
-        sbsToCsv(
+        sbsToOpenskyCsv(
           `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundSpeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround},{"last_position":"1672575670.76","lastcontact":"1672575670.797","hour":"1672574400","enRoute":"1"}`,
         true),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
@@ -96,9 +96,9 @@ describe('sbsToCsv', () => {
       )
     })
 
-    it('returns CSV message with extra fields without fields last_position, lastcontact and hour', async () => {
+    it('returns CSV Opensky message with extra fields without fields last_position, lastcontact and hour', async () => {
       assert.deepStrictEqual(
-          sbsToCsv(
+          sbsToOpenskyCsv(
               `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundSpeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround},{"enRoute":"1"}`,
           true),
           'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,extraField\n' +
@@ -106,9 +106,9 @@ describe('sbsToCsv', () => {
       )
     })
 
-    it('returns CSV message with extra fields to false', async () => {
+    it('returns CSV Opensky message with extra fields to false', async () => {
       assert.deepStrictEqual(
-          sbsToCsv(
+          sbsToOpenskyCsv(
               `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundSpeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround},{"last_position":"1672575670.76","lastcontact":"1672575670.797","hour":"1672574400","enRoute":"1"}`,
               false),
           'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +

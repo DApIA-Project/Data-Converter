@@ -1,15 +1,15 @@
-import { csvToJson } from './csvToJson'
-import {getCsvExtraFields, toDroneCsvDate, toSbsDate, toSbsTime} from './utils/utils'
+import { openskyCsvToJson } from './openskyCsvToJson'
+import {getCsvOpenskyExtraFields, toDroneCsvDate, toSbsDate, toSbsTime} from './utils/utils'
 import { JsonMessage } from './types'
 import { jsonToSbs } from './jsonToSbs'
 import {jsonToDroneCsv} from "./jsonToDroneCsv";
 
-export function csvToDroneCsv(csvContent: string): string {
-    csvContent=csvContent.replace(/\n\s*$/, '')
-    const csvJsonMessages = csvToJson(csvContent, true)
+export function openskyCsvToDroneCsv(openskyCsvContent: string): string {
+    openskyCsvContent=openskyCsvContent.replace(/\n\s*$/, '')
+    const openskyCsvJsonMessages = openskyCsvToJson(openskyCsvContent, true)
     const csvDroneJsonMessages: JsonMessage[] = []
 
-    for (const csvJsonMessage of csvJsonMessages) {
+    for (const openskyCsvJsonMessage of openskyCsvJsonMessages) {
         const {
             timestamp,
             icao24,
@@ -28,7 +28,7 @@ export function csvToDroneCsv(csvContent: string): string {
             last_position,
             lastcontact,
             hour,
-        } = csvJsonMessage
+        } = openskyCsvJsonMessage
 
         if (!timestamp || !icao24) {
             continue
@@ -69,7 +69,7 @@ export function csvToDroneCsv(csvContent: string): string {
             last_position : last_position,
             lastcontact : lastcontact,
             hour : hour,
-            ...getCsvExtraFields(csvJsonMessage),
+            ...getCsvOpenskyExtraFields(openskyCsvJsonMessage),
         })
     }
     return jsonToDroneCsv(JSON.stringify(csvDroneJsonMessages), true)
