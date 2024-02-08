@@ -34,8 +34,36 @@ export type CsvRow = {
   squawk: string
   altitude: string
   geoaltitude: string
-  last_position: string
-  lastcontact: string
-  hour: string
+  last_position?: string
+  lastcontact?: string
+  hour?: string
   extraField?: string
+}
+
+export type CsvDroneRow = {
+  name: string,
+  icao24: string,
+  date: string,
+  fixName: string,
+  significantPoint: string,
+  "timeElapsed (s)": string,
+  "position.latitude (deg)": string,
+  "position.longitude (deg)": string,
+  "position.altitude (ft)": string,
+  "altitudeMax (ft)": string,
+  "airSpeed (kt)": string,
+  "cas (kt)": string,
+  mach: string,
+  "heading (deg)": string,
+  "groundSpeed (kt)": string,
+  "distanceToNextWaypoint (NM)": string,
+  "flownDistance (NM)": string,
+  "wind.eastward (kt)": string,
+  "wind.northward (kt)": string,
+  "wind.upward (ft/min)": string,
+  "route (deg)": string,
+  "mass (kg)": string,
+  isOneWay: string,
+  extraField?: string
+
 }

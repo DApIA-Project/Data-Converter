@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import * as fs from 'fs'
 import { csvToJson } from './csvToJson'
 import { jsonToSbs } from './jsonToSbs'
@@ -10,6 +11,15 @@ import { csvToSbs } from './csvToSbs'
 import { sbsToNdjson } from './sbsToNdjson'
 import { sbsToJson } from './sbsToJson'
 import { sbsToCsv } from './sbsToCsv'
+import {getDataType} from "./utils/utils";
+import {droneCsvToSbs} from "./droneCsvToSbs";
+import {droneCsvToJson} from "./droneCsvToJson";
+import {droneCsvToNdjson} from "./droneCsvToNdjson";
+import {droneCsvToCsv} from "./droneCsvToCsv";
+import {sbsToDroneCsv} from "./sbsToDroneCsv";
+import {ndjsonToDroneCsv} from "./ndjsonToDroneCsv";
+import {jsonToDroneCsv} from "./jsonToDroneCsv";
+import {csvToDroneCsv} from "./csvToDroneCsv";
 
 enum Errors {
   MISSING_ARG,
@@ -46,19 +56,30 @@ const pathSegment = path.split('.')
 const extension = pathSegment.slice(-1)[0] || ''
 const fileName = pathSegment.slice(0, -1).join('.')
 
+/** Récupérer extension fichier de sortie (doit être .csv .sbs .json .ndjson ou .drone.csv) **/
+const pathSegmentsOutput = output.split('.');
+let extensionOutput = pathSegmentsOutput.slice(-1)[0] || '';
+let fileNameOutput = '';
+if (pathSegmentsOutput.length > 2 && pathSegmentsOutput[pathSegmentsOutput.length - 2] === 'drone') {
+  fileNameOutput = pathSegmentsOutput.slice(0, -2).join('.');
+  extensionOutput = 'drone.' + extensionOutput;
+} else {
+  fileNameOutput = pathSegmentsOutput.slice(0, -1).join('.');
+}
+
 let outputFileContent = ''
 switch (extension.toLowerCase()) {
   case 'json':
-    outputFileContent = convertJson(fileContent, output)
+    outputFileContent = convertJson(fileContent, extensionOutput)
     break
   case 'ndjson':
-    outputFileContent = convertNdjson(fileContent, output)
+    outputFileContent = convertNdjson(fileContent, extensionOutput)
     break
   case 'csv':
-    outputFileContent = convertCsv(fileContent, output)
+    outputFileContent = convertCsv(fileContent, extensionOutput)
     break
   case 'sbs':
-    outputFileContent = convertSbs(fileContent, output)
+    outputFileContent = convertSbs(fileContent, extensionOutput)
     break
   default:
     console.error(
@@ -67,7 +88,7 @@ switch (extension.toLowerCase()) {
     process.exit(Errors.BAD_INPUT_FORMAT)
 }
 fs.writeFileSync(
-  `${fileName}.${(output as string).toLowerCase()}`,
+  `${fileNameOutput}.${(extensionOutput as string).toLowerCase()}`,
   outputFileContent,
 )
 process.exit(0)
@@ -78,6 +99,8 @@ function convertJson(fileContent: string, output: string): string {
       return jsonToCsv(fileContent, true)
     case 'sbs':
       return jsonToSbs(fileContent, true)
+    case 'drone.csv':
+      return jsonToDroneCsv(fileContent,true)
     default:
       console.error('JSON can only be converted to CSV or SBS')
       process.exit(3)
@@ -90,6 +113,8 @@ function convertNdjson(fileContent: string, output: string): string {
       return ndjsonToCsv(fileContent, true)
     case 'sbs':
       return ndjsonToSbs(fileContent, true)
+    case 'drone.csv':
+      return ndjsonToDroneCsv(fileContent,true)
     default:
       console.error('NDJSON can only be converted to CSV or SBS')
       process.exit(Errors.BAD_OUTPUT_FORMAT)
@@ -97,15 +122,44 @@ function convertNdjson(fileContent: string, output: string): string {
 }
 
 function convertCsv(fileContent: string, output: string): string {
+  let dataType : string = getDataType(fileContent)
   switch (output.toLowerCase()) {
     case 'ndjson':
-      return csvToNdjson(fileContent, true)
+      if(dataType==='drone'){
+        return droneCsvToNdjson(fileContent, true)
+      }else{
+        return csvToNdjson(fileContent, true)
+      }
+
     case 'json':
-      return JSON.stringify(csvToJson(fileContent, true))
+      if(dataType==='drone'){
+        return JSON.stringify(droneCsvToJson(fileContent))
+      }else{
+        return JSON.stringify(csvToJson(fileContent, true))
+      }
     case 'sbs':
-      return csvToSbs(fileContent)
+
+        if(dataType==='drone'){
+          return droneCsvToSbs(fileContent)
+        }else{
+          return csvToSbs(fileContent)
+        }
+    case 'csv':
+      if(dataType==='drone'){
+        return droneCsvToCsv(fileContent)
+      }else{
+        console.error('CSV can\'t be converted to CSV')
+        process.exit(Errors.BAD_OUTPUT_FORMAT)
+      }
+    case 'drone.csv':
+      if(dataType !=='drone'){
+        return csvToDroneCsv(fileContent)
+      }else{
+        console.error('CSV Drone can\'t be converted to CSV Drone')
+        process.exit(Errors.BAD_OUTPUT_FORMAT)
+      }
     default:
-      console.error('CSV can only be converted to JSON, NDJSON or SBS')
+      console.error('CSV can only be converted to JSON, NDJSON or SBS or CSV Drone')
       process.exit(Errors.BAD_OUTPUT_FORMAT)
   }
 }
@@ -117,7 +171,9 @@ function convertSbs(fileContent: string, output: string): string {
     case 'json':
       return JSON.stringify(sbsToJson(fileContent, true))
     case 'csv':
-      return sbsToCsv(fileContent)
+      return sbsToCsv(fileContent,true)
+    case 'drone.csv':
+      return sbsToDroneCsv(fileContent,true)
     default:
       console.error('SBS can only be converted to JSON, NDJSON or CSV')
       process.exit(Errors.BAD_OUTPUT_FORMAT)

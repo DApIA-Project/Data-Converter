@@ -66,10 +66,19 @@ function createCSVData(
       spi: toCsvBoolean(message.spi),
       squawk: `${message.squawk || ''}`,
       altitude: `${message.altitude || ''}`,
-      geoaltitude: `${message.geoaltitude || ''}`,
-      last_position: `${message.last_position || ''}`,
-      lastcontact: `${message.lastcontact || ''}`,
-      hour: `${message.hour || ''}`,
+      geoaltitude: `${message.geoaltitude || ''}`
+    }
+
+    if (message.last_position !== undefined) {
+      row.last_position = `${message.last_position || ''}`
+    }
+
+    if (message.lastcontact !== undefined) {
+      row.lastcontact = `${message.lastcontact || ''}`
+    }
+
+    if (message.hour !== undefined) {
+      row.hour = `${message.hour || ''}`
     }
 
     if (saveExtraField)

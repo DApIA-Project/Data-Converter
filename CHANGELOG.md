@@ -16,6 +16,36 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+## [v3.3.0](https://github.com/DApIA-Project/Data-Converter/compare/v3.2.1...v3.3.0)
+
+### Added
+
+- Add option to save ExtraField in sbsToCsv
+
+## [v3.2.1](https://github.com/DApIA-Project/Data-Converter/compare/v3.2.0...v3.2.1)
+
+### Fixed
+
+- Replace '\n\n' by '' in file content
+
+## [v3.2.0](https://github.com/DApIA-Project/Data-Converter/compare/v3.1.0...v3.2.0)
+
+### Changed
+
+- Fields `last_position`, `lastcontact` and `hour` are optional
+
+## [v3.1.0](https://github.com/DApIA-Project/Data-Converter/compare/v3.0.3...v3.1.0)
+
+### Changed
+
+- Command line have changed. The output is a path and not only the extension.
+
+## [v3.0.3](https://github.com/DApIA-Project/Data-Converter/compare/v3.0.0...v3.0.3)
+
+### Added
+
+- Add command line 
+
 ## [v3.0.0](https://github.com/DApIA-Project/Data-Converter/compare/v2.4.0...v3.0.0)
 
 ### Changed

@@ -4,6 +4,7 @@ import { JsonMessage } from './types'
 import { jsonToSbs } from './jsonToSbs'
 
 export function csvToSbs(csvContent: string): string {
+  csvContent=csvContent.replace(/\n\s*$/, '')
   const csvJsonMessages = csvToJson(csvContent, true)
   const sbsJsonMessages: JsonMessage[] = []
 

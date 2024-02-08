@@ -56,6 +56,29 @@ describe('jsonToCsv', () => {
       )
     })
 
+    it('returns CSV content without fields last_position, lastcontact and hour', () => {
+      assert.deepStrictEqual(
+          jsonToCsv(JSON.stringify([{
+            timestamp: '1695026360123',
+            geoaltitude: '125.2',
+            icao24: '39c902',
+            callsign: 'SWN5614',
+            altitude: '7450.0',
+            groundspeed: '291.0',
+            track: '355.66173320857183',
+            latitude: '43.84039306640625',
+            longitude: '1.292171034702035',
+            vertical_rate: '2752.0',
+            squawk: '1000',
+            onground: false,
+            alert: true,
+            spi: false,
+          }])),
+          'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude\n' +
+          `${jsonMessage.timestamp},${jsonMessage.icao24},${jsonMessage.latitude},${jsonMessage.longitude},${jsonMessage.groundspeed},${jsonMessage.track},${jsonMessage.vertical_rate},${jsonMessage.callsign},False,True,False,${jsonMessage.squawk},${jsonMessage.altitude},${jsonMessage.geoaltitude}`,
+      )
+    })
+
     it('returns empty cells if fields are missing', () => {
       assert.deepStrictEqual(
         jsonToCsv(
@@ -63,8 +86,8 @@ describe('jsonToCsv', () => {
             { timestamp: jsonMessage.timestamp, icao24: jsonMessage.icao24 },
           ]),
         ),
-        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
-          `${jsonMessage.timestamp},${jsonMessage.icao24},,,,,,,,,,,,,,,`,
+        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude\n' +
+          `${jsonMessage.timestamp},${jsonMessage.icao24},,,,,,,,,,,,`,
       )
     })
 

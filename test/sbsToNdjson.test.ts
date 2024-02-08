@@ -66,6 +66,15 @@ describe('sbsToNdjson', () => {
       )
     })
 
+    it('returns JSON message with double \\n', async () => {
+      assert.deepStrictEqual(
+          sbsToNdjson(
+              'MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1\n\n',
+          ),
+          JSON.stringify(expectedMessage),
+      )
+    })
+
     it('returns JSON message with label', async () => {
       assert.deepStrictEqual(
         sbsToNdjson(
@@ -99,6 +108,19 @@ describe('sbsToNdjson', () => {
           lastcontact: '1672575670.797',
           hour: '1672574400',
         }),
+      )
+    })
+
+    it('returns JSON message with extra field without fields last_position, lastcontact and hour', async () => {
+      assert.deepStrictEqual(
+          sbsToNdjson(
+              'MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{"geoaltitude":"-45.72"}',
+              true,
+          ),
+          JSON.stringify({
+            ...expectedMessage,
+            geoaltitude: '-45.72',
+          }),
       )
     })
 
