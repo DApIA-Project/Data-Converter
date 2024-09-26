@@ -1,6 +1,7 @@
 import { parse } from 'csv-parse/sync'
 import moment from 'moment/moment'
 import { JsonMessage, OptionsConverter } from './types'
+import { mergeMessages } from './utils/mergeMessages'
 
 export function droneCsvToJson(
     csvContent: string,
@@ -27,5 +28,5 @@ export function droneCsvToJson(
         delete jsonLine.extraField
         jsonLines.push(jsonLine)
     }
-    return jsonLines
+    return (options.mustMerge ? mergeMessages(jsonLines) : jsonLines)
 }

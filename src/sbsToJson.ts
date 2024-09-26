@@ -1,6 +1,7 @@
 import { JsonMessage, OptionsConverter } from './types'
 import { parse } from 'csv-parse/sync'
 import { cleanEmptyProperties, fromSbsBoolean } from './utils/utils'
+import { mergeMessages } from './utils/mergeMessages'
 
 export function sbsToJson(
   sbsContent: string,
@@ -91,5 +92,6 @@ export function sbsToJson(
     cleanEmptyProperties(jsonMessage)
     jsonLines.push({ ...jsonMessage, ...extraFields })
   }
-  return jsonLines
+
+  return (options.mustMerge ? mergeMessages(jsonLines) : jsonLines)
 }

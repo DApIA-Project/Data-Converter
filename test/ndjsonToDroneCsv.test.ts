@@ -3,7 +3,7 @@ import assert from 'assert'
 import { JsonMessage } from '../src/types'
 import {ndjsonToDroneCsv} from "../src/ndjsonToDroneCsv";
 
-describe('jsonTodroneCsv', () => {
+describe('ndjsonTodroneCsv', () => {
     const jsonMessage: JsonMessage = {
         name: 'DRONE1',
         icao24: 'AAAAAA',
@@ -30,7 +30,7 @@ describe('jsonTodroneCsv', () => {
         isOneWay: 'N/A',
     }
 
-    context('when JSON data are not valid', () => {
+    context('when NDJSON data are not valid', () => {
         it('throws an error data are not NDJSON', () => {
             assert.throws(() =>
                 ndjsonToDroneCsv('[\n ' + `${JSON.stringify(jsonMessage)}` + '\n]'),
@@ -52,7 +52,7 @@ describe('jsonTodroneCsv', () => {
         })
     })
 
-    context('when JSON data are valid', () => {
+    context('when NDJSON data are valid', () => {
         it('returns CSV drone content', () => {
             assert.deepStrictEqual(
                 ndjsonToDroneCsv(JSON.stringify(jsonMessage)),

@@ -1,10 +1,11 @@
 import { droneCsvToJson } from './droneCsvToJson'
 import { OptionsConverter } from './types'
+import { jsonToNdjson } from './jsonToNdjson'
 
 export function droneCsvToNdjson(
     csvContent: string,
     options : OptionsConverter = {saveExtraField: false, mustMerge: false}
 ): string {
     const array = droneCsvToJson(csvContent, options)
-    return array.map((element) => JSON.stringify(element)).join('\n')
+    return jsonToNdjson(array, options)
 }

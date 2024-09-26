@@ -1,14 +1,11 @@
 import { jsonToOpenskyCsv } from './jsonToOpenskyCsv'
 import { OptionsConverter } from './types'
+import { ndjsonToJson } from './ndjsonToJson'
 
 export function ndjsonToOpenskyCsv(
   ndjsonContentString: string,
   options : OptionsConverter = {saveExtraField: false, mustMerge: false}
 ): string {
-  ndjsonContentString=ndjsonContentString.replace(/\n\s*$/, '')
-  const json: Record<string, string>[] = ndjsonContentString
-    .split('\n')
-    .map((line) => JSON.parse(line))
-
-  return jsonToOpenskyCsv(JSON.stringify(json), {saveExtraField: options.saveExtraField, mustMerge: false})
+  const json = ndjsonToJson(ndjsonContentString,options)
+  return jsonToOpenskyCsv(json, {saveExtraField: options.saveExtraField, mustMerge: false})
 }

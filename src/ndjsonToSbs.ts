@@ -1,14 +1,12 @@
 import { jsonToSbs } from './jsonToSbs'
 import { OptionsConverter } from './types'
+import { ndjsonToJson } from './ndjsonToJson'
 
 export function ndjsonToSbs(
   ndjsonContentString: string,
   options : OptionsConverter = {saveExtraField: false, mustMerge: false}
 ): string {
-  ndjsonContentString=ndjsonContentString.replace(/\n\s*$/, '')
-  const json: Record<string, string>[] = ndjsonContentString
-    .split('\n')
-    .map((line) => JSON.parse(line))
+  const json = ndjsonToJson(ndjsonContentString,options)
 
-  return jsonToSbs(JSON.stringify(json), {saveExtraField: options.saveExtraField, mustMerge: false})
+  return jsonToSbs(json, {saveExtraField: options.saveExtraField, mustMerge: false})
 }

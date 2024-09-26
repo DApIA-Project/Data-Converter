@@ -1,5 +1,6 @@
 import { getSbsExtraFields, toSbsBoolean } from './utils/utils'
 import { JsonMessage, OptionsConverter } from './types'
+import { mergeMessages } from './utils/mergeMessages'
 
 export function jsonToSbs(
   jsonContentString: string,
@@ -8,7 +9,7 @@ export function jsonToSbs(
   const json = JSON.parse(jsonContentString)
   if (!Array.isArray(json)) throw new Error('JSON data must be an array')
 
-  const messages = json as JsonMessage[]
+  const messages = (options.mustMerge ? mergeMessages(json as JsonMessage[]) : json as JsonMessage[])
   const sbsLines: string[] = []
   let aircraftNumber = 1
   const aircraftIdByIcao = new Map<string, string>()

@@ -1,14 +1,11 @@
 import { jsonToDroneCsv } from './jsonToDroneCsv'
 import { OptionsConverter } from './types'
+import { ndjsonToJson } from './ndjsonToJson'
 
 export function ndjsonToDroneCsv(
     ndjsonContentString: string,
     options : OptionsConverter = {saveExtraField: false, mustMerge: false}
 ): string {
-    ndjsonContentString=ndjsonContentString.replace(/\n\s*$/, '')
-    const json: Record<string, string>[] = ndjsonContentString
-        .split('\n')
-        .map((line) => JSON.parse(line))
-
-    return jsonToDroneCsv(JSON.stringify(json), { saveExtraField : options.saveExtraField, mustMerge: false })
+    const json = ndjsonToJson(ndjsonContentString,options)
+    return jsonToDroneCsv(json, { saveExtraField : options.saveExtraField, mustMerge: false })
 }

@@ -1,6 +1,7 @@
 import { createObjectCsvStringifier } from 'csv-writer'
 import { CsvOpenskyRow, JsonMessage, OptionsConverter } from './types'
 import { getCsvOpenskyExtraFields, toCsvOpenskyBoolean } from './utils/utils'
+import { mergeMessages } from './utils/mergeMessages'
 
 export function jsonToOpenskyCsv(
   jsonContentString: string,
@@ -9,7 +10,7 @@ export function jsonToOpenskyCsv(
   const json = JSON.parse(jsonContentString)
   if (!Array.isArray(json)) throw new Error('JSON data must be an array')
 
-  const messages = json as JsonMessage[]
+  const messages = (options.mustMerge ? mergeMessages(json as JsonMessage[]) : json as JsonMessage[])
   const openskyCsvData = createCSVData(messages, options.saveExtraField ? options.saveExtraField : false)
 
   if (
