@@ -1,18 +1,18 @@
 import { createObjectCsvStringifier } from 'csv-writer'
-import {CsvDroneRow, JsonMessage} from './types'
+import { CsvDroneRow, JsonMessage, OptionsConverter } from './types'
 import {
     getCsvDroneExtraFields,
 } from './utils/utils'
 
 export function jsonToDroneCsv(
     jsonContentString: string,
-    saveExtraField: boolean = false,
+    options : OptionsConverter = {saveExtraField: false, mustMerge: false}
 ): string {
     const json = JSON.parse(jsonContentString)
     if (!Array.isArray(json)) throw new Error('JSON data must be an array')
 
     const messages = json as JsonMessage[]
-    const droneCsvData = createDroneCSVData(messages, saveExtraField)
+    const droneCsvData = createDroneCSVData(messages, options.saveExtraField ? options.saveExtraField : false)
 
     if (
         droneCsvData.length === 0 ||

@@ -4,13 +4,13 @@ import {
     getDateFromDroneToSbs,
     getTimeFromDroneToSbs,
 } from './utils/utils'
-import { JsonMessage } from './types'
+import { JsonMessage, OptionsConverter } from './types'
 import { jsonToSbs } from './jsonToSbs'
 import {droneCsvToJson} from "./droneCsvToJson";
 
-export function droneCsvToSbs(csvContent: string): string {
+export function droneCsvToSbs(csvContent: string, options : OptionsConverter = {saveExtraField: false, mustMerge: false}): string {
     csvContent=csvContent.replace(/\n\s*$/, '')
-    const csvJsonMessages = droneCsvToJson(csvContent, true)
+    const csvJsonMessages = droneCsvToJson(csvContent, { saveExtraField : true, mustMerge: options.mustMerge})
     const sbsJsonMessages: JsonMessage[] = []
     for (const csvJsonMessage of csvJsonMessages) {
 
@@ -85,7 +85,7 @@ export function droneCsvToSbs(csvContent: string): string {
         })
 
     }
-    return jsonToSbs(JSON.stringify(sbsJsonMessages), true)
+    return jsonToSbs(JSON.stringify(sbsJsonMessages), { saveExtraField: true, mustMerge: false})
 
 
 }

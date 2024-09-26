@@ -1,11 +1,11 @@
 import {getDateFromSbsToDroneCsv, getSbsExtraFields} from './utils/utils'
-import { JsonMessage } from './types'
+import { JsonMessage, OptionsConverter } from './types'
 import { sbsToJson } from './sbsToJson'
 import {jsonToDroneCsv} from "./jsonToDroneCsv";
 
-export function sbsToDroneCsv(sbsContent: string, saveExtrafield : boolean = false): string {
+export function sbsToDroneCsv(sbsContent: string, options : OptionsConverter = {saveExtraField: false, mustMerge: false}): string {
     sbsContent=sbsContent.replace(/\n\s*$/, '')
-    const sbsJsonMessages = sbsToJson(sbsContent, true)
+    const sbsJsonMessages = sbsToJson(sbsContent, {saveExtraField: true, mustMerge: options.mustMerge})
     const droneCsvJsonMessages: JsonMessage[] = []
 
     for (const sbsJsonMessage of sbsJsonMessages) {
@@ -81,5 +81,5 @@ export function sbsToDroneCsv(sbsContent: string, saveExtrafield : boolean = fal
         }
 
     }
-    return jsonToDroneCsv(JSON.stringify(droneCsvJsonMessages), saveExtrafield)
+    return jsonToDroneCsv(JSON.stringify(droneCsvJsonMessages), {saveExtraField: options.saveExtraField, mustMerge: false})
 }

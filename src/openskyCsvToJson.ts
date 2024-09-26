@@ -1,10 +1,10 @@
 import { parse } from 'csv-parse/sync'
 import moment from 'moment/moment'
-import { JsonMessage } from './types'
+import { JsonMessage, OptionsConverter } from './types'
 
 export function openskyCsvToJson(
   openskyCsvContent: string,
-  saveExtraField: boolean = false,
+  options : OptionsConverter = {saveExtraField: false, mustMerge: false}
 ): JsonMessage[] {
   openskyCsvContent=openskyCsvContent.replace(/\n\s*$/, '')
   const lines = parse(openskyCsvContent, { columns: true, quote: "'" })
@@ -13,7 +13,7 @@ export function openskyCsvToJson(
     if (!moment.utc(parseInt(line.timestamp || '')).isValid()) continue
 
     let extraField: JsonMessage = {}
-    if (saveExtraField) {
+    if (options.saveExtraField) {
       try {
         extraField = {
           ...JSON.parse(

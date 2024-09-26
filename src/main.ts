@@ -28,10 +28,13 @@ enum Errors {
   BAD_OUTPUT_FORMAT,
 }
 
-const { file, output } = commandLineArgs([
+const { file, output, fusion } = commandLineArgs([
   { name: 'file', type: String },
   { name: 'output', type: String, alias: 'o' },
+  { name: 'fusion', type: Boolean, defaultValue: false},
 ])
+
+const mustMerge : boolean = fusion
 
 if (!file) {
   console.error('`file` argument is missing')
@@ -70,16 +73,16 @@ if (pathSegmentsOutput.length > 2 && pathSegmentsOutput[pathSegmentsOutput.lengt
 let outputFileContent = ''
 switch (extension.toLowerCase()) {
   case 'json':
-    outputFileContent = convertJson(fileContent, extensionOutput)
+    outputFileContent = convertJson(fileContent, extensionOutput, mustMerge)
     break
   case 'ndjson':
-    outputFileContent = convertNdjson(fileContent, extensionOutput)
+    outputFileContent = convertNdjson(fileContent, extensionOutput, mustMerge)
     break
   case 'csv':
-    outputFileContent = convertCsv(fileContent, extensionOutput)
+    outputFileContent = convertCsv(fileContent, extensionOutput, mustMerge)
     break
   case 'sbs':
-    outputFileContent = convertSbs(fileContent, extensionOutput)
+    outputFileContent = convertSbs(fileContent, extensionOutput, mustMerge)
     break
   default:
     console.error(
@@ -93,67 +96,67 @@ fs.writeFileSync(
 )
 process.exit(0)
 
-function convertJson(fileContent: string, output: string): string {
+function convertJson(fileContent: string, output: string, mustMerge: boolean): string {
   switch (output.toLowerCase()) {
     case 'csv':
-      return jsonToOpenskyCsv(fileContent, true)
+      return jsonToOpenskyCsv(fileContent, {saveExtraField: true, mustMerge})
     case 'sbs':
-      return jsonToSbs(fileContent, true)
+      return jsonToSbs(fileContent, {saveExtraField: true, mustMerge})
     case 'drone.csv':
-      return jsonToDroneCsv(fileContent,true)
+      return jsonToDroneCsv(fileContent,{saveExtraField: true, mustMerge})
     default:
       console.error('JSON can only be converted to CSV or SBS')
       process.exit(3)
   }
 }
 
-function convertNdjson(fileContent: string, output: string): string {
+function convertNdjson(fileContent: string, output: string, mustMerge: boolean): string {
   switch (output.toLowerCase()) {
     case 'csv':
-      return ndjsonToOpenskyCsv(fileContent, true)
+      return ndjsonToOpenskyCsv(fileContent, {saveExtraField: true, mustMerge})
     case 'sbs':
-      return ndjsonToSbs(fileContent, true)
+      return ndjsonToSbs(fileContent, {saveExtraField: true, mustMerge})
     case 'drone.csv':
-      return ndjsonToDroneCsv(fileContent,true)
+      return ndjsonToDroneCsv(fileContent,{saveExtraField: true, mustMerge})
     default:
       console.error('NDJSON can only be converted to CSV or SBS')
       process.exit(Errors.BAD_OUTPUT_FORMAT)
   }
 }
 
-function convertCsv(fileContent: string, output: string): string {
+function convertCsv(fileContent: string, output: string, mustMerge: boolean): string {
   let dataType : string = getDataType(fileContent)
   switch (output.toLowerCase()) {
     case 'ndjson':
       if(dataType==='drone'){
-        return droneCsvToNdjson(fileContent, true)
+        return droneCsvToNdjson(fileContent, {saveExtraField: true, mustMerge})
       }else{
-        return openskyCsvToNdjson(fileContent, true)
+        return openskyCsvToNdjson(fileContent, {saveExtraField: true, mustMerge})
       }
 
     case 'json':
       if(dataType==='drone'){
-        return JSON.stringify(droneCsvToJson(fileContent))
+        return JSON.stringify(droneCsvToJson(fileContent, {mustMerge}))
       }else{
-        return JSON.stringify(openskyCsvToJson(fileContent, true))
+        return JSON.stringify(openskyCsvToJson(fileContent,{saveExtraField: true, mustMerge}))
       }
     case 'sbs':
 
         if(dataType==='drone'){
-          return droneCsvToSbs(fileContent)
+          return droneCsvToSbs(fileContent, {mustMerge})
         }else{
-          return openskyCsvToSbs(fileContent)
+          return openskyCsvToSbs(fileContent, {mustMerge})
         }
     case 'csv':
       if(dataType==='drone'){
-        return droneCsvToOpenskyCsv(fileContent)
+        return droneCsvToOpenskyCsv(fileContent, {mustMerge})
       }else{
         console.error('CSV can\'t be converted to CSV')
         process.exit(Errors.BAD_OUTPUT_FORMAT)
       }
     case 'drone.csv':
       if(dataType !=='drone'){
-        return openskyCsvToDroneCsv(fileContent)
+        return openskyCsvToDroneCsv(fileContent, {mustMerge})
       }else{
         console.error('CSV Drone can\'t be converted to CSV Drone')
         process.exit(Errors.BAD_OUTPUT_FORMAT)
@@ -164,16 +167,16 @@ function convertCsv(fileContent: string, output: string): string {
   }
 }
 
-function convertSbs(fileContent: string, output: string): string {
+function convertSbs(fileContent: string, output: string, mustMerge: boolean): string {
   switch (output.toLowerCase()) {
     case 'ndjson':
-      return sbsToNdjson(fileContent, true)
+      return sbsToNdjson(fileContent, {saveExtraField: true, mustMerge})
     case 'json':
-      return JSON.stringify(sbsToJson(fileContent, true))
+      return JSON.stringify(sbsToJson(fileContent, {saveExtraField: true, mustMerge}))
     case 'csv':
-      return sbsToOpenskyCsv(fileContent,true)
+      return sbsToOpenskyCsv(fileContent, {saveExtraField: true, mustMerge})
     case 'drone.csv':
-      return sbsToDroneCsv(fileContent,true)
+      return sbsToDroneCsv(fileContent,{saveExtraField: true, mustMerge})
     default:
       console.error('SBS can only be converted to JSON, NDJSON or CSV')
       process.exit(Errors.BAD_OUTPUT_FORMAT)

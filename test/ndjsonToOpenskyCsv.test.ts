@@ -99,7 +99,7 @@ describe('ndjsonToOpenskyCsv', () => {
             msgType: '3',
             transmissionType: 'MSG',
           }),
-          true,
+          {saveExtraField: true},
         ),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
           `${jsonMessage.timestamp},${jsonMessage.icao24},${

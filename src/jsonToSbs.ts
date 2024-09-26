@@ -1,9 +1,9 @@
 import { getSbsExtraFields, toSbsBoolean } from './utils/utils'
-import { JsonMessage } from './types'
+import { JsonMessage, OptionsConverter } from './types'
 
 export function jsonToSbs(
   jsonContentString: string,
-  saveExtraField: boolean = false,
+  options : OptionsConverter = {saveExtraField: false, mustMerge: false}
 ): string {
   const json = JSON.parse(jsonContentString)
   if (!Array.isArray(json)) throw new Error('JSON data must be an array')
@@ -82,7 +82,7 @@ export function jsonToSbs(
       sbsLine = `${sbsLine},${toSbsBoolean(haveLabel)},${label || '0'}`
     }
 
-    if (saveExtraField)
+    if (options.saveExtraField)
       sbsLine = `${sbsLine},${JSON.stringify(getSbsExtraFields(message))}`
 
     sbsLines.push(sbsLine)

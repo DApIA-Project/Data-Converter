@@ -88,7 +88,7 @@ describe('droneCsvToJson', () => {
             const json = droneCsvToJson(
                 'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundspeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n' +
                 `DRONE1;AAAAAA;2023-10-02T08:00:01Z;;;1;43.6138206887089;1.401640313032366;10.84251968503937;57094.800177084115;0;0;0;180;0;0;0;0;0;0;180;20;N/A;'{"messageType":"MSG","transmissionType":"3","sessionID":"1","aircraftID":"1","flightID":"1","emergency":"0"}'\n`,
-                true
+              {saveExtraField: true}
             )
 
             assert.deepStrictEqual(json, [
@@ -130,7 +130,7 @@ describe('droneCsvToJson', () => {
             const json = droneCsvToJson(
                 'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundspeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay\n' +
                 `DRONE1;AAAAAA;2023-10-02T08:00:01Z;;;1;43.6138206887089;1.401640313032366;10.84251968503937;57094.800177084115;0;0;0;180;0;0;0;0;0;0;180;20;N/A\n`,
-                true
+              {saveExtraField: true}
             )
             assert.deepStrictEqual(json, [
                 {

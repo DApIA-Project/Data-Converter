@@ -67,3 +67,8 @@ export type CsvDroneRow = {
   extraField?: string
 
 }
+
+export type OptionsConverter = {
+  saveExtraField? : boolean,
+  mustMerge? : boolean,
+}

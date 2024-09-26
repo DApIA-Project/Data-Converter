@@ -1,11 +1,11 @@
 import { openskyCsvToJson } from './openskyCsvToJson'
 import { getCsvOpenskyExtraFields, toSbsDate, toSbsTime } from './utils/utils'
-import { JsonMessage } from './types'
+import { JsonMessage, OptionsConverter } from './types'
 import { jsonToSbs } from './jsonToSbs'
 
-export function openskyCsvToSbs(openskyCsvContent: string): string {
+export function openskyCsvToSbs(openskyCsvContent: string, options : OptionsConverter = {saveExtraField: false, mustMerge: false}): string {
   openskyCsvContent=openskyCsvContent.replace(/\n\s*$/, '')
-  const openskyCsvJsonMessages = openskyCsvToJson(openskyCsvContent, true)
+  const openskyCsvJsonMessages = openskyCsvToJson(openskyCsvContent, {saveExtraField: true, mustMerge: options.mustMerge})
   const sbsJsonMessages: JsonMessage[] = []
 
   for (const openskyCsvJsonMessage of openskyCsvJsonMessages) {
@@ -62,5 +62,5 @@ export function openskyCsvToSbs(openskyCsvContent: string): string {
       ...getCsvOpenskyExtraFields(openskyCsvJsonMessage),
     })
   }
-  return jsonToSbs(JSON.stringify(sbsJsonMessages), true)
+  return jsonToSbs(JSON.stringify(sbsJsonMessages), {saveExtraField: true, mustMerge: false})
 }

@@ -1,10 +1,10 @@
 import { parse } from 'csv-parse/sync'
 import moment from 'moment/moment'
-import { JsonMessage } from './types'
+import { JsonMessage, OptionsConverter } from './types'
 
 export function droneCsvToJson(
     csvContent: string,
-    saveExtraField: boolean = false,
+    options : OptionsConverter = {saveExtraField: false, mustMerge: false}
 ): JsonMessage[] {
     csvContent=csvContent.replace(/\n\s*$/, '')
     csvContent=csvContent.replace(/,(?=(?:[^']*'[^']*')*[^']*$)/g, '.')
@@ -14,7 +14,7 @@ export function droneCsvToJson(
     for (const line of lines) {
         if (!moment.utc(parseInt(line.date || '')).isValid()) continue
         let extraField: JsonMessage = {}
-        if (saveExtraField) {
+        if (options.saveExtraField) {
             try {
                 extraField = {
                     ...JSON.parse(

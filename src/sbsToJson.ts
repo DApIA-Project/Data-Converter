@@ -1,10 +1,10 @@
-import { JsonMessage } from './types'
+import { JsonMessage, OptionsConverter } from './types'
 import { parse } from 'csv-parse/sync'
 import { cleanEmptyProperties, fromSbsBoolean } from './utils/utils'
 
 export function sbsToJson(
   sbsContent: string,
-  saveExtraField: boolean = false,
+  options : OptionsConverter = {saveExtraField: false, mustMerge: false}
 ): JsonMessage[] {
   sbsContent=sbsContent.replace(/\n\s*$/, '')
   const lines: string[] = parse(sbsContent, { columns: false, quote: "'" })
@@ -77,10 +77,10 @@ export function sbsToJson(
     if (fromSbsBoolean(haveLabel)) {
       jsonMessage.haveLabel = true
       jsonMessage.label = Number(label)
-      if (saveExtraField) extraFields = JSON.parse(maybeExtraFields.join(','))
+      if (options.saveExtraField) extraFields = JSON.parse(maybeExtraFields.join(','))
     } else {
       if (haveLabel !== undefined && haveLabel.includes('{')) {
-        if (saveExtraField)
+        if (options.saveExtraField)
           extraFields = JSON.parse(
             [haveLabel, label, ...maybeExtraFields]
               .filter((item) => item !== undefined)

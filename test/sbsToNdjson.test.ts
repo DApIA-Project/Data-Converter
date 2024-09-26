@@ -99,7 +99,7 @@ describe('sbsToNdjson', () => {
       assert.deepStrictEqual(
         sbsToNdjson(
           'MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{"geoaltitude":"-45.72","last_position":"1672575670.76","lastcontact":"1672575670.797","hour":"1672574400"}',
-          true,
+          {saveExtraField: true},
         ),
         JSON.stringify({
           ...expectedMessage,
@@ -115,7 +115,7 @@ describe('sbsToNdjson', () => {
       assert.deepStrictEqual(
           sbsToNdjson(
               'MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,{"geoaltitude":"-45.72"}',
-              true,
+            {saveExtraField: true},
           ),
           JSON.stringify({
             ...expectedMessage,
@@ -128,7 +128,7 @@ describe('sbsToNdjson', () => {
       assert.deepStrictEqual(
         sbsToNdjson(
           'MSG,3,1,1,39c902,1,2023/01/01,13:21:11.000,2023/01/01,13:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,,1,0,1,1,1,1024,{"geoaltitude":"-45.72","last_position":"1672575670.76","lastcontact":"1672575670.797","hour":"1672574400"}',
-          true,
+          {saveExtraField: true},
         ),
         JSON.stringify({
           ...expectedMessage,

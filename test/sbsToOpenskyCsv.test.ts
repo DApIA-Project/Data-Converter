@@ -31,7 +31,7 @@ describe('sbsToOpenskyCsv', () => {
       assert.deepStrictEqual(
         sbsToOpenskyCsv(
           `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},,${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}`,
-        true),
+          {saveExtraField: true}),
         '',
       )
     })
@@ -40,7 +40,7 @@ describe('sbsToOpenskyCsv', () => {
       assert.deepStrictEqual(
         sbsToOpenskyCsv(
           `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},,${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}`,
-        true),
+          {saveExtraField: true}),
         '',
       )
     })
@@ -49,7 +49,7 @@ describe('sbsToOpenskyCsv', () => {
       assert.deepStrictEqual(
         sbsToOpenskyCsv(
           `${messageType},${transmissionType},${sessionID},${aircraftID},,${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}`,
-        true),
+          {saveExtraField: true}),
         '',
       )
     })
@@ -60,7 +60,7 @@ describe('sbsToOpenskyCsv', () => {
       assert.deepStrictEqual(
         sbsToOpenskyCsv(
           `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}`,
-        true),
+          {saveExtraField: true}),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,extraField\n' +
           `1672579271,${hexIdent},${latitude},${longitude},${groundspeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude},'{"aircraftID":${aircraftID},"messageType":"${messageType}","transmissionType":${transmissionType},"sessionID":${sessionID},"flightID":${flightID},"emergency":false}'`,
       )
@@ -70,7 +70,7 @@ describe('sbsToOpenskyCsv', () => {
       assert.deepStrictEqual(
           sbsToOpenskyCsv(
               `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}\n\n`,
-          true),
+            {saveExtraField: true}),
           'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,extraField\n' +
           `1672579271,${hexIdent},${latitude},${longitude},${groundspeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude},'{"aircraftID":${aircraftID},"messageType":"${messageType}","transmissionType":${transmissionType},"sessionID":${sessionID},"flightID":${flightID},"emergency":false}'`,
       )
@@ -80,7 +80,7 @@ describe('sbsToOpenskyCsv', () => {
       assert.deepStrictEqual(
         sbsToOpenskyCsv(
           `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround},{"baroaltitude":"-45.5"}`,
-        true),
+          {saveExtraField: true}),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,extraField\n' +
           `1672579271,${hexIdent},${latitude},${longitude},${groundspeed},${track},${verticalRate},${callsign},True,True,True,,-45.5,${altitude},'{"aircraftID":${aircraftID},"messageType":"${messageType}","transmissionType":${transmissionType},"sessionID":${sessionID},"flightID":${flightID},"emergency":false}'`,
       )
@@ -90,7 +90,7 @@ describe('sbsToOpenskyCsv', () => {
       assert.deepStrictEqual(
         sbsToOpenskyCsv(
           `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround},{"last_position":"1672575670.76","lastcontact":"1672575670.797","hour":"1672574400","enRoute":"1"}`,
-        true),
+          {saveExtraField: true}),
         'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour,extraField\n' +
           `1672579271,${hexIdent},${latitude},${longitude},${groundspeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude},1672575670.76,1672575670.797,1672574400,'{"aircraftID":${aircraftID},"messageType":"${messageType}","transmissionType":${transmissionType},"sessionID":${sessionID},"flightID":${flightID},"emergency":false,"enRoute":"1"}'`,
       )
@@ -100,7 +100,7 @@ describe('sbsToOpenskyCsv', () => {
       assert.deepStrictEqual(
           sbsToOpenskyCsv(
               `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround},{"enRoute":"1"}`,
-          true),
+            {saveExtraField: true}),
           'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,extraField\n' +
           `1672579271,${hexIdent},${latitude},${longitude},${groundspeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude},'{"aircraftID":${aircraftID},"messageType":"${messageType}","transmissionType":${transmissionType},"sessionID":${sessionID},"flightID":${flightID},"emergency":false,"enRoute":"1"}'`,
       )
@@ -109,8 +109,7 @@ describe('sbsToOpenskyCsv', () => {
     it('returns CSV Opensky message with extra fields to false', async () => {
       assert.deepStrictEqual(
           sbsToOpenskyCsv(
-              `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround},{"last_position":"1672575670.76","lastcontact":"1672575670.797","hour":"1672574400","enRoute":"1"}`,
-              false),
+              `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround},{"last_position":"1672575670.76","lastcontact":"1672575670.797","hour":"1672574400","enRoute":"1"}`),
           'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,last_position,lastcontact,hour\n' +
           `1672579271,${hexIdent},${latitude},${longitude},${groundspeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude},1672575670.76,1672575670.797,1672574400`,
       )

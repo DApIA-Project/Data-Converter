@@ -1,16 +1,16 @@
 import { createObjectCsvStringifier } from 'csv-writer'
-import { CsvOpenskyRow, JsonMessage } from './types'
+import { CsvOpenskyRow, JsonMessage, OptionsConverter } from './types'
 import { getCsvOpenskyExtraFields, toCsvOpenskyBoolean } from './utils/utils'
 
 export function jsonToOpenskyCsv(
   jsonContentString: string,
-  saveExtraField: boolean = false,
+  options : OptionsConverter = {saveExtraField: false, mustMerge: false}
 ): string {
   const json = JSON.parse(jsonContentString)
   if (!Array.isArray(json)) throw new Error('JSON data must be an array')
 
   const messages = json as JsonMessage[]
-  const openskyCsvData = createCSVData(messages, saveExtraField)
+  const openskyCsvData = createCSVData(messages, options.saveExtraField ? options.saveExtraField : false)
 
   if (
     openskyCsvData.length === 0 ||

@@ -81,7 +81,7 @@ describe('jsonTodroneCsv', () => {
                     JSON.stringify([
                         { ...jsonMessage, msgType: '3', transmissionType: 'MSG' },
                     ]),
-                    true,
+                  {saveExtraField: true},
                 ),
 
                 'name;icao24;date;fixName;significantPoint;timeElapsed;position.latitude;position.longitude;position.altitude;altitudeMax;airSpeed;cas;mach;heading;groundspeed;distanceToNextWaypoint;flownDistance;wind.eastward;wind.northward;wind.upward;route;mass;isOneWay;extraField\n' +
