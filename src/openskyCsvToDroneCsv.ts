@@ -1,7 +1,6 @@
 import { openskyCsvToJson } from './openskyCsvToJson'
-import {getCsvOpenskyExtraFields, toDroneCsvDate, toSbsDate, toSbsTime} from './utils/utils'
+import {getCsvOpenskyExtraFields, toDroneCsvDate} from './utils/utils'
 import { JsonMessage, OptionsConverter } from './types'
-import { jsonToSbs } from './jsonToSbs'
 import {jsonToDroneCsv} from "./jsonToDroneCsv";
 
 export function openskyCsvToDroneCsv(openskyCsvContent: string, options : OptionsConverter = {saveExtraField: false, mustMerge: false}): string {

@@ -57,12 +57,11 @@ try {
 
 const pathSegment = path.split('.')
 const extension = pathSegment.slice(-1)[0] || ''
-const fileName = pathSegment.slice(0, -1).join('.')
 
 /** Récupérer extension fichier de sortie (doit être .csv .sbs .json .ndjson ou .drone.csv) **/
 const pathSegmentsOutput = output.split('.');
 let extensionOutput = pathSegmentsOutput.slice(-1)[0] || '';
-let fileNameOutput = '';
+let fileNameOutput: string;
 if (pathSegmentsOutput.length > 2 && pathSegmentsOutput[pathSegmentsOutput.length - 2] === 'drone') {
   fileNameOutput = pathSegmentsOutput.slice(0, -2).join('.');
   extensionOutput = 'drone.' + extensionOutput;

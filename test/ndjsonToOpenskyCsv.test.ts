@@ -1,6 +1,6 @@
 import { describe } from 'mocha'
 import assert from 'assert'
-import {jsonToOpenskyCsv, ndjsonToOpenskyCsv} from '../src'
+import { ndjsonToOpenskyCsv} from '../src'
 import { JsonMessage } from '../src/types'
 
 describe('ndjsonToOpenskyCsv', () => {

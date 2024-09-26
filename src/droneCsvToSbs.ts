@@ -1,4 +1,3 @@
-import { openskyCsvToJson } from './openskyCsvToJson'
 import {
     getCsvDroneExtraFields,
     getDateFromDroneToSbs,

@@ -1,6 +1,6 @@
 import { describe } from 'mocha'
 import assert from 'assert'
-import { openskyCsvToNdjson } from '../src/openskyCsvToNdjson'
+import { openskyCsvToNdjson } from '../src'
 
 describe('openskyCsvToNdjson', () => {
   context('when CSV Opensky data are invalid', () => {
