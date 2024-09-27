@@ -93,5 +93,46 @@ describe('openskyCsvToSbs', () => {
           `MSG,3,1,1,${icao24},1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,${callsign},${geoaltitude},${groundspeed},${track},${latitude},${longitude},${vertical_rate},${squawk},1,,1,1,{"baroaltitude":"-45.72","enRoute":"1"}`,
       )
     })
+
+    it('returns a merged sbs when have 2 messages with same of couple timestamp/icao', () => {
+      const sbs = openskyCsvToSbs(
+        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,lastposupdate,lastcontact,hour\n' +
+        '1672575671,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574400\n' +
+        '1672575671,39c902,,5.40233523346657,3.450995263850706,,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574405\n' +
+        '1672575671,39c902,42.5656565656,5.40233523346657,3.450995263850706,,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,',
+        {mustMerge: true}
+      )
+      assert.deepStrictEqual(sbs,
+        `MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,${callsign},${geoaltitude},${groundspeed},${track},42.5656565656,5.40233523346657,${vertical_rate},NaN,1,,1,1,{"lastcontact":"1672575670.797","hour":"1672574405","baroaltitude":"-45.72","lastposupdate":"1672575670.76"}`,)
+    })
+
+    it('returns a merged sbs who complete empty message not according to icao', () => {
+      const sbs = openskyCsvToSbs(
+        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,lastposupdate,lastcontact,hour\n' +
+        '1672575671,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574400\n' +
+        '1672575673,39c902,,5.40233523346657,3.450995263850706,,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574405\n' +
+        '1672575675,39c902,42.5656565656,5.40233523346657,3.450995263850706,,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,',
+        {mustMerge: true}
+      )
+      assert.deepStrictEqual(sbs,
+        `MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,NaN,1,,1,1,{"lastcontact":"1672575670.797","hour":"1672574400","baroaltitude":"-45.72","lastposupdate":"1672575670.76"}
+MSG,3,1,1,39c902,1,2023/01/01,12:21:13.000,2023/01/01,12:21:13.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,NaN,1,,1,1,{"lastcontact":"1672575670.797","hour":"1672574405","baroaltitude":"-45.72","lastposupdate":"1672575670.76"}
+MSG,3,1,1,39c902,1,2023/01/01,12:21:15.000,2023/01/01,12:21:15.000,SAMU13,121.92,3.450995263850706,296.565051177078,42.5656565656,5.40233523346657,5.85216,NaN,1,,1,1,{"lastcontact":"1672575670.797","hour":"1672574405","baroaltitude":"-45.72","lastposupdate":"1672575670.76"}`
+         )})
+
+    it('returns a merged sbs who complete empty message not according to icao and with many planes', () => {
+      const sbs = openskyCsvToSbs(
+        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude,lastposupdate,lastcontact,hour\n' +
+        '1672575671,39c902,43.289794921875,5.40233523346657,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574400\n' +
+        '1672575671,23b567,43.222222222222,5.11111111111111,3.450995263850706,296.565051177078,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574402\n' +
+        '1672575673,39c902,,5.40233523346657,3.450995263850706,,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,1672574405\n' +
+        '1672575675,39c902,42.5656565656,5.40233523346657,3.450995263850706,,5.85216,SAMU13,True,True,True,NaN,-45.72,121.92,1672575670.76,1672575670.797,',
+        {mustMerge: true}
+      )
+      assert.deepStrictEqual(sbs, `MSG,3,1,1,39c902,1,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,NaN,1,,1,1,{"lastcontact":"1672575670.797","hour":"1672574400","baroaltitude":"-45.72","lastposupdate":"1672575670.76"}
+MSG,3,1,2,23b567,2,2023/01/01,12:21:11.000,2023/01/01,12:21:11.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.222222222222,5.11111111111111,5.85216,NaN,1,,1,1,{"lastcontact":"1672575670.797","hour":"1672574402","baroaltitude":"-45.72","lastposupdate":"1672575670.76"}
+MSG,3,1,1,39c902,1,2023/01/01,12:21:13.000,2023/01/01,12:21:13.000,SAMU13,121.92,3.450995263850706,296.565051177078,43.289794921875,5.40233523346657,5.85216,NaN,1,,1,1,{"lastcontact":"1672575670.797","hour":"1672574405","baroaltitude":"-45.72","lastposupdate":"1672575670.76"}
+MSG,3,1,1,39c902,1,2023/01/01,12:21:15.000,2023/01/01,12:21:15.000,SAMU13,121.92,3.450995263850706,296.565051177078,42.5656565656,5.40233523346657,5.85216,NaN,1,,1,1,{"lastcontact":"1672575670.797","hour":"1672574405","baroaltitude":"-45.72","lastposupdate":"1672575670.76"}`)
+    })
   })
 })

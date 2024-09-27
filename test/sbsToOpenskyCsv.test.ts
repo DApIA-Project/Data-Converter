@@ -114,5 +114,47 @@ describe('sbsToOpenskyCsv', () => {
           `1672579271,${hexIdent},${latitude},${longitude},${groundspeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude},1672575670.76,1672575670.797,1672574400`,
       )
     })
+
+    it('returns CSV Opensky merged message when have 2 messages with same of couple timestamp/icao', async () => {
+      assert.deepStrictEqual(
+        sbsToOpenskyCsv(
+          `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}\n`+
+          `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},13:21:11.234,${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},,5.5023,${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}\n`+
+          `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},13:21:11.754,${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},43.5656556,,${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}`,
+          {saveExtraField: false, mustMerge:true }),
+        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude\n' +
+        `1672579271,${hexIdent},43.5656556,5.5023,${groundspeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude}`,
+      )
+    })
+
+    it('returns CSV Opensky merged message who complete empty message not according to icao', async () => {
+      assert.deepStrictEqual(
+        sbsToOpenskyCsv(
+          `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}\n`+
+          `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},13:21:13.234,${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},,5.5023,${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}\n`+
+          `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},13:21:16.754,${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},43.5656556,,${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}`,
+          {saveExtraField: false, mustMerge:true }),
+        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude\n' +
+        `1672579271,${hexIdent},${latitude},${longitude},${groundspeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude}\n` +
+        `1672579273,${hexIdent},${latitude},5.5023,${groundspeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude}\n` +
+        `1672579276,${hexIdent},43.5656556,5.5023,${groundspeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude}`,
+      )
+    })
+
+    it('returns CSV Opensky merged message who complete empty message not according to icao and with many planes', async () => {
+      assert.deepStrictEqual(
+        sbsToOpenskyCsv(
+          `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},${latitude},${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}\n`+
+          `${messageType},${transmissionType},${sessionID},${aircraftID},23d543,${flightID},${dateMessageGenerated},${timeMessageGenerated},${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},42.999999,${longitude},${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}\n`+
+          `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},13:21:13.234,${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},,5.5023,${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}\n`+
+          `${messageType},${transmissionType},${sessionID},${aircraftID},${hexIdent},${flightID},${dateMessageGenerated},13:21:16.754,${dateMessageLogged},${timeMessageLogged},${callsign},${altitude},${groundspeed},${track},43.5656556,,${verticalRate},${squawk},${alert},${emergency},${spi},${isOnGround}`,
+          {saveExtraField: false, mustMerge:true }),
+        'timestamp,icao24,latitude,longitude,groundspeed,track,vertical_rate,callsign,onground,alert,spi,squawk,altitude,geoaltitude\n' +
+        `1672579271,${hexIdent},${latitude},${longitude},${groundspeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude}\n` +
+        `1672579271,23d543,42.999999,${longitude},${groundspeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude}\n` +
+        `1672579273,${hexIdent},${latitude},5.5023,${groundspeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude}\n` +
+        `1672579276,${hexIdent},43.5656556,5.5023,${groundspeed},${track},${verticalRate},${callsign},True,True,True,,,${altitude}`,
+      )
+    })
   })
 })
