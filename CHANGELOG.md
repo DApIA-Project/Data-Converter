@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/DApIA-Project/Data-Converter/compare/v3.0.0...main)
+## [Unreleased](https://github.com/DApIA-Project/Data-Converter/compare/v5.0.0...main)
 
 ### Info
 
@@ -15,6 +15,15 @@ All notable changes to this project will be documented in this file.
 ### Removed
 
 ### Fixed
+
+
+## [v5.0.0](https://github.com/DApIA-Project/Data-Converter/compare/v4.0.0...v5.0.0)
+
+### Added
+
+- 2 new types of converters `JsonToNdjson` and `NdjsonToJson`
+- Option mustMerge 
+- Unit Tests
 
 ## [v4.0.0](https://github.com/DApIA-Project/Data-Converter/compare/v3.3.0...v4.0.0)
 

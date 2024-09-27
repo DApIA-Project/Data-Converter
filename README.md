@@ -23,6 +23,8 @@ This library contains several conversion tools for ADS-B messages. We find :
 - JSON to CSV Drone
 - CSV Drone to NDJSON
 - NDJSON to CSV Drone
+- JSON to NDJSON
+- NDJSON to JSON
 
 ## Setup
 
@@ -39,7 +41,7 @@ In your `package.json`, add the following:
 ```json
 {
   "dependencies": {
-    "@dapia-project/data-converter": "^4.0.0"
+    "@dapia-project/data-converter": "^5.0.0"
   }
 }
 ```
@@ -51,7 +53,7 @@ Import SBS to JSON converter:
 ```typescript
 import { sbsToJson } from '@dapia-project/data-converter/src/sbsToJson'
 
-const jsonData: string = sbsToJson(options)
+const jsonData: string = sbsToJson(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import JSON to SBS converter:
@@ -59,7 +61,7 @@ Import JSON to SBS converter:
 ```typescript
 import { jsonToSbs } from '@dapia-project/data-converter/src/jsonToSbs'
 
-const sbsData: string = jsonToSbs(options)
+const sbsData: string = jsonToSbs(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import SBS to NDJSON converter:
@@ -67,7 +69,7 @@ Import SBS to NDJSON converter:
 ```typescript
 import { sbsToNdjson } from '@dapia-project/data-converter/src/sbsToNdjson'
 
-const ndjsonData: string = sbsToNdjson(options)
+const ndjsonData: string = sbsToNdjson(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import NDJSON to SBS converter:
@@ -75,7 +77,7 @@ Import NDJSON to SBS converter:
 ```typescript
 import { ndjsonToSbs } from '@dapia-project/data-converter/src/ndjsonToSbs'
 
-const sbsData: string = ndjsonToSbs(options)
+const sbsData: string = ndjsonToSbs(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import CSV Opensky to JSON converter:
@@ -83,7 +85,7 @@ Import CSV Opensky to JSON converter:
 ```typescript
 import { openskyCsvToJson } from '@dapia-project/data-converter/src/openskyCsvToJson'
 
-const jsonData: string = openskyCsvToJson(options)
+const jsonData: string = openskyCsvToJson(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import JSON to CSV Opensky converter:
@@ -91,7 +93,7 @@ Import JSON to CSV Opensky converter:
 ```typescript
 import { jsonToOpenskyCsv } from '@dapia-project/data-converter/src/jsonToOpenskyCsv'
 
-const openskyCsvData: string = jsonToOpenskyCsv(options)
+const openskyCsvData: string = jsonToOpenskyCsv(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import CSV Opensky to NDJSON converter:
@@ -99,7 +101,7 @@ Import CSV Opensky to NDJSON converter:
 ```typescript
 import { openskyCsvToNdjson } from '@dapia-project/data-converter/src/openskyCsvToNdjson'
 
-const ndjsonData: string = openskyCsvToNdjson(options)
+const ndjsonData: string = openskyCsvToNdjson(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import NDJSON to CSV Opensky converter:
@@ -107,7 +109,7 @@ Import NDJSON to CSV Opensky converter:
 ```typescript
 import { ndjsonToOpenskyCsv } from '@dapia-project/data-converter/src/ndjsonToOpenskyCsv'
 
-const openskyCsvData: string = ndjsonToOpenskyCsv(options)
+const openskyCsvData: string = ndjsonToOpenskyCsv(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import CSV Opensky to SBS converter:
@@ -115,7 +117,7 @@ Import CSV Opensky to SBS converter:
 ```typescript
 import { openskyCsvToSbs } from '@dapia-project/data-converter/src/openskyCsvToSbs'
 
-const sbsData: string = openskyCsvToSbs(options)
+const sbsData: string = openskyCsvToSbs(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import SBS to CSV Opensky converter:
@@ -123,73 +125,75 @@ Import SBS to CSV Opensky converter:
 ```typescript
 import { sbsToOpenskyCsv } from '@dapia-project/data-converter/src/sbsToOpenskyCsv'
 
-const openskyCsvData: string = sbsToOpenskyCsv(options)
+const openskyCsvData: string = sbsToOpenskyCsv(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import SBS to CSV Drone converter:
 ```typescript
 import { sbsToDroneCsv } from '@dapia-project/data-converter/src/sbsToDroneCsv'
 
-const droneCsvData: string = sbsToDroneCsv(options)
+const droneCsvData: string = sbsToDroneCsv(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import JSON to CSV Drone converter:
 ```typescript
 import { jsonToDroneCsv } from '@dapia-project/data-converter/src/jsonToDroneCsv'
 
-const droneCsvData: string = jsonToDroneCsv(options)
+const droneCsvData: string = jsonToDroneCsv(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import NDJSON to CSV Drone converter:
 ```typescript
 import { ndjsonToDroneCsv } from '@dapia-project/data-converter/src/ndjsonToDroneCsv'
 
-const droneCsvData: string = ndjsonToDroneCsv(options)
+const droneCsvData: string = ndjsonToDroneCsv(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import CSV Opensky to CSV Drone converter:
 ```typescript
 import { openskyCsvToDroneCsv } from '@dapia-project/data-converter/src/openskyCsvToDroneCsv'
 
-const droneCsvData: string = openskyCsvToDroneCsv(options)
+const droneCsvData: string = openskyCsvToDroneCsv(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import CSV Drone to SBS converter:
 ```typescript
 import { droneCsvToSbs } from '@dapia-project/data-converter/src/droneCsvToSbs'
 
-const sbsData: string = droneCsvToSbs(options)
+const sbsData: string = droneCsvToSbs(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import CSV Drone to JSON converter:
 ```typescript
 import { droneCsvToJson } from '@dapia-project/data-converter/src/droneCsvToJson'
 
-const jsonData: string = droneCsvToJson(options)
+const jsonData: string = droneCsvToJson(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import CSV Drone to NDJSON converter:
 ```typescript
 import { droneCsvToNdjson } from '@dapia-project/data-converter/src/droneCsvToNdjson'
 
-const ndjsonData: string = droneCsvToNdjson(options)
+const ndjsonData: string = droneCsvToNdjson(content, {saveExtraField : true, mustMerge: false})
 ```
 
 Import CSV Drone to CSV Opensky converter:
 ```typescript
 import { droneCsvToOpenskyCSV } from '@dapia-project/data-converter/src/droneCsvToOpenskyCsv'
 
-const openskyCsvData: string = droneCsvToOpenskyCsv(options)
+const openskyCsvData: string = droneCsvToOpenskyCsv(content, {saveExtraField : true, mustMerge: false})
 ```
+## Content
+Content is a string who represent the content file to convert
 
 ## Options
 
 For all :
 
-| key             | type    | use                                         | default value |
-| --------------- | ------- | ------------------------------------------- | ------------- |
-| content         | String  | The content file to convert              |               |
-| saveExtraField? | boolean | Choice to have extraField of Format1 in Format2 | false         |
+| key             | type    | use                                                                                  | default value |
+|-----------------|---------|--------------------------------------------------------------------------------------|---------------|
+| mustMerge       | boolean | Choice to merge messages who are present many times for one couple of icao/timestamp | false         |
+| saveExtraField? | boolean | Choice to have extraField of Format1 in Format2                                      | false         |
 
 ## Order of fields
 
@@ -379,8 +383,10 @@ npm i @dapia-project/data-converter -g
 
 Then :
 ```shell
-data-converter --file "path/to/fileToConvert.ext" --output "path/to/fileWillBeConvert.ext"
+data-converter --file "path/to/fileToConvert.ext" --output "path/to/fileWillBeConvert.ext" [--fusion]
 ```
 Possible extension types are `.sbs`, `.csv`, `.json` and `.ndjson`
+\
+The option --fusion allows you to merge duplicates.
 \
 If you wish to convert a file into a Drone CSV file please put the extension `.drone.csv` to the output file
